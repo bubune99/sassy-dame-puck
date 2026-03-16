@@ -1,5 +1,3 @@
-import Link from "next/link";
-
 export default function HomePage() {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-background">
@@ -12,12 +10,12 @@ export default function HomePage() {
           Visual page builder with drag-and-drop components and media management.
         </p>
         <div className="flex gap-4 justify-center">
-          <Link
+          <a
             href="/admin"
             className="inline-flex items-center justify-center rounded-lg bg-primary text-primary-foreground px-6 py-3 text-sm font-medium hover:bg-primary/90 transition-colors"
           >
             Go to Admin
-          </Link>
+          </a>
         </div>
       </div>
     </div>
