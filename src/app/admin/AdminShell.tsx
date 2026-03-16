@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useAuth } from "../../hooks/use-auth";
+import { WizardProvider, useWizard } from "../../contexts/WizardContext";
 import {
   LayoutDashboard,
   LogOut,
@@ -17,26 +18,27 @@ import {
   MessageSquare,
   Send,
   Loader2,
+  PlayCircle,
 } from "lucide-react";
 
 const navigationGroups = [
   {
     name: "Main",
     items: [
-      { name: "Dashboard", href: "/admin", icon: LayoutDashboard },
+      { name: "Dashboard", href: "/admin", icon: LayoutDashboard, tourId: "dashboard-link" },
     ],
   },
   {
     name: "Content",
     items: [
-      { name: "Pages", href: "/admin/pages", icon: Layers },
-      { name: "Media", href: "/admin/media", icon: Image },
+      { name: "Pages", href: "/admin/pages", icon: Layers, tourId: "pages-link" },
+      { name: "Media", href: "/admin/media", icon: Image, tourId: "media-link" },
     ],
   },
   {
     name: "System",
     items: [
-      { name: "Settings", href: "/admin/settings", icon: Settings },
+      { name: "Settings", href: "/admin/settings", icon: Settings, tourId: "settings-link" },
     ],
   },
 ];
@@ -223,6 +225,7 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
   }
 
   return (
+    <WizardProvider>
     <div className="min-h-screen bg-background">
       {/* Mobile toggle */}
       <div className="lg:hidden fixed top-4 left-4 z-50">
@@ -236,6 +239,7 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
 
       {/* Sidebar */}
       <div
+        data-tour="sidebar"
         className={`fixed inset-y-0 left-0 z-40 w-56 bg-card border-r border-border transform transition-transform duration-200 ease-in-out ${
           isSidebarOpen ? "translate-x-0" : "-translate-x-full"
         } lg:translate-x-0`}
@@ -277,6 +281,7 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
                           <li key={item.name}>
                             <Link
                               href={item.href}
+                              data-tour={item.tourId}
                               className={`flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
                                 isActive
                                   ? "bg-primary text-primary-foreground"
@@ -318,23 +323,34 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
 
       {/* Main content */}
       <div className="lg:pl-56">
-        <header className="sticky top-0 z-30 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b border-border">
+        <header className="sticky top-0 z-30 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b border-border" data-tour="header">
           <div className="flex items-center justify-between h-16 px-6 lg:px-8">
             <span className="text-sm text-muted-foreground">Puck Page Builder</span>
             <div className="flex items-center gap-2">
-              <Link
-                href="/admin/pages"
-                className="flex items-center gap-2 px-3 py-1.5 text-sm font-medium rounded-lg border border-border hover:bg-accent transition-colors"
-              >
-                <HelpCircle className="h-4 w-4" />
-                Docs
-              </Link>
-              <AdminChat />
+              <TourButton />
+              <span data-tour="ai-help">
+                <AdminChat />
+              </span>
             </div>
           </div>
         </header>
         <main className="min-h-[calc(100vh-4rem)]">{children}</main>
       </div>
     </div>
+    </WizardProvider>
+  );
+}
+
+function TourButton() {
+  const { startTour, isTourCompleted } = useWizard();
+  return (
+    <button
+      onClick={() => startTour('page-builder-intro')}
+      className="flex items-center gap-2 px-3 py-1.5 text-sm font-medium rounded-lg border border-border hover:bg-accent transition-colors"
+      title="Take a guided tour"
+    >
+      <HelpCircle className="h-4 w-4" />
+      {isTourCompleted('page-builder-intro') ? 'Help' : 'Take Tour'}
+    </button>
   );
 }
