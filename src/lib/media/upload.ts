@@ -95,12 +95,12 @@ export async function generatePresignedUrl(
 
   switch (provider) {
     case 'S3':
-    case 'R2':
       return generateS3PresignedUrl(key, mimeType, size, settings, provider)
+    case 'R2':
+      return generateR2ProxyUrl(key, mimeType, settings)
     case 'LOCAL':
       return generateLocalUploadUrl(key, settings)
     default:
-      // Fall back to local if provider is not recognized
       return generateLocalUploadUrl(key, settings)
   }
 }
@@ -172,6 +172,37 @@ async function generateS3PresignedUrl(
     key,
     bucket: settings.bucket!,
     provider,
+    publicUrl,
+  }
+}
+
+// =============================================================================
+// R2 SERVER-SIDE PROXY (avoids CORS issues with Cloudflare R2)
+// =============================================================================
+
+async function generateR2ProxyUrl(
+  key: string,
+  mimeType: string,
+  settings: any
+): Promise<PresignedUrlResponse> {
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'
+
+  if (!settings.publicUrl) {
+    throw new Error(
+      'R2 public URL is required. Configure either:\n' +
+      '1. A custom domain connected to your R2 bucket, OR\n' +
+      '2. Enable the r2.dev public URL in your Cloudflare dashboard.\n' +
+      'Then set R2_PUBLIC_URL in your environment or Storage settings.'
+    )
+  }
+
+  const publicUrl = `${settings.publicUrl.replace(/\/$/, '')}/${key}`
+
+  return {
+    uploadUrl: `${baseUrl}/api/media/upload/r2?key=${encodeURIComponent(key)}&contentType=${encodeURIComponent(mimeType)}`,
+    key,
+    bucket: settings.bucket!,
+    provider: 'R2',
     publicUrl,
   }
 }
