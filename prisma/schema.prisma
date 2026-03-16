@@ -1,0 +1,167 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  role      UserRole @default(ADMIN)
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
+
+  media Media[]
+
+  @@map("users")
+}
+
+enum UserRole {
+  ADMIN
+  EDITOR
+  VIEWER
+}
+
+model Page {
+  id                 String     @id @default(cuid())
+  title              String
+  slug               String     @unique
+  status             PageStatus @default(DRAFT)
+  content            Json?
+  metaTitle          String?    @map("meta_title")
+  metaDescription    String?    @map("meta_description") @db.Text
+  featuredImageId    String?    @map("featured_image_id")
+  featuredImage      Media?     @relation("PageFeaturedImage", fields: [featuredImageId], references: [id])
+  parentId           String?    @map("parent_id")
+  parent             Page?      @relation("PageChildren", fields: [parentId], references: [id])
+  children           Page[]     @relation("PageChildren")
+  headerMode         String     @default("GLOBAL") @map("header_mode")
+  footerMode         String     @default("GLOBAL") @map("footer_mode")
+  showAnnouncement   Boolean    @default(true) @map("show_announcement")
+  customHeader       Json?      @map("custom_header")
+  customFooter       Json?      @map("custom_footer")
+  customAnnouncement Json?      @map("custom_announcement")
+  publishedAt        DateTime?  @map("published_at")
+  createdAt          DateTime   @default(now()) @map("created_at")
+  updatedAt          DateTime   @default(now()) @updatedAt @map("updated_at")
+
+  @@map("pages")
+}
+
+enum PageStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+model Media {
+  id           String          @id @default(cuid())
+  filename     String
+  originalName String          @map("original_name")
+  mimeType     String          @map("mime_type")
+  size         Int
+  url          String
+  width        Int?
+  height       Int?
+  title        String?
+  alt          String?
+  caption      String?         @db.Text
+  description  String?         @db.Text
+  folderId     String?         @map("folder_id")
+  folder       MediaFolder?    @relation(fields: [folderId], references: [id])
+  provider     StorageProvider @default(LOCAL)
+  bucket       String?
+  key          String?
+  uploadedById String?         @map("uploaded_by_id")
+  uploadedBy   User?           @relation(fields: [uploadedById], references: [id])
+  tags         MediaTagOnMedia[]
+  usages       MediaUsage[]
+  deletedAt    DateTime?       @map("deleted_at")
+  createdAt    DateTime        @default(now()) @map("created_at")
+  updatedAt    DateTime        @default(now()) @updatedAt @map("updated_at")
+
+  pagesAsFeatured Page[] @relation("PageFeaturedImage")
+
+  @@index([folderId])
+  @@index([mimeType])
+  @@index([deletedAt])
+  @@map("media")
+}
+
+enum StorageProvider {
+  LOCAL
+  S3
+  R2
+  GCS
+}
+
+model MediaFolder {
+  id          String        @id @default(cuid())
+  name        String
+  slug        String        @unique
+  description String?       @db.Text
+  color       String?
+  icon        String?
+  parentId    String?       @map("parent_id")
+  parent      MediaFolder?  @relation("FolderChildren", fields: [parentId], references: [id])
+  children    MediaFolder[] @relation("FolderChildren")
+  path        String        @default("/")
+  depth       Int           @default(0)
+  position    Int           @default(0)
+  isPublic    Boolean       @default(true) @map("is_public")
+  media       Media[]
+  createdAt   DateTime      @default(now()) @map("created_at")
+  updatedAt   DateTime      @default(now()) @updatedAt @map("updated_at")
+
+  @@map("media_folders")
+}
+
+model MediaTag {
+  id        String            @id @default(cuid())
+  name      String
+  slug      String            @unique
+  color     String?
+  createdAt DateTime          @default(now()) @map("created_at")
+  media     MediaTagOnMedia[]
+
+  @@map("media_tags")
+}
+
+model MediaTagOnMedia {
+  mediaId String   @map("media_id")
+  tagId   String   @map("tag_id")
+  media   Media    @relation(fields: [mediaId], references: [id], onDelete: Cascade)
+  tag     MediaTag @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  @@id([mediaId, tagId])
+  @@map("media_tag_on_media")
+}
+
+model MediaUsage {
+  id         String   @id @default(cuid())
+  mediaId    String   @map("media_id")
+  media      Media    @relation(fields: [mediaId], references: [id], onDelete: Cascade)
+  entityType String   @map("entity_type")
+  entityId   String   @map("entity_id")
+  fieldName  String?  @map("field_name")
+  createdAt  DateTime @default(now()) @map("created_at")
+
+  @@index([mediaId])
+  @@index([entityType, entityId])
+  @@map("media_usages")
+}
+
+model Setting {
+  key       String   @id
+  value     String   @db.Text
+  group     String
+  encrypted Boolean  @default(false)
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
+
+  @@index([group])
+  @@map("settings")
+}
