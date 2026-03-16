@@ -62,6 +62,13 @@ import {
   presetComponents,
 } from "./components/presets";
 
+// SassyDame section components
+import {
+  sassydameComponents,
+  sassydameCategory,
+  sassydameComponentNames,
+} from "./components/sassydame";
+
 // Define component categories
 const primitiveComponents = ["Box", "Icon", "Divider"];
 const layoutComponents = ["Section", "Container", "Grid", "Flex", "Row", "Columns"];
@@ -107,6 +114,7 @@ export const puckConfig: Config = {
       components: dashboardComponents,
       defaultExpanded: false,
     },
+    ...sassydameCategory,
   },
   components: {
     // ===========================================
@@ -727,6 +735,12 @@ USE THIS TEMPLATE when:
 This template uses generic components (Grid, Box, Text) arranged as a footer.`,
       },
     },
+
+    // ===========================================
+    // SASSYDAME SECTIONS
+    // Pre-built sections from the SassyDame storefront
+    // ===========================================
+    ...sassydameComponents,
   },
   root: {
     defaultProps: {

@@ -204,6 +204,18 @@
   --radius-2xl: calc(var(--radius) + 8px);
   --radius-3xl: calc(var(--radius) + 12px);
   --radius-4xl: calc(var(--radius) + 16px);
+
+  /* SassyDame Color Palette (Tailwind integration) */
+  --color-sassy-lime: var(--sassy-lime);
+  --color-sassy-coral: var(--sassy-coral);
+  --color-sassy-orange: var(--sassy-orange);
+  --color-sassy-teal: var(--sassy-teal);
+  --color-sassy-periwinkle: var(--sassy-periwinkle);
+  --color-sassy-sage: var(--sassy-sage);
+  --color-sassy-rose: var(--sassy-rose);
+  --color-sassy-gold: var(--sassy-gold);
+  --color-sassy-fuchsia: var(--sassy-fuchsia);
+  --color-sassy-sky: var(--sassy-sky);
 }
 
 /* Base layer */
@@ -736,4 +748,63 @@ input[type="color"] {
 /* Compact drawer items with previews */
 .puck-editor-wrapper [class*="Drawer-item"] {
   margin-bottom: 4px !important;
+}
+
+/* ============================================
+   SassyDame Designs - Happy & Bright Color Palette
+   Ported from hydrogen-sassy-dame storefront
+   ============================================ */
+
+/* SassyDame color variables (light mode) */
+:root {
+  --sassy-lime: oklch(0.85 0.28 128);
+  --sassy-coral: oklch(0.76 0.20 25);
+  --sassy-orange: oklch(0.80 0.20 55);
+  --sassy-teal: oklch(0.65 0.18 195);
+  --sassy-periwinkle: oklch(0.72 0.18 270);
+  --sassy-sage: oklch(0.78 0.14 150);
+  --sassy-rose: oklch(0.74 0.16 350);
+  --sassy-gold: oklch(0.84 0.19 90);
+  --sassy-fuchsia: oklch(0.72 0.22 330);
+  --sassy-sky: oklch(0.78 0.16 230);
+}
+
+/* SassyDame color variables (dark mode) */
+.dark {
+  --sassy-lime: oklch(0.78 0.24 128);
+  --sassy-coral: oklch(0.72 0.18 25);
+  --sassy-orange: oklch(0.74 0.18 55);
+  --sassy-teal: oklch(0.60 0.16 195);
+  --sassy-periwinkle: oklch(0.66 0.16 270);
+  --sassy-sage: oklch(0.70 0.12 150);
+  --sassy-rose: oklch(0.68 0.14 350);
+  --sassy-gold: oklch(0.76 0.17 90);
+  --sassy-fuchsia: oklch(0.66 0.20 330);
+  --sassy-sky: oklch(0.72 0.14 230);
+}
+
+/* SassyDame custom animation utilities */
+@keyframes sassy-float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes sassy-gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.animate-float {
+  animation: sassy-float 3s ease-in-out infinite;
+}
+
+.animate-float-delayed {
+  animation: sassy-float 3s ease-in-out infinite;
+  animation-delay: 1s;
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: sassy-gradient-shift 3s ease infinite;
 }
