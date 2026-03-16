@@ -5,6 +5,7 @@ import { ArrowRight, Sparkles } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { TextReveal, TextFadeIn } from './effects/text-reveal'
 import { FloatingElements, FloatingShapes } from './effects/floating-elements'
+import { DropZone } from "@puckeditor/core";
 
 export function HeroSection() {
   return (
@@ -100,6 +101,9 @@ export function HeroSection() {
 
       {/* Bottom gradient fade */}
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent" />
+
+      {/* Puck: Editable content slot */}
+      <DropZone zone="content" />
     </section>
   )
 }

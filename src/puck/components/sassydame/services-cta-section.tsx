@@ -11,6 +11,7 @@ import {
   Sparkles,
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { DropZone } from "@puckeditor/core";
 
 const services = [
   {
@@ -131,6 +132,9 @@ export function ServicesCTASection() {
           </Button>
         </motion.div>
       </div>
+
+      {/* Puck: Editable content slot */}
+      <DropZone zone="content" />
     </section>
   )
 }

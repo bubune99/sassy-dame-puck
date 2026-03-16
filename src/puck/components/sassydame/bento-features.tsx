@@ -5,6 +5,7 @@ import { Printer, Sparkles, Shirt, Calendar, Paintbrush } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 import { motion } from 'framer-motion'
+import { DropZone } from "@puckeditor/core";
 
 // Animation variants for the container to stagger children
 const containerVariants = {
@@ -178,7 +179,11 @@ export function BentoFeatures() {
             </motion.div>
           </motion.section>
         </div>
+
       </div>
+
+      {/* Puck: Editable content slot */}
+      <DropZone zone="content" />
     </section>
   )
 }

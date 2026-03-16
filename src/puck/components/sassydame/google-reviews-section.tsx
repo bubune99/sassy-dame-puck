@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Star, Quote, ChevronLeft, ChevronRight, ExternalLink } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { DropZone } from "@puckeditor/core";
 
 // Demo reviews - these would be fetched from Google Places API in production
 const demoReviews = [
@@ -242,6 +243,9 @@ export function GoogleReviewsSection() {
             </a>
           </Button>
         </motion.div>
+
+        {/* Puck: Editable content slot */}
+        <DropZone zone="content" />
       </div>
     </section>
   )

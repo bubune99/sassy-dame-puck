@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X, ChevronLeft, ChevronRight, Instagram, Camera } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { DropZone } from "@puckeditor/core";
 
 // Demo gallery images - these would come from Instagram API or CMS in production
 const galleryImages = [
@@ -232,6 +233,9 @@ export function PhotoGallerySection() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Puck: Editable content slot */}
+      <DropZone zone="content" />
     </section>
   )
 }

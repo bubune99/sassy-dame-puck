@@ -4,6 +4,7 @@ import { motion } from 'framer-motion'
 import { ArrowRight, Layers, Palette, Zap, CheckCircle } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { GlowingBorder } from './effects/glowing-border'
+import { DropZone } from "@puckeditor/core";
 
 const features = [
   {
@@ -113,6 +114,9 @@ export function DTFPromoSection() {
           </div>
         </div>
       </div>
+
+      {/* Puck: Editable content slot */}
+      <DropZone zone="content" />
     </section>
   )
 }

@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion'
 import { ArrowRight, Printer, Sparkles, Shirt, Calendar, Users } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { DropZone } from "@puckeditor/core";
 
 // Self-contained category data (removed dependency on navigation config)
 const showcaseCategories = [
@@ -120,6 +121,9 @@ export function BrandShowcase() {
           ))}
         </div>
       </div>
+
+      {/* Puck: Editable content slot */}
+      <DropZone zone="content" />
     </section>
   )
 }

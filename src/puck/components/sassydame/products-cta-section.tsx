@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion'
 import { ArrowRight, Package, Truck, BadgeCheck, Clock } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { DropZone } from "@puckeditor/core";
 
 const productHighlights = [
   {
@@ -134,6 +135,9 @@ export function ProductsCTASection() {
           </Button>
         </motion.div>
       </div>
+
+      {/* Puck: Editable content slot */}
+      <DropZone zone="content" />
     </section>
   )
 }
