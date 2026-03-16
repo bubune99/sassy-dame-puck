@@ -23,6 +23,9 @@ const Puck = dynamic(
 // Import Puck styles
 import '@puckeditor/core/puck.css';
 
+// Import AI chat plugin
+import { aiChatPlugin } from '@/puck/plugins/aiChatPlugin';
+
 // Import editor components
 import { EditorContextMenu } from '@/puck/components/EditorContextMenu';
 import { DraggableOutline } from '@/puck/components/DraggableOutline';
@@ -34,7 +37,7 @@ import { Drawer } from '@puckeditor/core';
 import { layoutPuckConfig } from '../../../../../puck/layout/config';
 import type { Data } from '@puckeditor/core';
 
-const puckPlugins: any[] = [];
+const puckPlugins = [aiChatPlugin];
 
 // Default footer data structure for Puck
 const defaultFooterData: Data = {

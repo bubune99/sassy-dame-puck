@@ -12,9 +12,12 @@
     "postinstall": "prisma generate"
   },
   "dependencies": {
+    "@ai-sdk/anthropic": "^3.0.1",
+    "@ai-sdk/react": "^3.0.4",
     "@aws-sdk/client-s3": "^3.958.0",
     "@aws-sdk/s3-request-presigner": "^3.958.0",
     "@hookform/resolvers": "^5.2.2",
+    "ai": "^6.0.3",
     "@prisma/adapter-pg": "^7.2.0",
     "@puckeditor/core": "^0.21.0",
     "@radix-ui/react-accordion": "^1.2.12",
@@ -48,6 +51,7 @@
     "framer-motion": "^12.23.26",
     "lottie-react": "^2.4.1",
     "lucide-react": "^0.562.0",
+    "nanoid": "^5.1.6",
     "next": "16.1.1",
     "next-themes": "^0.4.6",
     "pg": "^8.16.3",

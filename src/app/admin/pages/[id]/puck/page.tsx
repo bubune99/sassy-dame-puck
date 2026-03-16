@@ -8,6 +8,9 @@ import Link from "next/link";
 import { Puck, Data, Drawer } from "@puckeditor/core";
 import "@puckeditor/core/puck.css";
 
+// Import AI chat plugin
+import { aiChatPlugin } from "@/puck/plugins/aiChatPlugin";
+
 // Import design tokens for live preview
 import DesignTokenStyleClient from "@/components/design-system/DesignTokenStyleClient";
 
@@ -425,7 +428,7 @@ export default function PagePuckEditorPage({
             config={puckConfig}
             data={puckData}
             onPublish={handlePublish}
-            plugins={[]}
+            plugins={[aiChatPlugin]}
             headerTitle=""
             headerPath=""
             overrides={puckOverrides}
