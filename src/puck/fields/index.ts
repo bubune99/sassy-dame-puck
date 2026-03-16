@@ -100,11 +100,8 @@ export {
 } from "./sharedFields";
 export type { AnimationProps, LockProps, GroupProps, EnhancedComponentProps } from "./sharedFields";
 
-// Platform integration fields (existing)
+// Platform integration fields
 export { MediaPickerField, mediaPickerFieldConfig } from "./MediaPickerField";
-export { ProductPickerField, productPickerFieldConfig } from "./ProductPickerField";
-export { BlogPostPickerField, blogPostPickerFieldConfig } from "./BlogPostPickerField";
-export { FormPickerField, formPickerFieldConfig } from "./FormPickerField";
 
 // Combined style settings interface
 export interface StyleSettings {
