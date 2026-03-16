@@ -6,21 +6,30 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { getOrCreateSiteSettings, updateSiteSettings } from '../../../../lib/site-settings';
-import { stackServerApp } from '../../../../lib/stack';
+import { getSettings, updateSettings } from '../../../../lib/settings';
 
-/**
- * GET - Fetch site settings
- */
+const DEFAULT_SITE_SETTINGS = {
+  header: null,
+  footer: null,
+  announcementBar: null,
+  showAnnouncementBar: false,
+  siteName: 'My Site',
+  siteTagline: '',
+  logoUrl: '',
+  logoAlt: '',
+  faviconUrl: '',
+  socialLinks: {},
+  defaultMetaTitle: '',
+  defaultMetaDescription: '',
+  defaultOgImage: '',
+  contactEmail: '',
+  contactPhone: '',
+  businessAddress: '',
+};
+
 export async function GET() {
   try {
-    // Check authentication
-    const user = await stackServerApp.getUser();
-    if (!user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
-
-    const settings = await getOrCreateSiteSettings();
+    const settings = await getSettings('general', DEFAULT_SITE_SETTINGS);
     return NextResponse.json(settings);
   } catch (error) {
     console.error('Error fetching site settings:', error);
@@ -31,42 +40,17 @@ export async function GET() {
   }
 }
 
-/**
- * PUT - Update site settings
- */
 export async function PUT(request: NextRequest) {
   try {
-    // Check authentication
-    const user = await stackServerApp.getUser();
-    if (!user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
-
     const body = await request.json();
 
-    // Validate request body
     const allowedFields = [
-      'header',
-      'footer',
-      'announcementBar',
-      'showAnnouncementBar',
-      'siteName',
-      'siteTagline',
-      'logoUrl',
-      'logoAlt',
-      'faviconUrl',
-      'socialLinks',
-      'defaultMetaTitle',
-      'defaultMetaDescription',
-      'defaultOgImage',
-      'contactEmail',
-      'contactPhone',
-      'businessAddress',
-      'googleAnalyticsId',
-      'facebookPixelId',
+      'header', 'footer', 'announcementBar', 'showAnnouncementBar',
+      'siteName', 'siteTagline', 'logoUrl', 'logoAlt', 'faviconUrl',
+      'socialLinks', 'defaultMetaTitle', 'defaultMetaDescription',
+      'defaultOgImage', 'contactEmail', 'contactPhone', 'businessAddress',
     ];
 
-    // Filter to only allowed fields
     const updateData: Record<string, unknown> = {};
     for (const field of allowedFields) {
       if (field in body) {
@@ -74,7 +58,8 @@ export async function PUT(request: NextRequest) {
       }
     }
 
-    const settings = await updateSiteSettings(updateData);
+    await updateSettings('general', updateData);
+    const settings = await getSettings('general', DEFAULT_SITE_SETTINGS);
     return NextResponse.json(settings);
   } catch (error) {
     console.error('Error updating site settings:', error);
