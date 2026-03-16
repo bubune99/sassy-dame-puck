@@ -96,7 +96,35 @@ const includes = [
   "Rush orders available",
 ];
 
-export function CustomShirtsPage() {
+export interface CustomShirtsPageProps {
+  badgeText?: string;
+  heading?: string;
+  headingHighlight?: string;
+  description?: string;
+  howItWorksHeading?: string;
+  howItWorksDescription?: string;
+  useCasesHeading?: string;
+  useCasesDescription?: string;
+  pricingHeading?: string;
+  pricingDescription?: string;
+  ctaHeading?: string;
+  ctaDescription?: string;
+}
+
+export function CustomShirtsPage({
+  badgeText = "Custom Event Shirts",
+  heading = "Your Event,",
+  headingHighlight = "Your Shirts",
+  description = "Custom printed shirts for any event. Submit your design, we print and deliver. Group discounts up to 20% off for larger orders.",
+  howItWorksHeading = "How It Works",
+  howItWorksDescription = "Three simple steps to custom event shirts",
+  useCasesHeading = "Shirts For Every Event",
+  useCasesDescription = "Whatever the occasion, we have you covered",
+  pricingHeading = "Group Discounts",
+  pricingDescription = "The more you order, the more you save",
+  ctaHeading = "Ready to Order Custom Shirts?",
+  ctaDescription = "Tell us about your event and we will get your custom shirts started. Free design help included!",
+}: CustomShirtsPageProps) {
   return (
     <main className="flex-1">
       {/* Animated background */}
@@ -129,19 +157,18 @@ export function CustomShirtsPage() {
               >
                 <div className="inline-flex items-center gap-2 bg-sassy-teal/10 text-sassy-teal px-4 py-2 rounded-full text-sm font-medium mb-6">
                   <Shirt className="h-4 w-4" />
-                  <span>Custom Event Shirts</span>
+                  <span>{badgeText}</span>
                 </div>
 
                 <h1 className="font-serif text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 leading-[0.95]">
-                  <span className="block">Your Event,</span>
+                  <span className="block">{heading}</span>
                   <span className="block bg-gradient-to-r from-sassy-teal via-sassy-lime to-sassy-teal bg-clip-text text-transparent">
-                    Your Shirts
+                    {headingHighlight}
                   </span>
                 </h1>
 
                 <p className="text-lg text-muted-foreground max-w-lg mb-8 leading-relaxed">
-                  Custom printed shirts for any event. Submit your design, we print and deliver.
-                  Group discounts up to 20% off for larger orders.
+                  {description}
                 </p>
 
                 <div className="flex flex-wrap gap-4 mb-10">
@@ -221,9 +248,9 @@ export function CustomShirtsPage() {
             className="text-center mb-16"
           >
             <h2 className="font-serif text-4xl md:text-5xl font-bold mb-4">
-              How It <span className="text-sassy-teal">Works</span>
+              {howItWorksHeading}
             </h2>
-            <p className="text-muted-foreground text-lg">Three simple steps to custom event shirts</p>
+            <p className="text-muted-foreground text-lg">{howItWorksDescription}</p>
           </motion.div>
 
           <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
@@ -265,9 +292,9 @@ export function CustomShirtsPage() {
             className="text-center mb-12"
           >
             <h2 className="font-serif text-4xl md:text-5xl font-bold mb-4">
-              Shirts For <span className="text-sassy-lime">Every Event</span>
+              {useCasesHeading}
             </h2>
-            <p className="text-muted-foreground text-lg">Whatever the occasion, we have you covered</p>
+            <p className="text-muted-foreground text-lg">{useCasesDescription}</p>
           </motion.div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
@@ -299,9 +326,9 @@ export function CustomShirtsPage() {
             className="text-center mb-12"
           >
             <h2 className="font-serif text-4xl md:text-5xl font-bold mb-4">
-              Group <span className="text-sassy-teal">Discounts</span>
+              {pricingHeading}
             </h2>
-            <p className="text-muted-foreground text-lg">The more you order, the more you save</p>
+            <p className="text-muted-foreground text-lg">{pricingDescription}</p>
           </motion.div>
 
           <div className="max-w-3xl mx-auto mb-16">
@@ -378,10 +405,10 @@ export function CustomShirtsPage() {
           >
             <MessageSquare className="h-14 w-14 text-sassy-teal mx-auto mb-6" />
             <h2 className="font-serif text-4xl md:text-5xl font-bold mb-4">
-              Ready to Order Custom Shirts?
+              {ctaHeading}
             </h2>
             <p className="text-muted-foreground text-lg mb-8">
-              Tell us about your event and we will get your custom shirts started. Free design help included!
+              {ctaDescription}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a

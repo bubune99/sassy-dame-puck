@@ -82,39 +82,87 @@ function FAQItem({ q, a }: { q: string; a: string }) {
   );
 }
 
-export function FAQsPage() {
+export interface FAQsPageProps {
+  heading?: string;
+  description?: string;
+  generalQ1?: string;
+  generalA1?: string;
+  generalQ2?: string;
+  generalA2?: string;
+  shippingQ1?: string;
+  shippingA1?: string;
+  shippingQ2?: string;
+  shippingA2?: string;
+  stillHaveQuestionText?: string;
+  contactEmail?: string;
+}
+
+export function FAQsPage({
+  heading = "Frequently Asked Questions",
+  description = "Find answers to common questions about our products, shipping, and services.",
+  generalQ1 = "Do You Offer Wholesale Prices?",
+  generalA1 = "Sure, we do offer wholesale prices for most of our products. Contact us for more information by clicking on the Chat With Us tab. We typically respond within an hour.",
+  generalQ2 = "Can I get my product personalized?",
+  generalA2 = "It depends on the product. All options are outlined on the product page, so look out for customization options there.",
+  shippingQ1 = "How Long Is Shipping?",
+  shippingA1 = "We ship out Monday through Friday, except on holidays. Orders are processed within 24-48 hours after being placed.",
+  shippingQ2 = "Do you ship overseas?",
+  shippingA2 = "Yes, we ship all over the world. Shipping costs will apply, and will be added at checkout. We run discounts and promotions all year, so stay tuned for exclusive deals.",
+  stillHaveQuestionText = "If we haven't answered your question, contact us and we'll get back to you as soon as possible.",
+  contactEmail = "sassydame23@yahoo.com",
+}: FAQsPageProps) {
   return (
     <main className="flex-1 py-16">
       <div className="container mx-auto px-4 max-w-3xl">
         <h1 className="font-serif text-4xl md:text-5xl font-bold mb-4">
-          Frequently Asked Questions
+          {heading}
         </h1>
         <p className="text-muted-foreground text-lg mb-12">
-          Find answers to common questions about our products, shipping, and services.
+          {description}
         </p>
 
-        {faqSections.map((section) => (
-          <div key={section.title} className="mb-12">
-            <h2 className="font-serif text-2xl font-bold mb-4">{section.title}</h2>
-            <div className="space-y-3">
-              {section.questions.map((faq) => (
-                <FAQItem key={faq.q} q={faq.q} a={faq.a} />
-              ))}
+        {(() => {
+          const editableSections = [
+            {
+              title: "General",
+              questions: [
+                { q: generalQ1, a: generalA1 },
+                { q: generalQ2, a: generalA2 },
+                ...faqSections[0].questions.slice(2),
+              ],
+            },
+            {
+              title: "Shipping",
+              questions: [
+                { q: shippingQ1, a: shippingA1 },
+                { q: shippingQ2, a: shippingA2 },
+                ...faqSections[1].questions.slice(2),
+              ],
+            },
+            ...faqSections.slice(2),
+          ];
+          return editableSections.map((section) => (
+            <div key={section.title} className="mb-12">
+              <h2 className="font-serif text-2xl font-bold mb-4">{section.title}</h2>
+              <div className="space-y-3">
+                {section.questions.map((faq) => (
+                  <FAQItem key={faq.q} q={faq.q} a={faq.a} />
+                ))}
+              </div>
             </div>
-          </div>
-        ))}
+          ));
+        })()}
 
         <div className="mt-12 p-8 rounded-2xl bg-muted/50 border text-center">
           <h3 className="font-serif text-xl font-bold mb-2">Still have a question?</h3>
           <p className="text-muted-foreground mb-4">
-            If we haven&apos;t answered your question, contact us and we&apos;ll get back to you as soon as
-            possible.
+            {stillHaveQuestionText}
           </p>
           <a
-            href="mailto:sassydame23@yahoo.com"
+            href={`mailto:${contactEmail}`}
             className="inline-flex items-center text-primary font-semibold hover:underline"
           >
-            sassydame23@yahoo.com
+            {contactEmail}
           </a>
         </div>
 

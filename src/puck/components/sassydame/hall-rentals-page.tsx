@@ -274,9 +274,9 @@ export function HallRentalsPage({
               viewport={{ once: true }}
             >
               <h2 className="font-serif text-4xl md:text-5xl font-bold mb-4">
-                Perfect For <span className="text-sassy-coral">Any Occasion</span>
+                {eventTypesHeading}
               </h2>
-              <p className="text-muted-foreground text-lg">Our hall adapts to whatever you have in mind</p>
+              <p className="text-muted-foreground text-lg">{eventTypesDescription}</p>
             </motion.div>
           </div>
 
@@ -309,10 +309,10 @@ export function HallRentalsPage({
             className="text-center mb-16"
           >
             <h2 className="font-serif text-4xl md:text-5xl font-bold mb-4">
-              Everything <span className="text-sassy-gold">Included</span>
+              {amenitiesHeading}
             </h2>
             <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-              Our venue comes fully equipped so you can focus on enjoying your event
+              {amenitiesDescription}
             </p>
           </motion.div>
 
@@ -349,7 +349,7 @@ export function HallRentalsPage({
             className="text-center mb-12"
           >
             <h2 className="font-serif text-4xl md:text-5xl font-bold mb-4">
-              Simple, <span className="text-sassy-coral">Transparent</span> Pricing
+              {pricingHeading}
             </h2>
             <p className="text-muted-foreground text-lg">Choose the package that fits your event</p>
           </motion.div>
@@ -460,9 +460,9 @@ export function HallRentalsPage({
             className="max-w-3xl mx-auto text-center"
           >
             <Calendar className="h-14 w-14 text-sassy-coral mx-auto mb-6" />
-            <h2 className="font-serif text-4xl md:text-5xl font-bold mb-4">Ready to Book the Hall?</h2>
+            <h2 className="font-serif text-4xl md:text-5xl font-bold mb-4">{ctaHeading}</h2>
             <p className="text-muted-foreground text-lg mb-8">
-              Reserve your date today. We will handle the setup so you can focus on making memories.
+              {ctaDescription}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a

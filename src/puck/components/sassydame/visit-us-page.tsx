@@ -34,7 +34,33 @@ const expectations = [
   },
 ];
 
-export function VisitUsPage() {
+export interface VisitUsPageProps {
+  heading?: string;
+  headingHighlight?: string;
+  description?: string;
+  address?: string;
+  addressLine2?: string;
+  mainPhone?: string;
+  storePhone?: string;
+  email?: string;
+  hoursHeading?: string;
+  ctaHeading?: string;
+  ctaDescription?: string;
+}
+
+export function VisitUsPage({
+  heading = "Visit Our",
+  headingHighlight = "Studio",
+  description = "Stop by our Raleigh studio to browse products, pick up orders, or use our professional crafting equipment. We would love to meet you!",
+  address = "1230 Green Street",
+  addressLine2 = "Raleigh, NC 27603",
+  mainPhone = "(919) 628-6531",
+  storePhone = "(919) 533-7944",
+  email = "sassydame23@yahoo.com",
+  hoursHeading = "Store Hours",
+  ctaHeading = "Have Questions Before Your Visit?",
+  ctaDescription = "Feel free to reach out to us before stopping by. We are always happy to help with questions about products, services, or studio availability.",
+}: VisitUsPageProps) {
   return (
     <main className="flex-1">
       {/* Hero Section */}
@@ -45,12 +71,11 @@ export function VisitUsPage() {
               Come See Us
             </span>
             <h1 className="font-serif text-4xl md:text-5xl font-bold mb-4">
-              Visit Our
-              <span className="block text-secondary">Studio</span>
+              {heading}
+              <span className="block text-secondary">{headingHighlight}</span>
             </h1>
             <p className="text-lg text-muted-foreground">
-              Stop by our Raleigh studio to browse products, pick up orders,
-              or use our professional crafting equipment. We would love to meet you!
+              {description}
             </p>
           </div>
         </div>
@@ -104,8 +129,8 @@ export function VisitUsPage() {
                 </div>
                 <div>
                   <h3 className="font-semibold">Studio Address</h3>
-                  <p className="text-foreground">1230 Green Street</p>
-                  <p className="text-sm text-muted-foreground">Raleigh, NC 27603</p>
+                  <p className="text-foreground">{address}</p>
+                  <p className="text-sm text-muted-foreground">{addressLine2}</p>
                 </div>
               </a>
 
@@ -119,7 +144,7 @@ export function VisitUsPage() {
                 </div>
                 <div>
                   <h3 className="font-semibold">Main Phone</h3>
-                  <p className="text-foreground">(919) 628-6531</p>
+                  <p className="text-foreground">{mainPhone}</p>
                   <p className="text-sm text-muted-foreground">General inquiries</p>
                 </div>
               </a>
@@ -133,7 +158,7 @@ export function VisitUsPage() {
                 </div>
                 <div>
                   <h3 className="font-semibold">Store Phone</h3>
-                  <p className="text-foreground">(919) 533-7944</p>
+                  <p className="text-foreground">{storePhone}</p>
                   <p className="text-sm text-muted-foreground">Store-specific questions</p>
                 </div>
               </a>
@@ -148,7 +173,7 @@ export function VisitUsPage() {
                 </div>
                 <div>
                   <h3 className="font-semibold">Email Us</h3>
-                  <p className="text-foreground">sassydame23@yahoo.com</p>
+                  <p className="text-foreground">{email}</p>
                   <p className="text-sm text-muted-foreground">We reply within 24 hours</p>
                 </div>
               </a>
@@ -162,7 +187,7 @@ export function VisitUsPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-2xl mx-auto">
             <div className="text-center mb-8">
-              <h2 className="font-serif text-2xl md:text-3xl font-bold mb-2">Store Hours</h2>
+              <h2 className="font-serif text-2xl md:text-3xl font-bold mb-2">{hoursHeading}</h2>
               <p className="text-muted-foreground">Plan your visit around our weekly schedule</p>
             </div>
 
@@ -277,11 +302,10 @@ export function VisitUsPage() {
       <section className="py-16 bg-muted/30">
         <div className="container mx-auto px-4 text-center">
           <h2 className="font-serif text-2xl md:text-3xl font-bold mb-4">
-            Have Questions Before Your Visit?
+            {ctaHeading}
           </h2>
           <p className="text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Feel free to reach out to us before stopping by. We are always happy to help
-            with questions about products, services, or studio availability.
+            {ctaDescription}
           </p>
           <a
             href="/contact"

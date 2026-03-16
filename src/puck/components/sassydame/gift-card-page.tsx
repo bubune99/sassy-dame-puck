@@ -7,7 +7,23 @@ import { DropZone } from "@puckeditor/core";
 
 const giftCardAmounts = [25, 50, 75, 100, 150, 200];
 
-export function GiftCardPage() {
+export interface GiftCardPageProps {
+  badgeText?: string;
+  heading?: string;
+  headingHighlight?: string;
+  description?: string;
+  cardBrandName?: string;
+  footerNote?: string;
+}
+
+export function GiftCardPage({
+  badgeText = "The Perfect Gift for Crafters",
+  heading = "SassyDame Designs",
+  headingHighlight = "Gift Card",
+  description = "Give the gift of creativity! Our gift cards can be used for anything in-store or online, including DTF prints, crafting supplies, classes, and studio rentals.",
+  cardBrandName = "SassyDame Designs",
+  footerNote = "Gift cards never expire and can be used for any purchase at SassyDame Designs",
+}: GiftCardPageProps) {
   const [selectedAmount, setSelectedAmount] = useState<number | null>(50);
   const [customAmount, setCustomAmount] = useState("");
   const [deliveryMethod, setDeliveryMethod] = useState<"email" | "print">("email");
@@ -27,14 +43,13 @@ export function GiftCardPage() {
           >
             <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-6">
               <Gift className="h-4 w-4" />
-              <span>The Perfect Gift for Crafters</span>
+              <span>{badgeText}</span>
             </div>
             <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-balance">
-              SassyDame Designs <span className="text-primary">Gift Card</span>
+              {heading} <span className="text-primary">{headingHighlight}</span>
             </h1>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Give the gift of creativity! Our gift cards can be used for anything in-store or online,
-              including DTF prints, crafting supplies, classes, and studio rentals.
+              {description}
             </p>
           </motion.div>
         </div>
@@ -57,7 +72,7 @@ export function GiftCardPage() {
                     <div className="absolute inset-0 p-8 flex flex-col justify-between text-primary-foreground">
                       <div>
                         <Sparkles className="h-8 w-8 mb-2" />
-                        <p className="font-serif text-2xl font-bold">SassyDame Designs</p>
+                        <p className="font-serif text-2xl font-bold">{cardBrandName}</p>
                       </div>
                       <div>
                         <p className="text-sm opacity-80 mb-1">Gift Card Value</p>
@@ -190,7 +205,7 @@ export function GiftCardPage() {
                 </button>
 
                 <p className="text-sm text-muted-foreground text-center">
-                  Gift cards never expire and can be used for any purchase at SassyDame Designs
+                  {footerNote}
                 </p>
               </motion.div>
             </div>

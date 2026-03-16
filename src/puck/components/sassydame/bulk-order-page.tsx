@@ -22,7 +22,27 @@ const productTypes = [
   "Other",
 ];
 
-export function BulkOrderPage() {
+export interface BulkOrderPageProps {
+  badgeText?: string;
+  heading?: string;
+  headingHighlight?: string;
+  description?: string;
+  discountsHeading?: string;
+  discountsDescription?: string;
+  formHeading?: string;
+  formDescription?: string;
+}
+
+export function BulkOrderPage({
+  badgeText = "Save More with Bulk Orders",
+  heading = "Bulk & Wholesale",
+  headingHighlight = "Orders",
+  description = "Perfect for businesses, events, teams, and organizations. Get volume discounts on DTF transfers, custom apparel, and more.",
+  discountsHeading = "Volume Discounts",
+  discountsDescription = "The more you order, the more you save!",
+  formHeading = "Request a Quote",
+  formDescription = "Tell us about your project and we will get back to you within 24 hours with a custom quote.",
+}: BulkOrderPageProps) {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -52,14 +72,13 @@ export function BulkOrderPage() {
           >
             <div className="inline-flex items-center gap-2 bg-secondary/10 text-secondary px-4 py-2 rounded-full text-sm font-medium mb-6">
               <Package className="h-4 w-4" />
-              <span>Save More with Bulk Orders</span>
+              <span>{badgeText}</span>
             </div>
             <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-balance">
-              Bulk & Wholesale <span className="text-primary">Orders</span>
+              {heading} <span className="text-primary">{headingHighlight}</span>
             </h1>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Perfect for businesses, events, teams, and organizations. Get volume discounts on
-              DTF transfers, custom apparel, and more.
+              {description}
             </p>
           </motion.div>
         </div>
@@ -74,8 +93,8 @@ export function BulkOrderPage() {
             viewport={{ once: true }}
             className="text-center mb-12"
           >
-            <h2 className="font-serif text-3xl font-bold mb-4">Volume Discounts</h2>
-            <p className="text-muted-foreground">The more you order, the more you save!</p>
+            <h2 className="font-serif text-3xl font-bold mb-4">{discountsHeading}</h2>
+            <p className="text-muted-foreground">{discountsDescription}</p>
           </motion.div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-4xl mx-auto">
@@ -147,9 +166,9 @@ export function BulkOrderPage() {
               viewport={{ once: true }}
               className="text-center mb-10"
             >
-              <h2 className="font-serif text-3xl font-bold mb-4">Request a Quote</h2>
+              <h2 className="font-serif text-3xl font-bold mb-4">{formHeading}</h2>
               <p className="text-muted-foreground">
-                Tell us about your project and we will get back to you within 24 hours with a custom quote.
+                {formDescription}
               </p>
             </motion.div>
 

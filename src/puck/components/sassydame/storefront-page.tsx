@@ -24,7 +24,7 @@ import {
 import { DropZone } from "@puckeditor/core";
 
 // ---- HERO ----
-function StorefrontHero() {
+function StorefrontHero({ heroHeading, heroHeadingHighlight, heroDescription }: { heroHeading: string; heroHeadingHighlight: string; heroDescription: string }) {
   return (
     <section className="relative min-h-[90vh] flex items-center overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-br from-[#1a1520] via-[#15121d] to-[#0d0b14]" />
@@ -51,15 +51,14 @@ function StorefrontHero() {
             </div>
 
             <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white mb-6 leading-[0.95]">
-              <span className="block">Your Brand,</span>
+              <span className="block">{heroHeading}</span>
               <span className="block bg-gradient-to-r from-sassy-gold via-sassy-orange to-sassy-coral bg-clip-text text-transparent">
-                Your Store
+                {heroHeadingHighlight}
               </span>
             </h1>
 
             <p className="text-lg sm:text-xl text-white/50 max-w-2xl mx-auto mb-10">
-              We build custom-branded online storefronts for teams, schools, churches,
-              businesses, and organizations -- powered by SassyDame. You sell, we print and ship.
+              {heroDescription}
             </p>
 
             <div className="flex flex-wrap gap-4 justify-center mb-16">
@@ -107,7 +106,7 @@ function StorefrontHero() {
 }
 
 // ---- HOW IT WORKS ----
-function HowItWorks() {
+function HowItWorks({ sectionHeading, sectionDescription }: { sectionHeading: string; sectionDescription: string }) {
   const stepsData = [
     { num: "01", title: "Consultation", desc: "Tell us about your organization, branding, and goals. We figure out what products and designs fit you best.", icon: MessageSquare },
     { num: "02", title: "Design", desc: "We build your custom storefront with your logo, colors, and curated product catalog -- you approve every detail.", icon: Palette },
@@ -123,9 +122,9 @@ function HowItWorks() {
             Simple Process
           </span>
           <h2 className="font-serif text-4xl md:text-5xl font-bold mb-4">
-            How It <span className="text-sassy-gold">Works</span>
+            {sectionHeading}
           </h2>
-          <p className="text-muted-foreground text-lg max-w-xl mx-auto">From idea to live storefront in as little as one week</p>
+          <p className="text-muted-foreground text-lg max-w-xl mx-auto">{sectionDescription}</p>
         </motion.div>
 
         <div className="max-w-4xl mx-auto relative">
@@ -159,7 +158,7 @@ function HowItWorks() {
 }
 
 // ---- FEATURES ----
-function Features() {
+function Features({ sectionHeading, sectionDescription }: { sectionHeading: string; sectionDescription: string }) {
   const features = [
     { icon: Palette, title: "Custom Branding", desc: "Your logo, your colors, your identity. Every storefront is fully branded to match your organization." },
     { icon: Layers, title: "Curated Product Catalog", desc: "Choose from tees, hoodies, hats, bags, and more. We help you pick what sells best for your audience." },
@@ -177,9 +176,9 @@ function Features() {
             Everything Included
           </span>
           <h2 className="font-serif text-4xl md:text-5xl font-bold mb-4">
-            What You <span className="text-sassy-gold">Get</span>
+            {sectionHeading}
           </h2>
-          <p className="text-muted-foreground text-lg max-w-xl mx-auto">A fully managed storefront -- we handle the hard parts so you can focus on your brand</p>
+          <p className="text-muted-foreground text-lg max-w-xl mx-auto">{sectionDescription}</p>
         </motion.div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
@@ -201,7 +200,7 @@ function Features() {
 }
 
 // ---- USE CASES ----
-function UseCases() {
+function UseCases({ sectionHeading, sectionDescription }: { sectionHeading: string; sectionDescription: string }) {
   const cases = [
     { icon: Trophy, title: "Team Stores", desc: "Sports teams, leagues, and athletic organizations. Sell branded jerseys, warm-ups, and fan gear year-round.", color: "from-sassy-gold to-sassy-orange" },
     { icon: GraduationCap, title: "School Spirit Shops", desc: "Schools and PTAs can offer branded apparel, accessories, and spirit wear without handling any inventory.", color: "from-sassy-orange to-sassy-coral" },
@@ -218,9 +217,9 @@ function UseCases() {
             Who It&apos;s For
           </span>
           <h2 className="font-serif text-4xl md:text-5xl font-bold mb-4">
-            Built For <span className="text-sassy-gold">Everyone</span>
+            {sectionHeading}
           </h2>
-          <p className="text-muted-foreground text-lg max-w-xl mx-auto">Whether you run a team, a school, a church, or a business -- we have you covered</p>
+          <p className="text-muted-foreground text-lg max-w-xl mx-auto">{sectionDescription}</p>
         </motion.div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
@@ -247,18 +246,17 @@ function UseCases() {
 }
 
 // ---- CTA ----
-function StorefrontCTA() {
+function StorefrontCTA({ ctaHeading, ctaDescription }: { ctaHeading: string; ctaDescription: string }) {
   return (
     <section className="py-24 bg-gradient-to-br from-[#1a1520] to-[#12101a] text-white">
       <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto text-center">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
             <h2 className="font-serif text-4xl md:text-5xl font-bold mb-4">
-              Ready to Launch <span className="text-sassy-gold">Your Store</span>?
+              {ctaHeading}
             </h2>
             <p className="text-white/50 text-lg mb-10 max-w-xl mx-auto">
-              Let us build a custom-branded storefront for your organization.
-              No inventory, no risk, no hassle -- just sales.
+              {ctaDescription}
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-10">
@@ -291,14 +289,40 @@ function StorefrontCTA() {
 }
 
 // ---- PAGE ----
-export function StorefrontPage() {
+export interface StorefrontPageProps {
+  heading?: string;
+  headingHighlight?: string;
+  description?: string;
+  howItWorksHeading?: string;
+  howItWorksDescription?: string;
+  featuresHeading?: string;
+  featuresDescription?: string;
+  useCasesHeading?: string;
+  useCasesDescription?: string;
+  ctaHeading?: string;
+  ctaDescription?: string;
+}
+
+export function StorefrontPage({
+  heading = "Your Brand,",
+  headingHighlight = "Your Store",
+  description = "We build custom-branded online storefronts for teams, schools, churches, businesses, and organizations -- powered by SassyDame. You sell, we print and ship.",
+  howItWorksHeading = "How It Works",
+  howItWorksDescription = "From idea to live storefront in as little as one week",
+  featuresHeading = "What You Get",
+  featuresDescription = "A fully managed storefront -- we handle the hard parts so you can focus on your brand",
+  useCasesHeading = "Built For Everyone",
+  useCasesDescription = "Whether you run a team, a school, a church, or a business -- we have you covered",
+  ctaHeading = "Ready to Launch Your Store?",
+  ctaDescription = "Let us build a custom-branded storefront for your organization. No inventory, no risk, no hassle -- just sales.",
+}: StorefrontPageProps) {
   return (
     <main className="flex-1">
-      <StorefrontHero />
-      <HowItWorks />
-      <Features />
-      <UseCases />
-      <StorefrontCTA />
+      <StorefrontHero heroHeading={heading} heroHeadingHighlight={headingHighlight} heroDescription={description} />
+      <HowItWorks sectionHeading={howItWorksHeading} sectionDescription={howItWorksDescription} />
+      <Features sectionHeading={featuresHeading} sectionDescription={featuresDescription} />
+      <UseCases sectionHeading={useCasesHeading} sectionDescription={useCasesDescription} />
+      <StorefrontCTA ctaHeading={ctaHeading} ctaDescription={ctaDescription} />
 
       {/* Puck: Editable content slot */}
       <DropZone zone="content" />

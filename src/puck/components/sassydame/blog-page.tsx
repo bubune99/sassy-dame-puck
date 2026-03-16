@@ -45,7 +45,29 @@ const categoryColors: Record<string, string> = {
   Guide: "bg-purple-100 text-purple-700",
 };
 
-export function BlogPage() {
+export interface BlogPageProps {
+  heading?: string;
+  headingHighlight?: string;
+  description?: string;
+  comingSoonHeading?: string;
+  comingSoonDescription?: string;
+  newsletterHeading?: string;
+  newsletterDescription?: string;
+  ctaHeading?: string;
+  ctaDescription?: string;
+}
+
+export function BlogPage({
+  heading = "SassyDame",
+  headingHighlight = "Blog",
+  description = "Crafting tips, tutorials, and news from our studio. Stay inspired and keep up with everything happening at SassyDame Designs.",
+  comingSoonHeading = "Coming Soon",
+  comingSoonDescription = "We are working on bringing you crafting tips, step-by-step tutorials, community highlights, and the latest news from SassyDame Designs. Sign up below to be the first to know when we launch!",
+  newsletterHeading = "Stay in the Loop",
+  newsletterDescription = "Be the first to know when our blog launches. Get crafting tips, exclusive deals, and event updates delivered straight to your inbox.",
+  ctaHeading = "Want to Share a Story or Idea?",
+  ctaDescription = "Have a crafting project you are proud of? A topic you would like us to cover? We would love to hear from you!",
+}: BlogPageProps) {
   return (
     <main className="flex-1">
       {/* Hero Section */}
@@ -56,12 +78,11 @@ export function BlogPage() {
               Our Blog
             </span>
             <h1 className="font-serif text-4xl md:text-5xl font-bold mb-4">
-              SassyDame
-              <span className="block text-secondary">Blog</span>
+              {heading}
+              <span className="block text-secondary">{headingHighlight}</span>
             </h1>
             <p className="text-lg text-muted-foreground">
-              Crafting tips, tutorials, and news from our studio. Stay inspired
-              and keep up with everything happening at SassyDame Designs.
+              {description}
             </p>
           </div>
         </div>
@@ -74,11 +95,9 @@ export function BlogPage() {
             <div className="h-16 w-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
               <BookOpen className="h-8 w-8 text-primary" />
             </div>
-            <h2 className="font-serif text-2xl md:text-3xl font-bold mb-3">Coming Soon</h2>
+            <h2 className="font-serif text-2xl md:text-3xl font-bold mb-3">{comingSoonHeading}</h2>
             <p className="text-muted-foreground max-w-xl mx-auto leading-relaxed">
-              We are working on bringing you crafting tips, step-by-step tutorials,
-              community highlights, and the latest news from SassyDame Designs.
-              Sign up below to be the first to know when we launch!
+              {comingSoonDescription}
             </p>
           </div>
         </div>
@@ -142,10 +161,9 @@ export function BlogPage() {
             <div className="h-14 w-14 rounded-full bg-secondary/10 flex items-center justify-center mx-auto mb-4">
               <Mail className="h-7 w-7 text-secondary" />
             </div>
-            <h2 className="font-serif text-2xl md:text-3xl font-bold mb-3">Stay in the Loop</h2>
+            <h2 className="font-serif text-2xl md:text-3xl font-bold mb-3">{newsletterHeading}</h2>
             <p className="text-muted-foreground mb-8">
-              Be the first to know when our blog launches. Get crafting tips, exclusive deals,
-              and event updates delivered straight to your inbox.
+              {newsletterDescription}
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center max-w-md mx-auto">
               <input
@@ -172,11 +190,10 @@ export function BlogPage() {
       <section className="py-16 bg-muted/30">
         <div className="container mx-auto px-4 text-center">
           <h2 className="font-serif text-2xl md:text-3xl font-bold mb-4">
-            Want to Share a Story or Idea?
+            {ctaHeading}
           </h2>
           <p className="text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Have a crafting project you are proud of? A topic you would like us to cover?
-            We would love to hear from you!
+            {ctaDescription}
           </p>
           <a
             href="/contact"
