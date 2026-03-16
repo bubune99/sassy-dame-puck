@@ -1,8 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { stackServerApp } from "@/lib/stack";
+import { syncUser } from "@/lib/auth/sync";
 
 /**
- * GET /api/admin/users - Get current user's role
+ * GET /api/admin/users - Get current user's role and sync to local DB
  */
 export async function GET() {
   try {
@@ -13,6 +14,14 @@ export async function GET() {
 
     const metadata = (user.serverMetadata as Record<string, unknown>) || {};
     const role = metadata.role || "viewer";
+
+    // Sync user to local database on every role check
+    await syncUser({
+      id: user.id,
+      primaryEmail: user.primaryEmail,
+      displayName: user.displayName,
+      serverMetadata: metadata,
+    });
 
     return NextResponse.json({
       id: user.id,
@@ -46,14 +55,22 @@ export async function PUT(request: NextRequest) {
       return NextResponse.json({ error: "Invalid role" }, { status: 400 });
     }
 
-    // Use Stack Auth server API to update the target user's metadata
     const targetUser = await stackServerApp.getUser(userId);
     if (!targetUser) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
+    // Update role in Stack Auth
     await targetUser.update({
       serverMetadata: { ...((targetUser.serverMetadata as Record<string, unknown>) || {}), role },
+    });
+
+    // Sync to local database
+    await syncUser({
+      id: targetUser.id,
+      primaryEmail: targetUser.primaryEmail,
+      displayName: targetUser.displayName,
+      serverMetadata: { role },
     });
 
     return NextResponse.json({ success: true, userId, role });

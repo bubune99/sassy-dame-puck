@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { stackServerApp } from "@/lib/stack";
+import { syncUser } from "@/lib/auth/sync";
 
 /**
  * POST /api/setup - Promote the currently signed-in user to admin
@@ -28,9 +29,17 @@ export async function POST() {
       );
     }
 
-    // Promote current user to admin
+    // Promote current user to admin in Stack Auth
     await user.update({
       serverMetadata: { ...((user.serverMetadata as Record<string, unknown>) || {}), role: "admin" },
+    });
+
+    // Sync to local database
+    await syncUser({
+      id: user.id,
+      primaryEmail: user.primaryEmail,
+      displayName: user.displayName,
+      serverMetadata: { role: "admin" },
     });
 
     return NextResponse.json({
@@ -58,7 +67,8 @@ export async function GET() {
       setupRequired: !existingAdmin,
       totalUsers: allUsers.items.length,
     });
-  } catch {
+  } catch (error) {
+    console.error("Setup check error:", error);
     return NextResponse.json({ setupRequired: true, totalUsers: 0 });
   }
 }
