@@ -1,10 +1,11 @@
 "use client";
 
 import { useRef, useEffect, useMemo, useCallback, useState } from "react";
-import { useChat, type UIMessage } from "@ai-sdk/react";
-import { DefaultChatTransport } from "ai";
+import { useChat } from "@ai-sdk/react";
+import { DefaultChatTransport, isToolUIPart } from "ai";
+import type { UIMessage, ToolUIPart } from "ai";
 import { usePuck } from "@puckeditor/core";
-import { createToolExecutorsWithGetter, type ToolResult } from "@/lib/puck/ai/tools/executors";
+import type { Data, ComponentData } from "@puckeditor/core";
 import type { PuckEditorContext, SelectedComponent } from "@/lib/puck/ai/types";
 import { useHelpModeOptional } from "@/lib/puck/help-mode-context";
 
@@ -26,12 +27,6 @@ const SendIcon = () => (
   </svg>
 );
 
-const ToolIcon = () => (
-  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
-  </svg>
-);
-
 const TrashIcon = () => (
   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <path d="M3 6h18" />
@@ -48,63 +43,104 @@ const HelpIcon = () => (
   </svg>
 );
 
+const LoaderIcon = () => (
+  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="ai-chat-spinner">
+    <path d="M21 12a9 9 0 1 1-6.219-8.56" />
+  </svg>
+);
+
+/* ------------------------------------------------------------------ */
+/*  Tool action icons and labels                                       */
+/* ------------------------------------------------------------------ */
+
+const TOOL_NAMES = [
+  "setPageContent", "addComponent", "updateComponent",
+  "removeComponent", "moveComponent", "highlightElement",
+] as const;
+type ToolName = (typeof TOOL_NAMES)[number];
+
+const TOOL_LABELS: Record<string, string> = {
+  setPageContent: "Built page content",
+  addComponent: "Added component",
+  updateComponent: "Updated component",
+  removeComponent: "Removed component",
+  moveComponent: "Moved component",
+  highlightElement: "Highlighted element",
+};
+
+const TOOL_ICONS: Record<string, string> = {
+  setPageContent: "\u229E",  // squared plus
+  addComponent: "+",
+  updateComponent: "\u270E",   // pencil
+  removeComponent: "\u2212",   // minus
+  moveComponent: "\u2195",   // up-down arrow
+  highlightElement: "\u2606", // star outline
+};
+
+/* ------------------------------------------------------------------ */
+/*  Tool call badge                                                    */
+/* ------------------------------------------------------------------ */
+
+function ToolCallBubble({ toolName, state }: { toolName: string; state: string }) {
+  const label = TOOL_LABELS[toolName] || toolName;
+  const icon = TOOL_ICONS[toolName] || "\u2699";
+  const done = state === "output-available";
+  const errored = state === "output-error";
+
+  return (
+    <div className={`ai-chat-tool ${errored ? "errored" : ""}`}>
+      {done || errored ? (
+        <span className="ai-chat-tool-icon">{icon}</span>
+      ) : (
+        <LoaderIcon />
+      )}
+      <span className="ai-chat-tool-name">
+        {errored ? `Failed: ${label}` : done ? label : `${label}...`}
+      </span>
+      {done && <span className="ai-chat-tool-status success">{"\u2713"}</span>}
+      {errored && <span className="ai-chat-tool-status error">{"\u2717"}</span>}
+    </div>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  Quick prompts                                                      */
+/* ------------------------------------------------------------------ */
+
 const QUICK_PROMPTS = [
-  { label: "Add Hero", prompt: "Add a hero section with a heading and call-to-action button" },
-  { label: "Add Features", prompt: "Add a features grid with 3 feature cards" },
-  { label: "What's here?", prompt: "What components are currently on this page?" },
-  { label: "Add CTA", prompt: "Add a call-to-action section at the bottom" },
+  { label: "Build Landing Page", prompt: "Build a complete landing page with a hero section, features grid, and a call-to-action section" },
+  { label: "Add Hero", prompt: "Add a hero section with a large heading, description text, and a call-to-action button" },
+  { label: "Add Features", prompt: "Add a features grid section with 3 feature cards, each with a heading and description" },
+  { label: "What's here?", prompt: "What components are currently on this page? Give me a summary." },
 ];
 
-// Help mode prompts shown when help mode is active
-// These prompts are explicit about which tools to use and what behavior to expect
 const HELP_PROMPTS = [
   {
     label: "How to edit?",
-    prompt: `Help me edit this component:
-
-STEP 1: Call \`getComponentHelp\` with the component type to get documentation.
-STEP 2: Call \`selectComponent\` to highlight it in the editor.
-STEP 3: Explain each prop from the help data and how I can modify them manually in the fields panel.
-
-Complete all steps and explain the editing workflow.`,
+    prompt: "Help me edit the selected component. Explain what each prop does and how I can modify them in the Properties Panel.",
   },
   {
     label: "What is this?",
-    prompt: `Explain this component using \`getComponentHelp\`:
-
-1. Call \`getComponentHelp\` with this component's type
-2. Describe what it does based on the help data
-3. List its most important props with descriptions
-4. Share any tips from the documentation`,
+    prompt: "Explain what the selected component does and what its key properties are.",
   },
   {
     label: "Show examples",
-    prompt: `Show me example configurations for this component:
-
-1. Call \`getComponentHelp\` to get the examples array
-2. Present 2-3 different configurations I could use
-3. Explain what each configuration achieves`,
+    prompt: "Show me example configurations for the selected component type.",
   },
   {
-    label: "What can I add?",
-    prompt: `Help me understand component composition:
-
-1. Call \`getComponentHelp\` for the selected component
-2. Check the relatedComponents list
-3. Explain what components work well with this one
-4. Suggest a logical structure for the page`,
+    label: "Guide me",
+    prompt: "Give me a visual tour of the Puck editor. Show me where the component list, canvas, and properties panel are.",
   },
 ];
 
-/**
- * Extract selected component info from Puck app state
- * Returns undefined if no component is selected or data is unavailable
- */
+/* ------------------------------------------------------------------ */
+/*  Helpers                                                            */
+/* ------------------------------------------------------------------ */
+
 function getSelectedComponentInfo(appState: {
   ui?: { itemSelector?: { index: number; zone?: string | null } | null };
   data?: { content?: Array<{ type: string; props: Record<string, unknown> }> };
 }): SelectedComponent | undefined {
-  // Guard against missing data
   if (!appState?.ui?.itemSelector) return undefined;
   if (!appState?.data?.content) return undefined;
 
@@ -112,7 +148,6 @@ function getSelectedComponentInfo(appState: {
   const { index, zone } = selector;
   const content = appState.data.content;
 
-  // Guard against invalid index
   if (!Array.isArray(content) || index < 0 || index >= content.length) return undefined;
 
   const component = content[index];
@@ -127,15 +162,13 @@ function getSelectedComponentInfo(appState: {
   };
 }
 
-// Get page ID from URL for unique chat sessions
 function getPageId(): string {
   if (typeof window === "undefined") return "default";
   const path = window.location.pathname;
-  // Match multiple patterns for different editor URLs
   const patterns = [
     /\/editor\/([^/]+)/,
     /\/admin\/pages\/([^/]+)\/puck/,
-    /\/admin\/pages\/layout\/([^/]+)/,  // Layout editors (header, footer, announcement)
+    /\/admin\/pages\/layout\/([^/]+)/,
     /\/admin\/email-marketing\/([^/]+)\/design/,
     /\/email\/([^/]+)/,
   ];
@@ -146,36 +179,77 @@ function getPageId(): string {
   return "default";
 }
 
-// LocalStorage key for chat history
 function getChatStorageKey(pageId: string): string {
   return `puck-ai-chat-${pageId}`;
 }
+
+function getTextFromParts(msg: UIMessage): string {
+  if (!msg.parts || !Array.isArray(msg.parts)) return "";
+  return msg.parts
+    .filter((p): p is { type: "text"; text: string } => p.type === "text")
+    .map((p) => p.text)
+    .join("");
+}
+
+function generateId(): string {
+  return `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Apply tool actions to the Puck editor                              */
+/* ------------------------------------------------------------------ */
+
+function findComponentInData(
+  data: Data,
+  componentId: string
+): { zone: string; index: number; component: ComponentData } | null {
+  // Check root content
+  for (let i = 0; i < data.content.length; i++) {
+    if (data.content[i].props?.id === componentId) {
+      return { zone: "content", index: i, component: data.content[i] };
+    }
+  }
+  // Check all zones
+  if (data.zones) {
+    for (const [zoneName, zoneContent] of Object.entries(data.zones)) {
+      if (Array.isArray(zoneContent)) {
+        for (let i = 0; i < zoneContent.length; i++) {
+          if (zoneContent[i].props?.id === componentId) {
+            return { zone: zoneName, index: i, component: zoneContent[i] };
+          }
+        }
+      }
+    }
+  }
+  return null;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Main component                                                     */
+/* ------------------------------------------------------------------ */
 
 function AIChatPluginPanel() {
   const { appState, dispatch } = usePuck();
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
+  const appliedRef = useRef<Set<string>>(new Set());
 
-  // Get page-specific chat ID
   const pageId = useMemo(() => getPageId(), []);
   const chatId = useMemo(() => `puck-ai-chat-${pageId}`, [pageId]);
 
-  // Manage input state ourselves since useChat v6 doesn't provide it
   const [input, setInput] = useState("");
 
-  // Help mode from shared context (set via header button)
   const { helpMode, helpTarget } = useHelpModeOptional();
 
-  // Track recent user actions for context
-  const recentActionsRef = useRef<PuckEditorContext["recentActions"]>([]);
+  // Keep a ref to appState so callbacks always have fresh state
+  const appStateRef = useRef(appState);
+  appStateRef.current = appState;
 
-  // Get currently selected component - use optional chaining in dependencies to prevent errors
   const selectedComponent = useMemo(
     () => getSelectedComponentInfo(appState),
     [appState?.ui?.itemSelector, appState?.data?.content]
   );
 
-  // Build editor context for AI
   const editorContext: PuckEditorContext = useMemo(() => ({
     selectedComponent,
     helpMode,
@@ -184,58 +258,27 @@ function AIChatPluginPanel() {
       componentType: helpTarget.componentType,
       action: "explain" as const,
     } : undefined,
-    recentActions: recentActionsRef.current?.slice(0, 5),
     canUndo: (appState as { history?: { hasPast?: boolean } }).history?.hasPast ?? false,
     canRedo: (appState as { history?: { hasFuture?: boolean } }).history?.hasFuture ?? false,
   }), [selectedComponent, helpMode, helpTarget, appState]);
 
-  // CRITICAL: Keep a ref that always points to current appState
-  // This prevents stale closures when multiple tools execute in sequence
-  // Update synchronously during render, not in useEffect (which runs after render)
-  const appStateRef = useRef(appState);
-  appStateRef.current = appState; // Sync update on every render
+  // Transport sends pageData and editorContext with every message
+  const transport = useMemo(
+    () =>
+      new DefaultChatTransport({
+        api: "/api/puck/chat",
+        prepareSendMessagesRequest: ({ id, messages }) => ({
+          body: {
+            messages,
+            id,
+            pageData: appStateRef.current.data,
+            editorContext,
+          },
+        }),
+      }),
+    [editorContext]
+  );
 
-  // Create tool executors that always read from the ref for fresh state
-  const toolExecutors = useMemo(() => {
-    const wrappedDispatch = (action: { type: string; [key: string]: unknown }) => {
-      dispatch(action as Parameters<typeof dispatch>[0]);
-    };
-    // Pass a getter function instead of static state
-    const getAppState = () => appStateRef.current;
-    return createToolExecutorsWithGetter(getAppState, wrappedDispatch);
-  }, [dispatch]); // Note: appState removed - we use the ref instead
-
-  // Handle tool calls via the onToolCall callback (AI SDK v6 pattern)
-  // This is called automatically when a tool call is received
-  // IMPORTANT: Must RETURN the result, not call addToolOutput
-  // Note: AI SDK v6 uses different property names, so we accept unknown and extract
-  const handleToolCall = useCallback(async ({ toolCall }: { toolCall: unknown }) => {
-    // Extract properties - AI SDK v6 may use 'args' or 'input' depending on version
-    const tc = toolCall as { toolCallId?: string; toolName?: string; args?: Record<string, unknown>; input?: unknown };
-    const toolName = tc.toolName ?? "";
-    const args = (tc.args ?? tc.input ?? {}) as Record<string, unknown>;
-
-    console.log("Tool call received:", toolName, args);
-
-    const executor = toolExecutors[toolName as keyof typeof toolExecutors];
-    if (!executor) {
-      console.warn("No executor for tool:", toolName);
-      return { success: false, message: `Unknown tool: ${toolName}` };
-    }
-
-    try {
-      const result = await executor(args as never);
-      console.log("Tool result:", result);
-      // Return the result - AI SDK will handle sending it back
-      return result;
-    } catch (error) {
-      console.error("Tool execution error:", error);
-      return { success: false, message: `Tool execution failed: ${error}` };
-    }
-  }, [toolExecutors]);
-
-  // Use the official useChat hook with transport for AI SDK v6
-  // Note: maxSteps is configured server-side in the route handler
   const {
     messages,
     status,
@@ -243,26 +286,265 @@ function AIChatPluginPanel() {
     setMessages,
   } = useChat({
     id: chatId,
-    transport: new DefaultChatTransport({
-      api: "/api/puck/chat",
-      prepareSendMessagesRequest(request) {
-        return {
-          body: {
-            ...request.body,
-            pageData: appState.data,
-            editorContext,
-          },
-        };
-      },
-    }),
-    // Cast to bypass strict type checking - runtime behavior is correct
-    onToolCall: handleToolCall as never,
+    transport,
   });
 
-  // Track if initial load has happened
+  /* ---- Apply tool output to the Puck editor ---- */
+  const applyToolAction = useCallback(
+    (toolName: string, output: Record<string, unknown>) => {
+      const data = appStateRef.current.data;
+
+      switch (toolName) {
+        case "setPageContent": {
+          const rawContent = output.content as Array<{ type: string; props: Record<string, unknown>; children?: unknown[] }>;
+          const rawZones = output.zones as Record<string, Array<{ type: string; props: Record<string, unknown> }>> | undefined;
+
+          if (!Array.isArray(rawContent) || rawContent.length === 0) break;
+
+          // Build Puck data from the flat content + zones structure
+          const newContent: ComponentData[] = rawContent.map((c) => ({
+            type: c.type,
+            props: {
+              id: generateId(),
+              ...c.props,
+            },
+          }));
+
+          const newZones: Record<string, ComponentData[]> = {};
+          if (rawZones) {
+            for (const [zoneName, zoneComponents] of Object.entries(rawZones)) {
+              newZones[zoneName] = zoneComponents.map((c) => ({
+                type: c.type,
+                props: {
+                  id: generateId(),
+                  ...c.props,
+                },
+              }));
+            }
+          }
+
+          // Also process children arrays into zones if present
+          for (const comp of rawContent) {
+            if (Array.isArray(comp.children) && comp.children.length > 0) {
+              const parentId = comp.props?.id || (newContent.find(nc => nc.type === comp.type)?.props?.id);
+              if (parentId) {
+                const zoneKey = `${parentId}:content`;
+                if (!newZones[zoneKey]) {
+                  newZones[zoneKey] = [];
+                }
+                for (const child of comp.children as Array<{ type: string; props?: Record<string, unknown>; children?: unknown[] }>) {
+                  const childComponent: ComponentData = {
+                    type: child.type,
+                    props: {
+                      id: generateId(),
+                      ...(child.props || {}),
+                    },
+                  };
+                  newZones[zoneKey].push(childComponent);
+
+                  // Recursively handle grandchildren
+                  if (Array.isArray(child.children) && child.children.length > 0) {
+                    const childZoneKey = `${childComponent.props.id}:content`;
+                    if (!newZones[childZoneKey]) {
+                      newZones[childZoneKey] = [];
+                    }
+                    for (const grandchild of child.children as Array<{ type: string; props?: Record<string, unknown> }>) {
+                      newZones[childZoneKey].push({
+                        type: grandchild.type,
+                        props: {
+                          id: generateId(),
+                          ...(grandchild.props || {}),
+                        },
+                      });
+                    }
+                  }
+                }
+              }
+            }
+          }
+
+          dispatch({
+            type: "set",
+            state: {
+              data: {
+                root: data.root || { props: {} },
+                content: newContent,
+                zones: newZones,
+              },
+            },
+          } as Parameters<typeof dispatch>[0]);
+          break;
+        }
+
+        case "addComponent": {
+          const componentType = output.componentType as string;
+          const props = (output.props || {}) as Record<string, unknown>;
+          const zone = (output.zone as string) || "content";
+          const index = output.index as number | undefined;
+
+          if (!componentType) break;
+
+          // Ensure an ID exists
+          if (!props.id) {
+            props.id = generateId();
+          }
+
+          dispatch({
+            type: "insert",
+            componentType,
+            zone,
+            index: index ?? (zone === "content" ? data.content.length : undefined),
+            props,
+          } as Parameters<typeof dispatch>[0]);
+          break;
+        }
+
+        case "updateComponent": {
+          const componentId = output.componentId as string;
+          const newProps = output.props as Record<string, unknown>;
+          if (!componentId || !newProps) break;
+
+          const found = findComponentInData(data, componentId);
+          if (!found) {
+            console.warn(`Component ${componentId} not found for update`);
+            break;
+          }
+
+          // Use replace to update the component with merged props
+          dispatch({
+            type: "replace",
+            destinationIndex: found.index,
+            destinationZone: found.zone,
+            data: {
+              type: found.component.type,
+              props: {
+                ...found.component.props,
+                ...newProps,
+              },
+            },
+          } as Parameters<typeof dispatch>[0]);
+          break;
+        }
+
+        case "removeComponent": {
+          const componentId = output.componentId as string;
+          if (!componentId) break;
+
+          const found = findComponentInData(data, componentId);
+          if (!found) {
+            console.warn(`Component ${componentId} not found for removal`);
+            break;
+          }
+
+          dispatch({
+            type: "remove",
+            index: found.index,
+            zone: found.zone,
+          } as Parameters<typeof dispatch>[0]);
+          break;
+        }
+
+        case "moveComponent": {
+          const sourceZone = output.sourceZone as string;
+          const sourceIndex = output.sourceIndex as number;
+          const destinationZone = output.destinationZone as string;
+          const destinationIndex = output.destinationIndex as number;
+
+          dispatch({
+            type: "move",
+            source: { index: sourceIndex, zone: sourceZone },
+            destination: { index: destinationIndex, zone: destinationZone },
+          } as Parameters<typeof dispatch>[0]);
+          break;
+        }
+
+        case "highlightElement": {
+          const selector = output.selector as string;
+          const tooltip = output.tooltip as string;
+          const duration = (output.duration as number) || 5000;
+
+          if (!selector) break;
+
+          // Find element by data-tour attribute or CSS selector
+          const el = document.querySelector(`[data-tour="${selector}"]`) || document.querySelector(selector);
+          if (el) {
+            // Create highlight overlay
+            const overlay = document.createElement("div");
+            overlay.className = "ai-highlight-overlay";
+            const rect = el.getBoundingClientRect();
+            Object.assign(overlay.style, {
+              position: "fixed",
+              top: `${rect.top - 4}px`,
+              left: `${rect.left - 4}px`,
+              width: `${rect.width + 8}px`,
+              height: `${rect.height + 8}px`,
+              border: "2px solid #6366f1",
+              borderRadius: "8px",
+              boxShadow: "0 0 0 4000px rgba(0,0,0,0.3)",
+              zIndex: "99999",
+              pointerEvents: "none",
+              transition: "opacity 0.3s ease",
+            });
+
+            // Create tooltip
+            if (tooltip) {
+              const tip = document.createElement("div");
+              Object.assign(tip.style, {
+                position: "absolute",
+                bottom: "-40px",
+                left: "50%",
+                transform: "translateX(-50%)",
+                background: "#6366f1",
+                color: "white",
+                padding: "6px 12px",
+                borderRadius: "6px",
+                fontSize: "12px",
+                fontWeight: "500",
+                whiteSpace: "nowrap",
+                pointerEvents: "none",
+              });
+              tip.textContent = tooltip;
+              overlay.appendChild(tip);
+            }
+
+            document.body.appendChild(overlay);
+            setTimeout(() => {
+              overlay.style.opacity = "0";
+              setTimeout(() => overlay.remove(), 300);
+            }, duration);
+          }
+          break;
+        }
+      }
+    },
+    [dispatch]
+  );
+
+  /* ---- Watch messages for completed tool calls ---- */
+  useEffect(() => {
+    for (const msg of messages) {
+      if (msg.role !== "assistant" || !msg.parts) continue;
+      for (const part of msg.parts) {
+        if (!isToolUIPart(part)) continue;
+        if (part.state !== "output-available") continue;
+        if (appliedRef.current.has(part.toolCallId)) continue;
+
+        appliedRef.current.add(part.toolCallId);
+
+        // Extract tool name from the part type (format: "tool-toolName")
+        const toolName = part.type.replace("tool-", "");
+        const output = (part as unknown as { output?: Record<string, unknown> }).output;
+        if (output) {
+          console.log("[AI Chat] Applying tool action:", toolName, output);
+          applyToolAction(toolName, output);
+        }
+      }
+    }
+  }, [messages, applyToolAction]);
+
+  /* ---- Load/save chat history ---- */
   const hasLoadedRef = useRef(false);
 
-  // Load messages from localStorage on mount
   useEffect(() => {
     if (hasLoadedRef.current) return;
     hasLoadedRef.current = true;
@@ -282,7 +564,6 @@ function AIChatPluginPanel() {
 
   const isLoading = status === "streaming" || status === "submitted";
 
-  // Save messages to localStorage when they change
   useEffect(() => {
     if (messages.length > 0) {
       try {
@@ -293,74 +574,55 @@ function AIChatPluginPanel() {
     }
   }, [messages, pageId]);
 
-  // Auto-scroll to bottom when new messages arrive
+  /* ---- Auto-scroll ---- */
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
+  }, [messages, status]);
 
-  // Clear chat history
+  /* ---- Clear chat ---- */
   const handleClearHistory = useCallback(() => {
     try {
       localStorage.removeItem(getChatStorageKey(pageId));
       setMessages([]);
+      appliedRef.current.clear();
     } catch (e) {
       console.error("Failed to clear chat history:", e);
     }
   }, [pageId, setMessages]);
 
-  // Handle quick prompt click
+  /* ---- Quick prompt ---- */
   const handleQuickPrompt = (prompt: string) => {
     setInput(prompt);
     inputRef.current?.focus();
   };
 
-  // Handle form submit
+  /* ---- Submit ---- */
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!input.trim() || isLoading) return;
-
     const messageText = input;
     setInput("");
-
-    // Send message using the text format
     await sendMessage({ text: messageText });
   };
 
-  // Handle Enter to submit, Shift+Enter for new line
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
       onSubmit(e);
     }
-    // Shift+Enter allows default behavior (new line)
   };
 
-  // Get text content from message
-  const getMessageText = (message: UIMessage) => {
-    if (!message.parts) return "";
-    return message.parts
-      .filter((p): p is { type: "text"; text: string } => p.type === "text")
-      .map(p => p.text)
-      .join("");
-  };
-
-  // Get tool parts from message (handles multiple AI SDK formats)
-  const getToolParts = (message: UIMessage) => {
+  /* ---- Get tool parts from a message ---- */
+  const getToolParts = (message: UIMessage): ToolUIPart[] => {
     if (!message.parts) return [];
-    // Check for various tool part type formats
-    // Cast to string to handle various SDK versions
-    return message.parts.filter(p => {
-      const typeStr = p.type as string;
-      return typeStr.startsWith("tool-") ||
-        typeStr === "tool_call" ||
-        typeStr === "tool-call" ||
-        typeStr === "tool-invocation";
-    });
+    return message.parts.filter(
+      (p): p is ToolUIPart => isToolUIPart(p)
+    );
   };
 
   return (
     <div className="ai-chat-panel">
-      {/* Header with selected component and clear button */}
+      {/* Header */}
       <div className="ai-chat-header">
         <div className="ai-chat-header-left">
           {selectedComponent && (
@@ -414,9 +676,9 @@ function AIChatPluginPanel() {
             <p className="ai-chat-empty-desc">
               {helpMode
                 ? selectedComponent
-                  ? `Ask about the selected ${selectedComponent.type} component. I'll explain how to edit it manually.`
-                  : "Select a component in the editor, then ask me how to edit it manually."
-                : "Ask me to add components, edit content, or generate layouts for your page."
+                  ? `Ask about the selected ${selectedComponent.type} component. I'll explain how to edit it.`
+                  : "Select a component in the editor, then ask me how to edit it."
+                : "Ask me to build pages, add components, edit content, or rearrange layouts."
               }
             </p>
             <div className="ai-quick-prompts">
@@ -434,49 +696,47 @@ function AIChatPluginPanel() {
           </div>
         ) : (
           <>
-            {messages.map((message) => (
-              <div
-                key={message.id}
-                className={`ai-chat-message ${message.role === "user" ? "ai-chat-message-user" : "ai-chat-message-assistant"}`}
-              >
-                {message.role === "assistant" && (
+            {messages.map((message) => {
+              const text = getTextFromParts(message);
+              const toolParts = getToolParts(message);
+
+              if (message.role === "user") {
+                return (
+                  <div key={message.id} className="ai-chat-message ai-chat-message-user">
+                    <div className="ai-chat-content">
+                      <div className="ai-chat-text">{text}</div>
+                    </div>
+                  </div>
+                );
+              }
+
+              return (
+                <div key={message.id} className="ai-chat-message ai-chat-message-assistant">
                   <div className="ai-chat-avatar">
                     <SparklesIcon />
                   </div>
-                )}
-                <div className="ai-chat-content">
-                  {/* Show tool calls if any */}
-                  {getToolParts(message).length > 0 && (
-                    <div className="ai-chat-tools">
-                      {getToolParts(message).map((part, idx) => {
-                        const toolPart = part as unknown as { type: string; toolName?: string; state?: string; output?: { success?: boolean } };
-                        return (
-                          <div key={idx} className="ai-chat-tool">
-                            <ToolIcon />
-                            <span className="ai-chat-tool-name">
-                              {formatToolName(toolPart.toolName || "unknown")}
-                            </span>
-                            {toolPart.state === "output-available" && (
-                              <span className={`ai-chat-tool-status ${toolPart.output?.success ? "success" : "error"}`}>
-                                {toolPart.output?.success ? "\u2713" : "\u2717"}
-                              </span>
-                            )}
-                            {(toolPart.state === "input-available" || toolPart.state === "input-streaming") && (
-                              <span className="ai-chat-tool-status pending">...</span>
-                            )}
-                          </div>
-                        );
-                      })}
-                    </div>
-                  )}
-                  {/* Message content */}
-                  {getMessageText(message) && (
-                    <div className="ai-chat-text">{getMessageText(message)}</div>
-                  )}
+                  <div className="ai-chat-content">
+                    {/* Tool call badges */}
+                    {toolParts.length > 0 && (
+                      <div className="ai-chat-tools">
+                        {toolParts.map((part) => (
+                          <ToolCallBubble
+                            key={part.toolCallId}
+                            toolName={part.type.replace("tool-", "")}
+                            state={part.state}
+                          />
+                        ))}
+                      </div>
+                    )}
+                    {/* Text content */}
+                    {text && (
+                      <div className="ai-chat-text">{text}</div>
+                    )}
+                  </div>
                 </div>
-              </div>
-            ))}
-            {isLoading && (
+              );
+            })}
+            {isLoading && messages[messages.length - 1]?.role !== "assistant" && (
               <div className="ai-chat-message ai-chat-message-assistant">
                 <div className="ai-chat-avatar">
                   <SparklesIcon />
@@ -502,7 +762,7 @@ function AIChatPluginPanel() {
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={handleKeyDown}
-          placeholder="Ask AI to edit your page..."
+          placeholder={helpMode ? "Ask about the editor..." : "Ask AI to edit your page..."}
           className="ai-chat-input"
           rows={2}
           disabled={isLoading}
@@ -771,10 +1031,22 @@ function AIChatPluginPanel() {
           align-items: center;
           gap: 4px;
           padding: 4px 8px;
-          background: #f3f4f6;
+          background: #f0fdf4;
+          border: 1px solid #bbf7d0;
           border-radius: 4px;
           font-size: 11px;
-          color: #6b7280;
+          color: #166534;
+        }
+
+        .ai-chat-tool.errored {
+          background: #fef2f2;
+          border-color: #fecaca;
+          color: #991b1b;
+        }
+
+        .ai-chat-tool-icon {
+          font-size: 12px;
+          font-weight: 600;
         }
 
         .ai-chat-tool-name {
@@ -783,6 +1055,7 @@ function AIChatPluginPanel() {
 
         .ai-chat-tool-status {
           font-weight: 600;
+          margin-left: 2px;
         }
 
         .ai-chat-tool-status.success {
@@ -793,8 +1066,13 @@ function AIChatPluginPanel() {
           color: #ef4444;
         }
 
-        .ai-chat-tool-status.pending {
-          color: #f59e0b;
+        .ai-chat-spinner {
+          animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
         }
 
         .ai-chat-typing {
@@ -894,15 +1172,6 @@ function AIChatPluginPanel() {
       `}</style>
     </div>
   );
-}
-
-// Helper to format tool names for display
-function formatToolName(name: string): string {
-  return name
-    .replace(/([A-Z])/g, " $1")
-    .trim()
-    .toLowerCase()
-    .replace(/^./, (s) => s.toUpperCase());
 }
 
 // Export the plugin
