@@ -10,8 +10,6 @@ export function RoleGuard({ children }: { children: React.ReactNode }) {
   const user = useUser();
   const [role, setRole] = useState<UserRole>(null);
   const [loading, setLoading] = useState(true);
-  const [setupRequired, setSetupRequired] = useState(false);
-  const [promoting, setPromoting] = useState(false);
 
   useEffect(() => {
     if (!user) {
@@ -21,19 +19,12 @@ export function RoleGuard({ children }: { children: React.ReactNode }) {
 
     async function checkRole() {
       try {
-        const [roleRes, setupRes] = await Promise.all([
-          fetch("/api/admin/users"),
-          fetch("/api/setup"),
-        ]);
-
-        if (roleRes.ok) {
-          const data = await roleRes.json();
+        const res = await fetch("/api/admin/users");
+        if (res.ok) {
+          const data = await res.json();
           setRole(data.role);
-        }
-
-        if (setupRes.ok) {
-          const setupData = await setupRes.json();
-          setSetupRequired(setupData.setupRequired);
+        } else {
+          setRole("viewer");
         }
       } catch {
         setRole("viewer");
@@ -44,21 +35,6 @@ export function RoleGuard({ children }: { children: React.ReactNode }) {
 
     checkRole();
   }, [user]);
-
-  const handleSetup = async () => {
-    setPromoting(true);
-    try {
-      const res = await fetch("/api/setup", { method: "POST" });
-      if (res.ok) {
-        setRole("admin");
-        setSetupRequired(false);
-      }
-    } catch {
-      // ignore
-    } finally {
-      setPromoting(false);
-    }
-  };
 
   if (loading) {
     return (
@@ -89,39 +65,6 @@ export function RoleGuard({ children }: { children: React.ReactNode }) {
     );
   }
 
-  // First-time setup: no admin exists yet
-  if (setupRequired && (role === "viewer" || !role)) {
-    return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <div className="text-center space-y-4 max-w-md px-4">
-          <ShieldAlert className="h-12 w-12 text-amber-500 mx-auto" />
-          <h2 className="text-xl font-semibold">First-Time Setup</h2>
-          <p className="text-muted-foreground">
-            No admin user exists yet. Click below to make yourself the admin.
-          </p>
-          <p className="text-sm text-muted-foreground">
-            Signed in as: <strong>{user.primaryEmail}</strong>
-          </p>
-          <button
-            onClick={handleSetup}
-            disabled={promoting}
-            className="inline-flex items-center justify-center rounded-lg bg-primary text-primary-foreground px-6 py-3 text-sm font-medium hover:bg-primary/90 disabled:opacity-50"
-          >
-            {promoting ? (
-              <>
-                <Loader2 className="h-4 w-4 animate-spin mr-2" />
-                Promoting...
-              </>
-            ) : (
-              "Make Me Admin"
-            )}
-          </button>
-        </div>
-      </div>
-    );
-  }
-
-  // User exists but doesn't have admin/editor role
   if (role !== "admin" && role !== "editor") {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
