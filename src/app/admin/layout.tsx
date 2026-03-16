@@ -1,5 +1,6 @@
 import { Suspense } from "react";
 import { AdminShell } from "./AdminShell";
+import { RoleGuard } from "@/components/admin/RoleGuard";
 
 export const dynamic = "force-dynamic";
 
@@ -17,7 +18,9 @@ function AdminLoadingFallback() {
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   return (
     <Suspense fallback={<AdminLoadingFallback />}>
-      <AdminShell>{children}</AdminShell>
+      <RoleGuard>
+        <AdminShell>{children}</AdminShell>
+      </RoleGuard>
     </Suspense>
   );
 }
