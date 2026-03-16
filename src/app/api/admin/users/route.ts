@@ -1,9 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import { stackServerApp } from "@/lib/stack";
 import { syncUser } from "@/lib/auth/sync";
+import { prisma } from "@/lib/db";
 
 /**
- * GET /api/admin/users - Get current user's role and sync to local DB
+ * GET /api/admin/users - Get current user's role
+ * Checks Stack Auth metadata first, falls back to local DB
  */
 export async function GET() {
   try {
@@ -12,15 +14,45 @@ export async function GET() {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
+    // Check Stack Auth metadata for role
     const metadata = (user.serverMetadata as Record<string, unknown>) || {};
-    const role = metadata.role || "viewer";
+    let role = metadata.role as string | undefined;
 
-    // Sync user to local database on every role check
+    // Fallback: check local DB
+    if (!role || role === "viewer") {
+      const dbUser = await prisma.user.findUnique({
+        where: { id: user.id },
+      });
+      if (dbUser) {
+        role = dbUser.role.toLowerCase();
+      }
+
+      // Also check by email if ID doesn't match
+      if (!dbUser && user.primaryEmail) {
+        const dbUserByEmail = await prisma.user.findUnique({
+          where: { email: user.primaryEmail },
+        });
+        if (dbUserByEmail) {
+          role = dbUserByEmail.role.toLowerCase();
+          // Update the DB record to use the Stack Auth ID
+          await prisma.user.update({
+            where: { email: user.primaryEmail },
+            data: { id: user.id },
+          }).catch(() => {
+            // If ID conflict, just use the existing record
+          });
+        }
+      }
+    }
+
+    if (!role) role = "viewer";
+
+    // Sync user to local database
     await syncUser({
       id: user.id,
       primaryEmail: user.primaryEmail,
       displayName: user.displayName,
-      serverMetadata: metadata,
+      serverMetadata: { role },
     });
 
     return NextResponse.json({
@@ -29,7 +61,8 @@ export async function GET() {
       name: user.displayName,
       role,
     });
-  } catch {
+  } catch (error) {
+    console.error("User role check error:", error);
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 }
@@ -45,8 +78,15 @@ export async function PUT(request: NextRequest) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
+    // Check current user is admin (from Stack Auth or DB)
     const currentMetadata = (currentUser.serverMetadata as Record<string, unknown>) || {};
-    if (currentMetadata.role !== "admin") {
+    let currentRole = currentMetadata.role as string | undefined;
+    if (!currentRole || currentRole !== "admin") {
+      const dbUser = await prisma.user.findUnique({ where: { id: currentUser.id } });
+      if (dbUser?.role === "ADMIN") currentRole = "admin";
+    }
+
+    if (currentRole !== "admin") {
       return NextResponse.json({ error: "Forbidden: admin only" }, { status: 403 });
     }
 
@@ -55,22 +95,23 @@ export async function PUT(request: NextRequest) {
       return NextResponse.json({ error: "Invalid role" }, { status: 400 });
     }
 
-    const targetUser = await stackServerApp.getUser(userId);
-    if (!targetUser) {
-      return NextResponse.json({ error: "User not found" }, { status: 404 });
+    // Update in Stack Auth
+    try {
+      const targetUser = await stackServerApp.getUser(userId);
+      if (targetUser) {
+        await targetUser.update({
+          serverMetadata: { ...((targetUser.serverMetadata as Record<string, unknown>) || {}), role },
+        });
+      }
+    } catch (e) {
+      console.warn("Could not update Stack Auth metadata:", e);
     }
 
-    // Update role in Stack Auth
-    await targetUser.update({
-      serverMetadata: { ...((targetUser.serverMetadata as Record<string, unknown>) || {}), role },
-    });
-
-    // Sync to local database
-    await syncUser({
-      id: targetUser.id,
-      primaryEmail: targetUser.primaryEmail,
-      displayName: targetUser.displayName,
-      serverMetadata: { role },
+    // Update in local DB
+    const prismaRole = role.toUpperCase() as any;
+    await prisma.user.updateMany({
+      where: { id: userId },
+      data: { role: prismaRole },
     });
 
     return NextResponse.json({ success: true, userId, role });

@@ -1,12 +1,12 @@
 import { NextResponse } from "next/server";
 import { stackServerApp } from "@/lib/stack";
 import { syncUser } from "@/lib/auth/sync";
+import { prisma } from "@/lib/db";
 
 /**
  * POST /api/setup - Promote the currently signed-in user to admin
  *
  * This only works if NO user has the admin role yet (first-time setup).
- * After the first admin is created, this endpoint is disabled.
  */
 export async function POST() {
   try {
@@ -15,11 +15,9 @@ export async function POST() {
       return NextResponse.json({ error: "Sign in first" }, { status: 401 });
     }
 
-    // Check if any admin already exists by listing users
-    const allUsers = await stackServerApp.listUsers();
-    const existingAdmin = allUsers.items.find((u: any) => {
-      const meta = (u.serverMetadata as Record<string, unknown>) || {};
-      return meta.role === "admin";
+    // Check if any admin exists in local DB
+    const existingAdmin = await prisma.user.findFirst({
+      where: { role: "ADMIN" },
     });
 
     if (existingAdmin) {
@@ -30,11 +28,15 @@ export async function POST() {
     }
 
     // Promote current user to admin in Stack Auth
-    await user.update({
-      serverMetadata: { ...((user.serverMetadata as Record<string, unknown>) || {}), role: "admin" },
-    });
+    try {
+      await user.update({
+        serverMetadata: { ...((user.serverMetadata as Record<string, unknown>) || {}), role: "admin" },
+      });
+    } catch (e) {
+      console.warn("Could not update Stack Auth metadata:", e);
+    }
 
-    // Sync to local database
+    // Sync to local database as admin
     await syncUser({
       id: user.id,
       primaryEmail: user.primaryEmail,
@@ -57,15 +59,16 @@ export async function POST() {
  */
 export async function GET() {
   try {
-    const allUsers = await stackServerApp.listUsers();
-    const existingAdmin = allUsers.items.find((u: any) => {
-      const meta = (u.serverMetadata as Record<string, unknown>) || {};
-      return meta.role === "admin";
+    // Check local DB for admin — more reliable than Stack Auth listUsers
+    const existingAdmin = await prisma.user.findFirst({
+      where: { role: "ADMIN" },
     });
+
+    const totalUsers = await prisma.user.count();
 
     return NextResponse.json({
       setupRequired: !existingAdmin,
-      totalUsers: allUsers.items.length,
+      totalUsers,
     });
   } catch (error) {
     console.error("Setup check error:", error);
