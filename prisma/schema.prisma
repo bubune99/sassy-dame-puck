@@ -137,7 +137,7 @@ model MediaTagOnMedia {
   tag     MediaTag @relation(fields: [tagId], references: [id], onDelete: Cascade)
 
   @@id([mediaId, tagId])
-  @@map("media_tag_on_media")
+  @@map("media_tags_on_media")
 }
 
 model MediaUsage {
@@ -151,7 +151,7 @@ model MediaUsage {
 
   @@index([mediaId])
   @@index([entityType, entityId])
-  @@map("media_usages")
+  @@map("media_usage")
 }
 
 model Setting {
