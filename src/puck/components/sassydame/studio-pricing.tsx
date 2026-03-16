@@ -6,11 +6,49 @@ import { Button } from '@/components/ui/button'
 import { GlowingBorder } from './effects/glowing-border'
 import { DropZone } from "@puckeditor/core";
 
-export function StudioPricing() {
+export interface StudioPricingProps {
+  heading?: string;
+  headingHighlight?: string;
+  subheading?: string;
+  pkg1Name?: string;
+  pkg1Duration?: string;
+  pkg1Price?: number;
+  pkg1Features?: string;
+  pkg2Name?: string;
+  pkg2Duration?: string;
+  pkg2Price?: number;
+  pkg2Features?: string;
+  pkg3Name?: string;
+  pkg3Duration?: string;
+  pkg3Price?: number;
+  pkg3Features?: string;
+  buttonText?: string;
+  buttonLink?: string;
+}
+
+export function StudioPricing({
+  heading = "Simple",
+  headingHighlight = "Pricing",
+  subheading = "Pay for the time you need -- no memberships, no commitments",
+  pkg1Name = "Craft Hour",
+  pkg1Duration = "1 Hour",
+  pkg1Price = 25,
+  pkg1Features = "Crafting workspace access, Basic tools & supplies, Cutting machines, Quick projects",
+  pkg2Name = "Half Day Studio",
+  pkg2Duration = "4 Hours",
+  pkg2Price = 80,
+  pkg2Features = "Full studio access, All tools & equipment, Heat press usage, Cutting machines, Coffee/tea included, Project storage",
+  pkg3Name = "Full Day Creative",
+  pkg3Duration = "8 Hours",
+  pkg3Price = 140,
+  pkg3Features = "Complete studio access, All equipment & tools, Priority booking, Lunch included, Project storage, Expert assistance",
+  buttonText = "Book Now",
+  buttonLink = "/contact",
+}: StudioPricingProps) {
   const packages = [
-    { name: 'Craft Hour', duration: '1 Hour', price: 25, features: ['Crafting workspace access', 'Basic tools & supplies', 'Cutting machines', 'Quick projects'], popular: false },
-    { name: 'Half Day Studio', duration: '4 Hours', price: 80, features: ['Full studio access', 'All tools & equipment', 'Heat press usage', 'Cutting machines', 'Coffee/tea included', 'Project storage'], popular: true },
-    { name: 'Full Day Creative', duration: '8 Hours', price: 140, features: ['Complete studio access', 'All equipment & tools', 'Priority booking', 'Lunch included', 'Project storage', 'Expert assistance'], popular: false },
+    { name: pkg1Name, duration: pkg1Duration, price: pkg1Price, features: pkg1Features.split(', '), popular: false },
+    { name: pkg2Name, duration: pkg2Duration, price: pkg2Price, features: pkg2Features.split(', '), popular: true },
+    { name: pkg3Name, duration: pkg3Duration, price: pkg3Price, features: pkg3Features.split(', '), popular: false },
   ]
 
   return (
@@ -18,9 +56,9 @@ export function StudioPricing() {
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="font-serif text-4xl md:text-5xl font-bold mb-4 text-[#2d2418]">
-            Simple <span className="text-sassy-periwinkle">Pricing</span>
+            {heading} <span className="text-sassy-periwinkle">{headingHighlight}</span>
           </h2>
-          <p className="text-[#6b5c4d]">Pay for the time you need -- no memberships, no commitments</p>
+          <p className="text-[#6b5c4d]">{subheading}</p>
         </div>
 
         <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
@@ -55,8 +93,8 @@ export function StudioPricing() {
                         </li>
                       ))}
                     </ul>
-                    <Button className="w-full rounded-full bg-sassy-periwinkle hover:bg-sassy-periwinkle/90 text-white" onClick={() => window.location.href = '/contact'}>
-                      Book Now
+                    <Button className="w-full rounded-full bg-sassy-periwinkle hover:bg-sassy-periwinkle/90 text-white" onClick={() => window.location.href = buttonLink}>
+                      {buttonText}
                     </Button>
                   </div>
                 </GlowingBorder>
@@ -79,8 +117,8 @@ export function StudioPricing() {
                       </li>
                     ))}
                   </ul>
-                  <Button className="w-full rounded-full" variant="outline" onClick={() => window.location.href = '/contact'}>
-                    Book Now
+                  <Button className="w-full rounded-full" variant="outline" onClick={() => window.location.href = buttonLink}>
+                    {buttonText}
                   </Button>
                 </div>
               )}

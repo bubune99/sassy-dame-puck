@@ -6,58 +6,6 @@ import { Star, Quote, ChevronLeft, ChevronRight, ExternalLink } from 'lucide-rea
 import { Button } from '@/components/ui/button'
 import { DropZone } from "@puckeditor/core";
 
-// Demo reviews - these would be fetched from Google Places API in production
-const demoReviews = [
-  {
-    id: '1',
-    author: 'Sarah M.',
-    rating: 5,
-    text: 'Absolutely love this shop! The DTF transfers are top quality and the staff is incredibly helpful. They helped me design my first gang sheet and it came out perfect!',
-    date: '2 weeks ago',
-    avatar: 'S',
-  },
-  {
-    id: '2',
-    author: 'Marcus J.',
-    rating: 5,
-    text: 'Best craft store in the area! Took a sublimation class here and learned so much. The instructors are patient and knowledgeable. Will definitely be back for more workshops.',
-    date: '1 month ago',
-    avatar: 'M',
-  },
-  {
-    id: '3',
-    author: 'Jennifer L.',
-    rating: 5,
-    text: 'The UV stickers I ordered exceeded my expectations! Great color vibrancy and they shipped super fast. Customer service was excellent when I had questions.',
-    date: '3 weeks ago',
-    avatar: 'J',
-  },
-  {
-    id: '4',
-    author: 'David R.',
-    rating: 5,
-    text: 'Rented their studio space for a craft party and it was amazing! Everything was set up and ready to go. The kids had a blast and the staff was so accommodating.',
-    date: '1 month ago',
-    avatar: 'D',
-  },
-  {
-    id: '5',
-    author: 'Ashley K.',
-    rating: 5,
-    text: 'My go-to for all crafting supplies! The blanks are high quality and prices are fair. Love supporting this local business - they truly care about their customers.',
-    date: '2 months ago',
-    avatar: 'A',
-  },
-  {
-    id: '6',
-    author: 'Michael T.',
-    rating: 5,
-    text: 'Started my small t-shirt business thanks to SassyDame! They taught me everything about DTF printing and always have the supplies I need in stock.',
-    date: '1 month ago',
-    avatar: 'M',
-  },
-]
-
 function StarRating({ rating }: { rating: number }) {
   return (
     <div className="flex items-center gap-0.5">
@@ -73,7 +21,68 @@ function StarRating({ rating }: { rating: number }) {
   )
 }
 
-export function GoogleReviewsSection() {
+export function GoogleReviewsSection({
+  ratingValue = "4.9",
+  reviewCountText = "(127 reviews)",
+  headingPrefix = "What Our",
+  headingHighlight = "Customers Say",
+  subheading = "Real reviews from real crafters in our community",
+  review1Text = "Absolutely love this shop! The DTF transfers are top quality and the staff is incredibly helpful. They helped me design my first gang sheet and it came out perfect!",
+  review1Author = "Sarah M.",
+  review1Date = "2 weeks ago",
+  review2Text = "Best craft store in the area! Took a sublimation class here and learned so much. The instructors are patient and knowledgeable. Will definitely be back for more workshops.",
+  review2Author = "Marcus J.",
+  review2Date = "1 month ago",
+  review3Text = "The UV stickers I ordered exceeded my expectations! Great color vibrancy and they shipped super fast. Customer service was excellent when I had questions.",
+  review3Author = "Jennifer L.",
+  review3Date = "3 weeks ago",
+  review4Text = "Rented their studio space for a craft party and it was amazing! Everything was set up and ready to go. The kids had a blast and the staff was so accommodating.",
+  review4Author = "David R.",
+  review4Date = "1 month ago",
+  review5Text = "My go-to for all crafting supplies! The blanks are high quality and prices are fair. Love supporting this local business - they truly care about their customers.",
+  review5Author = "Ashley K.",
+  review5Date = "2 months ago",
+  review6Text = "Started my small t-shirt business thanks to SassyDame! They taught me everything about DTF printing and always have the supplies I need in stock.",
+  review6Author = "Michael T.",
+  review6Date = "1 month ago",
+  reviewButtonText = "Leave Us a Review",
+  reviewButtonLink = "https://g.page/r/YOUR_GOOGLE_PLACE_ID/review",
+}: {
+  ratingValue?: string;
+  reviewCountText?: string;
+  headingPrefix?: string;
+  headingHighlight?: string;
+  subheading?: string;
+  review1Text?: string;
+  review1Author?: string;
+  review1Date?: string;
+  review2Text?: string;
+  review2Author?: string;
+  review2Date?: string;
+  review3Text?: string;
+  review3Author?: string;
+  review3Date?: string;
+  review4Text?: string;
+  review4Author?: string;
+  review4Date?: string;
+  review5Text?: string;
+  review5Author?: string;
+  review5Date?: string;
+  review6Text?: string;
+  review6Author?: string;
+  review6Date?: string;
+  reviewButtonText?: string;
+  reviewButtonLink?: string;
+}) {
+  const demoReviews = [
+    { id: '1', author: review1Author, rating: 5, text: review1Text, date: review1Date, avatar: review1Author.charAt(0) },
+    { id: '2', author: review2Author, rating: 5, text: review2Text, date: review2Date, avatar: review2Author.charAt(0) },
+    { id: '3', author: review3Author, rating: 5, text: review3Text, date: review3Date, avatar: review3Author.charAt(0) },
+    { id: '4', author: review4Author, rating: 5, text: review4Text, date: review4Date, avatar: review4Author.charAt(0) },
+    { id: '5', author: review5Author, rating: 5, text: review5Text, date: review5Date, avatar: review5Author.charAt(0) },
+    { id: '6', author: review6Author, rating: 5, text: review6Text, date: review6Date, avatar: review6Author.charAt(0) },
+  ]
+
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isAutoPlaying, setIsAutoPlaying] = useState(true)
   const reviewsPerPage = 3
@@ -115,20 +124,20 @@ export function GoogleReviewsSection() {
               <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
             </svg>
             <div className="flex items-center gap-2">
-              <span className="font-bold text-lg">4.9</span>
+              <span className="font-bold text-lg">{ratingValue}</span>
               <StarRating rating={5} />
-              <span className="text-muted-foreground text-sm">(127 reviews)</span>
+              <span className="text-muted-foreground text-sm">{reviewCountText}</span>
             </div>
           </div>
 
           <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
-            What Our{' '}
+            {headingPrefix}{' '}
             <span className="bg-gradient-to-r from-sassy-gold via-sassy-orange to-sassy-coral bg-clip-text text-transparent">
-              Customers Say
+              {headingHighlight}
             </span>
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Real reviews from real crafters in our community
+            {subheading}
           </p>
         </motion.div>
 
@@ -233,12 +242,12 @@ export function GoogleReviewsSection() {
             className="border-sassy-gold text-sassy-gold hover:bg-sassy-gold hover:text-foreground"
           >
             <a
-              href="https://g.page/r/YOUR_GOOGLE_PLACE_ID/review"
+              href={reviewButtonLink}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center"
             >
-              Leave Us a Review
+              {reviewButtonText}
               <ExternalLink className="ml-2 h-4 w-4" />
             </a>
           </Button>

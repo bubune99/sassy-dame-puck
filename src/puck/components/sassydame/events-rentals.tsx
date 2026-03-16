@@ -7,26 +7,82 @@ import { GlowingBorder } from './effects/glowing-border'
 import { cn } from '@/lib/utils'
 import { DropZone } from "@puckeditor/core";
 
-export function EventsRentals() {
+export interface EventsRentalsProps {
+  badgeText: string;
+  sectionHeading: string;
+  sectionHeadingHighlight: string;
+  sectionDescription: string;
+  rental1Title: string;
+  rental1Subtitle: string;
+  rental1Description: string;
+  rental1Feature1: string;
+  rental1Feature2: string;
+  rental1Feature3: string;
+  rental1Feature4: string;
+  rental1Feature5: string;
+  rental1Feature6: string;
+  rental1Price: string;
+  rental2Title: string;
+  rental2Subtitle: string;
+  rental2Description: string;
+  rental2Feature1: string;
+  rental2Feature2: string;
+  rental2Feature3: string;
+  rental2Feature4: string;
+  rental2Feature5: string;
+  rental2Feature6: string;
+  rental2Price: string;
+  bookButtonText: string;
+  bookButtonLink: string;
+}
+
+export function EventsRentals({
+  badgeText = 'Space & Hall Rentals',
+  sectionHeading = 'Your Event,',
+  sectionHeadingHighlight = 'Our Space',
+  sectionDescription = 'Whether you need a cozy studio for a craft night or a full hall for a celebration, we have the perfect venue for you.',
+  rental1Title = 'Studio Space Rental',
+  rental1Subtitle = 'Perfect for intimate gatherings',
+  rental1Description = 'Our creative studio seats up to 20 guests with full access to crafting equipment, tables, and a cozy atmosphere. Ideal for workshops, small parties, team building sessions, and craft nights.',
+  rental1Feature1 = 'Up to 20 guests',
+  rental1Feature2 = 'Crafting equipment included',
+  rental1Feature3 = 'Tables & chairs provided',
+  rental1Feature4 = 'Kitchenette access',
+  rental1Feature5 = 'Wi-Fi & sound system',
+  rental1Feature6 = 'Flexible hours',
+  rental1Price = 'Starting at $75/hr',
+  rental2Title = 'Hall Rental',
+  rental2Subtitle = 'For larger celebrations & events',
+  rental2Description = 'Our spacious event hall accommodates up to 100 guests with a stage area, dance floor, and full catering prep space. Perfect for receptions, reunions, community events, and large parties.',
+  rental2Feature1 = 'Up to 100 guests',
+  rental2Feature2 = 'Stage & dance floor',
+  rental2Feature3 = 'Catering prep kitchen',
+  rental2Feature4 = 'AV equipment & projector',
+  rental2Feature5 = 'Customizable layout',
+  rental2Feature6 = 'On-site event support',
+  rental2Price = 'Starting at $200/hr',
+  bookButtonText = 'Book Now',
+  bookButtonLink = '/events-space-rentals',
+}: EventsRentalsProps) {
   const rentals = [
     {
       icon: Building2,
-      title: 'Studio Space Rental',
-      subtitle: 'Perfect for intimate gatherings',
-      desc: 'Our creative studio seats up to 20 guests with full access to crafting equipment, tables, and a cozy atmosphere. Ideal for workshops, small parties, team building sessions, and craft nights.',
-      features: ['Up to 20 guests', 'Crafting equipment included', 'Tables & chairs provided', 'Kitchenette access', 'Wi-Fi & sound system', 'Flexible hours'],
-      price: 'Starting at $75/hr',
+      title: rental1Title,
+      subtitle: rental1Subtitle,
+      desc: rental1Description,
+      features: [rental1Feature1, rental1Feature2, rental1Feature3, rental1Feature4, rental1Feature5, rental1Feature6],
+      price: rental1Price,
       gradient: 'from-sassy-teal to-sassy-periwinkle',
       shadowColor: 'shadow-sassy-teal/20',
       btnColor: 'from-sassy-teal to-sassy-periwinkle',
     },
     {
       icon: Warehouse,
-      title: 'Hall Rental',
-      subtitle: 'For larger celebrations & events',
-      desc: 'Our spacious event hall accommodates up to 100 guests with a stage area, dance floor, and full catering prep space. Perfect for receptions, reunions, community events, and large parties.',
-      features: ['Up to 100 guests', 'Stage & dance floor', 'Catering prep kitchen', 'AV equipment & projector', 'Customizable layout', 'On-site event support'],
-      price: 'Starting at $200/hr',
+      title: rental2Title,
+      subtitle: rental2Subtitle,
+      desc: rental2Description,
+      features: [rental2Feature1, rental2Feature2, rental2Feature3, rental2Feature4, rental2Feature5, rental2Feature6],
+      price: rental2Price,
       gradient: 'from-sassy-orange to-sassy-coral',
       shadowColor: 'shadow-sassy-orange/20',
       btnColor: 'from-sassy-orange to-sassy-coral',
@@ -47,13 +103,13 @@ export function EventsRentals() {
           className="text-center mb-16"
         >
           <span className="inline-block bg-gradient-to-r from-sassy-teal to-sassy-periwinkle text-white text-sm px-5 py-2 rounded-full mb-6 font-bold">
-            Space & Hall Rentals
+            {badgeText}
           </span>
           <h2 className="font-serif text-4xl md:text-6xl font-bold mb-5">
-            Your Event, <span className="bg-gradient-to-r from-sassy-teal via-sassy-periwinkle to-sassy-orange bg-clip-text text-transparent">Our Space</span>
+            {sectionHeading} <span className="bg-gradient-to-r from-sassy-teal via-sassy-periwinkle to-sassy-orange bg-clip-text text-transparent">{sectionHeadingHighlight}</span>
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Whether you need a cozy studio for a craft night or a full hall for a celebration, we have the perfect venue for you.
+            {sectionDescription}
           </p>
         </motion.div>
 
@@ -93,8 +149,8 @@ export function EventsRentals() {
                       <div>
                         <span className="text-2xl font-bold bg-gradient-to-r from-sassy-coral to-sassy-orange bg-clip-text text-transparent">{rental.price}</span>
                       </div>
-                      <Button size="lg" className={cn('text-lg px-8 py-6 bg-gradient-to-r text-white font-bold rounded-2xl shadow-lg', `${rental.btnColor}`)} onClick={() => window.location.href = '/events-space-rentals'}>
-                        Book Now <ArrowRight className="ml-2 h-5 w-5" />
+                      <Button size="lg" className={cn('text-lg px-8 py-6 bg-gradient-to-r text-white font-bold rounded-2xl shadow-lg', `${rental.btnColor}`)} onClick={() => window.location.href = bookButtonLink}>
+                        {bookButtonText} <ArrowRight className="ml-2 h-5 w-5" />
                       </Button>
                     </div>
                   </div>

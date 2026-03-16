@@ -25,7 +25,86 @@ const staggerContainer = {
   visible: { transition: { staggerChildren: 0.08 } },
 }
 
-export function HomeExplore() {
+export function HomeExplore({
+  badgeText = "Explore SassyDame",
+  heading = "Everything Under",
+  headingHighlight = "One Roof",
+  description = "More than a shop — SassyDame is a creative hub. Explore our four pillars and find your next project.",
+  card1Title = "DTF Printing",
+  card1Description = "Custom DTF transfers, UV DTF decals, rhinestones, patches & more — produced in-house with 24-hour turnaround.",
+  card1Link = "/dtf",
+  card2Title = "Heat Press Rentals",
+  card2Description = "Rent studio time with professional heat presses, vinyl cutters, sublimation printers & more.",
+  card2Link = "/studio",
+  card3Title = "Events & Classes",
+  card3Description = "Hands-on workshops, crafting classes, and community events. Learn new skills and meet fellow makers.",
+  card3Link = "/events",
+  card4Title = "Custom Apparel",
+  card4Description = "Custom apparel, bulk orders, storefronts for teams & schools, signs, banners & more.",
+  card4Link = "/services",
+  cardCtaText = "Explore",
+}: {
+  badgeText?: string;
+  heading?: string;
+  headingHighlight?: string;
+  description?: string;
+  card1Title?: string;
+  card1Description?: string;
+  card1Link?: string;
+  card2Title?: string;
+  card2Description?: string;
+  card2Link?: string;
+  card3Title?: string;
+  card3Description?: string;
+  card3Link?: string;
+  card4Title?: string;
+  card4Description?: string;
+  card4Link?: string;
+  cardCtaText?: string;
+}) {
+  const sections = [
+    {
+      title: card1Title,
+      description: card1Description,
+      href: card1Link,
+      icon: Printer,
+      color: 'bg-sassy-teal',
+      textColor: 'text-white',
+      borderGlow: 'hover:shadow-[0_0_40px_rgba(56,163,165,0.4)]',
+      spotlightColor: 'rgba(56,163,165,0.2)',
+    },
+    {
+      title: card2Title,
+      description: card2Description,
+      href: card2Link,
+      icon: Paintbrush,
+      color: 'bg-sassy-periwinkle',
+      textColor: 'text-white',
+      borderGlow: 'hover:shadow-[0_0_40px_rgba(131,121,199,0.4)]',
+      spotlightColor: 'rgba(131,121,199,0.2)',
+    },
+    {
+      title: card3Title,
+      description: card3Description,
+      href: card3Link,
+      icon: Calendar,
+      color: 'bg-sassy-coral',
+      textColor: 'text-white',
+      borderGlow: 'hover:shadow-[0_0_40px_rgba(232,93,81,0.4)]',
+      spotlightColor: 'rgba(232,93,81,0.2)',
+    },
+    {
+      title: card4Title,
+      description: card4Description,
+      href: card4Link,
+      icon: Wrench,
+      color: 'bg-sassy-gold',
+      textColor: 'text-gray-900',
+      borderGlow: 'hover:shadow-[0_0_40px_rgba(215,183,60,0.4)]',
+      spotlightColor: 'rgba(215,183,60,0.2)',
+    },
+  ]
+
   return (
     <section className="py-20 md:py-28 bg-background">
       <div className="container mx-auto px-4">
@@ -38,7 +117,7 @@ export function HomeExplore() {
         >
           <motion.div variants={fadeUp} custom={0}>
             <span className="inline-block px-4 py-1.5 rounded-full bg-sassy-teal/10 text-sassy-teal text-sm font-semibold uppercase tracking-wider mb-4">
-              Explore SassyDame
+              {badgeText}
             </span>
           </motion.div>
           <motion.h2
@@ -46,9 +125,9 @@ export function HomeExplore() {
             custom={1}
             className="font-serif text-4xl md:text-5xl lg:text-6xl font-black mb-4"
           >
-            Everything Under{' '}
+            {heading}{' '}
             <span className="bg-gradient-to-r from-sassy-teal via-sassy-sky to-sassy-fuchsia bg-clip-text text-transparent">
-              One Roof
+              {headingHighlight}
             </span>
           </motion.h2>
           <motion.p
@@ -56,7 +135,7 @@ export function HomeExplore() {
             custom={2}
             className="text-muted-foreground text-lg max-w-2xl mx-auto"
           >
-            More than a shop — SassyDame is a creative hub. Explore our four pillars and find your next project.
+            {description}
           </motion.p>
         </motion.div>
 
@@ -67,48 +146,7 @@ export function HomeExplore() {
           variants={staggerContainer}
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto"
         >
-          {[
-            {
-              title: 'DTF Printing',
-              description: 'Custom DTF transfers, UV DTF decals, rhinestones, patches & more — produced in-house with 24-hour turnaround.',
-              href: '/dtf',
-              icon: Printer,
-              color: 'bg-sassy-teal',
-              textColor: 'text-white',
-              borderGlow: 'hover:shadow-[0_0_40px_rgba(56,163,165,0.4)]',
-              spotlightColor: 'rgba(56,163,165,0.2)',
-            },
-            {
-              title: 'Heat Press Rentals',
-              description: 'Rent studio time with professional heat presses, vinyl cutters, sublimation printers & more.',
-              href: '/studio',
-              icon: Paintbrush,
-              color: 'bg-sassy-periwinkle',
-              textColor: 'text-white',
-              borderGlow: 'hover:shadow-[0_0_40px_rgba(131,121,199,0.4)]',
-              spotlightColor: 'rgba(131,121,199,0.2)',
-            },
-            {
-              title: 'Events & Classes',
-              description: 'Hands-on workshops, crafting classes, and community events. Learn new skills and meet fellow makers.',
-              href: '/events',
-              icon: Calendar,
-              color: 'bg-sassy-coral',
-              textColor: 'text-white',
-              borderGlow: 'hover:shadow-[0_0_40px_rgba(232,93,81,0.4)]',
-              spotlightColor: 'rgba(232,93,81,0.2)',
-            },
-            {
-              title: 'Custom Apparel',
-              description: 'Custom apparel, bulk orders, storefronts for teams & schools, signs, banners & more.',
-              href: '/services',
-              icon: Wrench,
-              color: 'bg-sassy-gold',
-              textColor: 'text-gray-900',
-              borderGlow: 'hover:shadow-[0_0_40px_rgba(215,183,60,0.4)]',
-              spotlightColor: 'rgba(215,183,60,0.2)',
-            },
-          ].map((section, i) => (
+          {sections.map((section, i) => (
             <motion.div key={section.title} variants={fadeUp} custom={i}>
               <div
                 className="group block cursor-pointer"
@@ -132,7 +170,7 @@ export function HomeExplore() {
                     </div>
 
                     <div className="relative z-10 mt-6 flex items-center gap-2 font-semibold text-sm group-hover:gap-4 transition-all">
-                      Explore <ArrowRight className="h-4 w-4" />
+                      {cardCtaText} <ArrowRight className="h-4 w-4" />
                     </div>
                   </div>
                 </SpotlightCard>

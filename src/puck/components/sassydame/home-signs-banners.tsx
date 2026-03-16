@@ -19,7 +19,41 @@ const staggerContainer = {
   visible: { transition: { staggerChildren: 0.08 } },
 }
 
-export function HomeSignsBanners() {
+export function HomeSignsBanners({
+  badgeText = "Signs & Banners",
+  heading = "Make a",
+  headingHighlight = "BIG",
+  headingSuffix = "Statement",
+  description = "From yard signs to full-size banners — we print bold, weather-resistant signage that gets your message seen. Perfect for events, businesses & celebrations.",
+  primaryButtonText = "Browse Signs & Banners",
+  primaryButtonLink = "/collections/signs-banner",
+  secondaryButtonText = "Request Custom Quote",
+  secondaryButtonLink = "/custom-order?type=signs",
+  pill1 = "Yard Signs",
+  pill2 = "Retractable Banners",
+  pill3 = "Vinyl Banners",
+  pill4 = "A-Frames",
+  pill5 = "Car Magnets",
+  pill6 = "Window Clings",
+}: {
+  badgeText?: string;
+  heading?: string;
+  headingHighlight?: string;
+  headingSuffix?: string;
+  description?: string;
+  primaryButtonText?: string;
+  primaryButtonLink?: string;
+  secondaryButtonText?: string;
+  secondaryButtonLink?: string;
+  pill1?: string;
+  pill2?: string;
+  pill3?: string;
+  pill4?: string;
+  pill5?: string;
+  pill6?: string;
+}) {
+  const pills = [pill1, pill2, pill3, pill4, pill5, pill6].filter(Boolean)
+
   return (
     <section className="relative py-24 md:py-32 overflow-hidden bg-gradient-to-br from-sassy-teal/20 via-sassy-sky/15 to-sassy-lime/15">
       {/* Decorative elements */}
@@ -40,7 +74,7 @@ export function HomeSignsBanners() {
           <motion.div variants={fadeUp} custom={0}>
             <span className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-sassy-teal/15 text-sassy-teal text-sm font-bold uppercase tracking-wider mb-6">
               <Flag className="h-4 w-4" />
-              Signs & Banners
+              {badgeText}
             </span>
           </motion.div>
           <motion.h2
@@ -48,15 +82,14 @@ export function HomeSignsBanners() {
             custom={1}
             className="font-serif text-4xl md:text-6xl lg:text-7xl font-black mb-6 leading-tight text-foreground"
           >
-            Make a <span className="text-sassy-lime">BIG</span> Statement
+            {heading} <span className="text-sassy-lime">{headingHighlight}</span> {headingSuffix}
           </motion.h2>
           <motion.p
             variants={fadeUp}
             custom={2}
             className="text-lg md:text-xl text-muted-foreground mb-10 max-w-2xl mx-auto leading-relaxed"
           >
-            From yard signs to full-size banners — we print bold, weather-resistant signage
-            that gets your message seen. Perfect for events, businesses & celebrations.
+            {description}
           </motion.p>
           <motion.div
             variants={fadeUp}
@@ -65,17 +98,17 @@ export function HomeSignsBanners() {
           >
             <Button
               className="h-16 px-14 text-lg font-bold rounded-xl bg-sassy-teal hover:bg-sassy-teal/90 text-white shadow-lg shadow-sassy-teal/30 hover:shadow-xl transition-all duration-300 hover:scale-105"
-              onClick={() => window.location.href = '/collections/signs-banner'}
+              onClick={() => window.location.href = primaryButtonLink}
             >
-              Browse Signs & Banners
+              {primaryButtonText}
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
             <Button
               variant="outline"
               className="h-16 px-14 text-lg font-bold rounded-xl border-2 border-sassy-teal text-sassy-teal hover:bg-sassy-teal hover:text-white transition-all duration-300 hover:scale-105"
-              onClick={() => window.location.href = '/custom-order?type=signs'}
+              onClick={() => window.location.href = secondaryButtonLink}
             >
-              Request Custom Quote
+              {secondaryButtonText}
             </Button>
           </motion.div>
 
@@ -85,7 +118,7 @@ export function HomeSignsBanners() {
             custom={4}
             className="mt-14 flex flex-wrap items-center justify-center gap-4"
           >
-            {['Yard Signs', 'Retractable Banners', 'Vinyl Banners', 'A-Frames', 'Car Magnets', 'Window Clings'].map(
+            {pills.map(
               (item) => (
                 <span
                   key={item}

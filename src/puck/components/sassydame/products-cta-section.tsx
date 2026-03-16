@@ -5,45 +5,65 @@ import { ArrowRight, Package, Truck, BadgeCheck, Clock } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { DropZone } from "@puckeditor/core";
 
-const productHighlights = [
-  {
-    title: 'DTF + UV Bundle Packs',
-    description: 'Save big with our curated bundles perfect for beginners and pros alike',
-    gradient: 'from-sassy-teal to-sassy-periwinkle',
-    tag: 'Best Value',
-  },
-  {
-    title: 'Seasonal Collection',
-    description: 'Trending designs for holidays, sports seasons, and special occasions',
-    gradient: 'from-sassy-coral to-sassy-orange',
-    tag: 'New Arrivals',
-  },
-]
+const benefitIcons = [Truck, Package, BadgeCheck, Clock]
 
-const benefits = [
-  {
-    icon: Truck,
-    title: 'Same Day Processing',
-    description: 'Orders before 12pm EST ship same day',
-  },
-  {
-    icon: Package,
-    title: 'Free Local Pickup',
-    description: 'Save on shipping - pick up in store',
-  },
-  {
-    icon: BadgeCheck,
-    title: 'Quality Guaranteed',
-    description: '100% satisfaction on all products',
-  },
-  {
-    icon: Clock,
-    title: 'Fast Turnaround',
-    description: 'Quick production on custom orders',
-  },
-]
+export function ProductsCTASection({
+  product1Title = "DTF + UV Bundle Packs",
+  product1Description = "Save big with our curated bundles perfect for beginners and pros alike",
+  product1Tag = "Best Value",
+  product2Title = "Seasonal Collection",
+  product2Description = "Trending designs for holidays, sports seasons, and special occasions",
+  product2Tag = "New Arrivals",
+  benefit1Title = "Same Day Processing",
+  benefit1Description = "Orders before 12pm EST ship same day",
+  benefit2Title = "Free Local Pickup",
+  benefit2Description = "Save on shipping - pick up in store",
+  benefit3Title = "Quality Guaranteed",
+  benefit3Description = "100% satisfaction on all products",
+  benefit4Title = "Fast Turnaround",
+  benefit4Description = "Quick production on custom orders",
+  bottomButtonText = "View All Products",
+  bottomButtonLink = "/products",
+}: {
+  product1Title?: string;
+  product1Description?: string;
+  product1Tag?: string;
+  product2Title?: string;
+  product2Description?: string;
+  product2Tag?: string;
+  benefit1Title?: string;
+  benefit1Description?: string;
+  benefit2Title?: string;
+  benefit2Description?: string;
+  benefit3Title?: string;
+  benefit3Description?: string;
+  benefit4Title?: string;
+  benefit4Description?: string;
+  bottomButtonText?: string;
+  bottomButtonLink?: string;
+}) {
+  const productHighlights = [
+    {
+      title: product1Title,
+      description: product1Description,
+      gradient: 'from-sassy-teal to-sassy-periwinkle',
+      tag: product1Tag,
+    },
+    {
+      title: product2Title,
+      description: product2Description,
+      gradient: 'from-sassy-coral to-sassy-orange',
+      tag: product2Tag,
+    },
+  ]
 
-export function ProductsCTASection() {
+  const benefits = [
+    { title: benefit1Title, description: benefit1Description },
+    { title: benefit2Title, description: benefit2Description },
+    { title: benefit3Title, description: benefit3Description },
+    { title: benefit4Title, description: benefit4Description },
+  ]
+
   return (
     <section className="py-20 relative overflow-hidden">
       {/* Background pattern */}
@@ -102,22 +122,25 @@ export function ProductsCTASection() {
           className="bg-card rounded-2xl border shadow-lg p-6 md:p-8"
         >
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
-            {benefits.map((benefit, index) => (
-              <motion.div
-                key={benefit.title}
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: index * 0.1 }}
-                className="text-center"
-              >
-                <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-sassy-lime/15 text-sassy-lime mb-3">
-                  <benefit.icon className="h-6 w-6" />
-                </div>
-                <h4 className="font-semibold text-sm md:text-base mb-1">{benefit.title}</h4>
-                <p className="text-muted-foreground text-xs md:text-sm">{benefit.description}</p>
-              </motion.div>
-            ))}
+            {benefits.map((benefit, index) => {
+              const Icon = benefitIcons[index]
+              return (
+                <motion.div
+                  key={benefit.title}
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: index * 0.1 }}
+                  className="text-center"
+                >
+                  <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-sassy-lime/15 text-sassy-lime mb-3">
+                    <Icon className="h-6 w-6" />
+                  </div>
+                  <h4 className="font-semibold text-sm md:text-base mb-1">{benefit.title}</h4>
+                  <p className="text-muted-foreground text-xs md:text-sm">{benefit.description}</p>
+                </motion.div>
+              )
+            })}
           </div>
         </motion.div>
 
@@ -130,7 +153,7 @@ export function ProductsCTASection() {
           className="text-center mt-12"
         >
           <Button size="lg" className="bg-sassy-lime hover:bg-sassy-lime/90 text-foreground">
-            View All Products
+            {bottomButtonText}
             <ArrowRight className="ml-2 h-5 w-5" />
           </Button>
         </motion.div>

@@ -6,12 +6,38 @@ import { SpotlightCard } from './effects/spotlight-card'
 import { cn } from '@/lib/utils'
 import { DropZone } from "@puckeditor/core";
 
-export function ServicesProcess() {
+export interface ServicesProcessProps {
+  heading?: string;
+  headingHighlight?: string;
+  subheading?: string;
+  step1Title?: string;
+  step1Description?: string;
+  step2Title?: string;
+  step2Description?: string;
+  step3Title?: string;
+  step3Description?: string;
+  step4Title?: string;
+  step4Description?: string;
+}
+
+export function ServicesProcess({
+  heading = "How It",
+  headingHighlight = "Works",
+  subheading = "Simple, transparent, professional",
+  step1Title = "Get a Quote",
+  step1Description = "Tell us your needs -- we respond with a custom quote within 24 hours.",
+  step2Title = "Approve Proof",
+  step2Description = "We send a digital proof for your review and approval before production.",
+  step3Title = "We Produce",
+  step3Description = "Expert printing, quality control, and careful packaging for every order.",
+  step4Title = "You Receive",
+  step4Description = "Fast shipping, local pickup, or blind drop-ship directly to your customer.",
+}: ServicesProcessProps) {
   const steps = [
-    { num: '01', title: 'Get a Quote', desc: 'Tell us your needs -- we respond with a custom quote within 24 hours.', icon: Phone },
-    { num: '02', title: 'Approve Proof', desc: 'We send a digital proof for your review and approval before production.', icon: Shield },
-    { num: '03', title: 'We Produce', desc: 'Expert printing, quality control, and careful packaging for every order.', icon: Zap },
-    { num: '04', title: 'You Receive', desc: 'Fast shipping, local pickup, or blind drop-ship directly to your customer.', icon: Truck },
+    { num: '01', title: step1Title, desc: step1Description, icon: Phone },
+    { num: '02', title: step2Title, desc: step2Description, icon: Shield },
+    { num: '03', title: step3Title, desc: step3Description, icon: Zap },
+    { num: '04', title: step4Title, desc: step4Description, icon: Truck },
   ]
 
   return (
@@ -19,9 +45,9 @@ export function ServicesProcess() {
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="font-serif text-4xl md:text-5xl font-bold mb-4">
-            How It <span className="text-sassy-gold">Works</span>
+            {heading} <span className="text-sassy-gold">{headingHighlight}</span>
           </h2>
-          <p className="text-muted-foreground text-lg">Simple, transparent, professional</p>
+          <p className="text-muted-foreground text-lg">{subheading}</p>
         </div>
 
         <div className="max-w-4xl mx-auto relative">

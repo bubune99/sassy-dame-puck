@@ -7,7 +7,31 @@ import { TextReveal, TextFadeIn } from './effects/text-reveal'
 import { FloatingElements, FloatingShapes } from './effects/floating-elements'
 import { DropZone } from "@puckeditor/core";
 
-export function HeroSection() {
+export function HeroSection({
+  badgeText = "Your Local Craft Destination",
+  headingLine1 = "Create Something",
+  headingLine2 = "Beautiful",
+  subheading = "Premium DTF printing supplies, craft blanks, and everything you need to bring your creative vision to life. Plus workshops and community events!",
+  primaryButtonText = "Shop Now",
+  primaryButtonLink = "/products",
+  secondaryButtonText = "Try DTF Builder",
+  secondaryButtonLink = "/dtf-builder",
+  trustItem1 = "Free Local Pickup",
+  trustItem2 = "Expert Support",
+  trustItem3 = "Quality Guaranteed",
+}: {
+  badgeText?: string;
+  headingLine1?: string;
+  headingLine2?: string;
+  subheading?: string;
+  primaryButtonText?: string;
+  primaryButtonLink?: string;
+  secondaryButtonText?: string;
+  secondaryButtonLink?: string;
+  trustItem1?: string;
+  trustItem2?: string;
+  trustItem3?: string;
+}) {
   return (
     <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-gradient-to-br from-sassy-lime/15 via-background to-sassy-teal/15">
       {/* Bright, Happy Background Blobs */}
@@ -35,16 +59,16 @@ export function HeroSection() {
           >
             <Sparkles className="h-4 w-4 text-sassy-teal" />
             <span className="text-sm font-medium text-foreground">
-              Your Local Craft Destination
+              {badgeText}
             </span>
           </motion.div>
 
           {/* Main Heading */}
           <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 text-balance">
-            <TextReveal text="Create Something" className="block" />
+            <TextReveal text={headingLine1} className="block" />
             <span className="block mt-2">
               <TextReveal
-                text="Beautiful"
+                text={headingLine2}
                 className="bg-gradient-to-r from-sassy-fuchsia via-sassy-coral to-sassy-gold bg-clip-text text-transparent"
                 delay={0.8}
               />
@@ -54,8 +78,7 @@ export function HeroSection() {
           {/* Subheading */}
           <TextFadeIn delay={1.2} className="mb-10">
             <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto text-pretty">
-              Premium DTF printing supplies, craft blanks, and everything you need
-              to bring your creative vision to life. Plus workshops and community events!
+              {subheading}
             </p>
           </TextFadeIn>
 
@@ -66,7 +89,7 @@ export function HeroSection() {
                 size="lg"
                 className="text-lg px-8 py-6 group bg-sassy-lime hover:bg-sassy-lime/90 text-foreground"
               >
-                Shop Now
+                {primaryButtonText}
                 <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
               </Button>
               <Button
@@ -74,7 +97,7 @@ export function HeroSection() {
                 variant="outline"
                 className="text-lg px-8 py-6 border-2 border-sassy-teal text-sassy-teal hover:bg-sassy-teal hover:text-white"
               >
-                Try DTF Builder
+                {secondaryButtonText}
               </Button>
             </div>
           </TextFadeIn>
@@ -84,15 +107,15 @@ export function HeroSection() {
             <div className="mt-16 flex flex-wrap items-center justify-center gap-8 text-sm text-muted-foreground">
               <div className="flex items-center gap-2">
                 <div className="h-2 w-2 rounded-full bg-sassy-lime" />
-                <span>Free Local Pickup</span>
+                <span>{trustItem1}</span>
               </div>
               <div className="flex items-center gap-2">
                 <div className="h-2 w-2 rounded-full bg-sassy-teal" />
-                <span>Expert Support</span>
+                <span>{trustItem2}</span>
               </div>
               <div className="flex items-center gap-2">
                 <div className="h-2 w-2 rounded-full bg-sassy-coral" />
-                <span>Quality Guaranteed</span>
+                <span>{trustItem3}</span>
               </div>
             </div>
           </TextFadeIn>

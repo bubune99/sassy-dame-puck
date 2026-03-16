@@ -87,7 +87,31 @@ const packages = [
   },
 ];
 
-export function EventsSpacePage() {
+export interface EventsSpacePageProps {
+  badgeText?: string;
+  heading?: string;
+  headingHighlight?: string;
+  description?: string;
+  eventTypesHeading?: string;
+  eventTypesDescription?: string;
+  packagesHeading?: string;
+  packagesDescription?: string;
+  ctaHeading?: string;
+  ctaDescription?: string;
+}
+
+export function EventsSpacePage({
+  badgeText = "Host Your Event With Us",
+  heading = "Events & Space",
+  headingHighlight = "Rentals",
+  description = "Looking for a unique venue for your next celebration? Host your party, team event, or private gathering in our creative crafting space!",
+  eventTypesHeading = "Perfect For Every Occasion",
+  eventTypesDescription = "Create lasting memories with hands-on crafting fun",
+  packagesHeading = "Event Packages",
+  packagesDescription = "All-inclusive packages to make planning easy",
+  ctaHeading = "Ready to Book Your Event?",
+  ctaDescription = "Contact us to check availability and start planning your perfect crafting celebration!",
+}: EventsSpacePageProps) {
   return (
     <main className="min-h-screen bg-background">
       {/* Hero Section */}
@@ -101,14 +125,13 @@ export function EventsSpacePage() {
           >
             <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-6">
               <PartyPopper className="h-4 w-4" />
-              <span>Host Your Event With Us</span>
+              <span>{badgeText}</span>
             </div>
             <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-balance">
-              Events & Space <span className="text-primary">Rentals</span>
+              {heading} <span className="text-primary">{headingHighlight}</span>
             </h1>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Looking for a unique venue for your next celebration? Host your party, team event,
-              or private gathering in our creative crafting space!
+              {description}
             </p>
           </motion.div>
         </div>
@@ -123,8 +146,8 @@ export function EventsSpacePage() {
             viewport={{ once: true }}
             className="text-center mb-12"
           >
-            <h2 className="font-serif text-3xl font-bold mb-4">Perfect For Every Occasion</h2>
-            <p className="text-muted-foreground">Create lasting memories with hands-on crafting fun</p>
+            <h2 className="font-serif text-3xl font-bold mb-4">{eventTypesHeading}</h2>
+            <p className="text-muted-foreground">{eventTypesDescription}</p>
           </motion.div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
@@ -160,8 +183,8 @@ export function EventsSpacePage() {
             viewport={{ once: true }}
             className="text-center mb-12"
           >
-            <h2 className="font-serif text-3xl font-bold mb-4">Event Packages</h2>
-            <p className="text-muted-foreground">All-inclusive packages to make planning easy</p>
+            <h2 className="font-serif text-3xl font-bold mb-4">{packagesHeading}</h2>
+            <p className="text-muted-foreground">{packagesDescription}</p>
           </motion.div>
 
           <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
@@ -274,9 +297,9 @@ export function EventsSpacePage() {
             className="max-w-3xl mx-auto text-center"
           >
             <Calendar className="h-12 w-12 text-primary mx-auto mb-4" />
-            <h2 className="font-serif text-3xl font-bold mb-4">Ready to Book Your Event?</h2>
+            <h2 className="font-serif text-3xl font-bold mb-4">{ctaHeading}</h2>
             <p className="text-muted-foreground mb-6">
-              Contact us to check availability and start planning your perfect crafting celebration!
+              {ctaDescription}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <button className="inline-flex items-center justify-center rounded-md text-sm font-medium bg-primary text-primary-foreground hover:bg-primary/90 h-11 px-8">

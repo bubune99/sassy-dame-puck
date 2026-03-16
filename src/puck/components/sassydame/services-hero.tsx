@@ -5,7 +5,50 @@ import { Package, Clock, Star, Truck, ArrowRight, Award } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { DropZone } from "@puckeditor/core";
 
-export function ServicesHero() {
+export interface ServicesHeroProps {
+  badge?: string;
+  headingLine1?: string;
+  headingLine2?: string;
+  description?: string;
+  primaryButtonText?: string;
+  primaryButtonLink?: string;
+  secondaryButtonText?: string;
+  secondaryButtonLink?: string;
+  stat1Value?: string;
+  stat1Label?: string;
+  stat2Value?: string;
+  stat2Label?: string;
+  stat3Value?: string;
+  stat3Label?: string;
+  stat4Value?: string;
+  stat4Label?: string;
+}
+
+export function ServicesHero({
+  badge = "Trusted by 1000+ Businesses",
+  headingLine1 = "Your Brand,",
+  headingLine2 = "Our Expertise",
+  description = "From bulk orders to custom apparel, signs, and banners -- we deliver professional quality with the personal touch of a local craft shop.",
+  primaryButtonText = "Request a Quote",
+  primaryButtonLink = "/contact",
+  secondaryButtonText = "Bulk Order Form",
+  secondaryButtonLink = "/bulk-order",
+  stat1Value = "1,000+",
+  stat1Label = "Orders Completed",
+  stat2Value = "24hr",
+  stat2Label = "Quote Turnaround",
+  stat3Value = "4.9/5",
+  stat3Label = "Customer Rating",
+  stat4Value = "2-Day",
+  stat4Label = "Rush Available",
+}: ServicesHeroProps) {
+  const stats = [
+    { icon: Package, value: stat1Value, label: stat1Label },
+    { icon: Clock, value: stat2Value, label: stat2Label },
+    { icon: Star, value: stat3Value, label: stat3Label },
+    { icon: Truck, value: stat4Value, label: stat4Label },
+  ];
+
   return (
     <section className="relative min-h-[90vh] flex items-center overflow-hidden">
       {/* Gold accent line */}
@@ -20,38 +63,33 @@ export function ServicesHero() {
           >
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-sassy-gold/15 border border-sassy-gold/25 mb-8">
               <Award className="h-4 w-4 text-sassy-gold" />
-              <span className="text-sm font-medium text-sassy-gold">Trusted by 1000+ Businesses</span>
+              <span className="text-sm font-medium text-sassy-gold">{badge}</span>
             </div>
 
             <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-foreground mb-6 leading-[0.95]">
-              <span className="block">Your Brand,</span>
+              <span className="block">{headingLine1}</span>
               <span className="block bg-gradient-to-r from-sassy-gold via-sassy-orange to-sassy-coral bg-clip-text text-transparent">
-                Our Expertise
+                {headingLine2}
               </span>
             </h1>
 
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-10">
-              From bulk orders to custom apparel, signs, and banners -- we deliver professional quality with the personal touch of a local craft shop.
+              {description}
             </p>
 
             <div className="flex flex-wrap gap-4 justify-center mb-16">
-              <Button size="lg" className="text-lg px-10 py-6 bg-sassy-gold hover:bg-sassy-gold/90 text-foreground" onClick={() => window.location.href = '/contact'}>
-                Request a Quote
+              <Button size="lg" className="text-lg px-10 py-6 bg-sassy-gold hover:bg-sassy-gold/90 text-foreground" onClick={() => window.location.href = primaryButtonLink}>
+                {primaryButtonText}
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
-              <Button size="lg" variant="outline" className="text-lg px-10 py-6 border-sassy-gold text-sassy-gold hover:bg-sassy-gold hover:text-foreground" onClick={() => window.location.href = '/bulk-order'}>
-                Bulk Order Form
+              <Button size="lg" variant="outline" className="text-lg px-10 py-6 border-sassy-gold text-sassy-gold hover:bg-sassy-gold hover:text-foreground" onClick={() => window.location.href = secondaryButtonLink}>
+                {secondaryButtonText}
               </Button>
             </div>
 
             {/* Trust metrics */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-              {[
-                { icon: Package, value: '1,000+', label: 'Orders Completed' },
-                { icon: Clock, value: '24hr', label: 'Quote Turnaround' },
-                { icon: Star, value: '4.9/5', label: 'Customer Rating' },
-                { icon: Truck, value: '2-Day', label: 'Rush Available' },
-              ].map((stat, i) => (
+              {stats.map((stat, i) => (
                 <motion.div
                   key={stat.label}
                   initial={{ opacity: 0, y: 20 }}

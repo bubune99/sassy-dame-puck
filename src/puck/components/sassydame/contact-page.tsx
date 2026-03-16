@@ -3,29 +3,31 @@
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
 import { DropZone } from "@puckeditor/core";
 
-const contactInfo = [
-  {
-    icon: MapPin,
-    title: "Visit Us",
-    content: "1230 Green Street",
-    subcontent: "Raleigh, NC 27603",
-    href: "https://maps.google.com/?q=1230+Green+Street+Raleigh+NC+27603",
-  },
-  {
-    icon: Phone,
-    title: "Call Us",
-    content: "(919) 628-6531",
-    subcontent: "Tue-Sat 11am-6pm",
-    href: "tel:+19196286531",
-  },
-  {
-    icon: Mail,
-    title: "Email Us",
-    content: "sassydame23@yahoo.com",
-    subcontent: "We reply within 24 hours",
-    href: "mailto:sassydame23@yahoo.com",
-  },
-];
+function getContactInfo(address: string, addressLine2: string, phone: string, email: string) {
+  return [
+    {
+      icon: MapPin,
+      title: "Visit Us",
+      content: address,
+      subcontent: addressLine2,
+      href: `https://maps.google.com/?q=${encodeURIComponent(address + " " + addressLine2)}`,
+    },
+    {
+      icon: Phone,
+      title: "Call Us",
+      content: phone,
+      subcontent: "Tue-Sat 11am-6pm",
+      href: `tel:${phone.replace(/[^+\d]/g, "")}`,
+    },
+    {
+      icon: Mail,
+      title: "Email Us",
+      content: email,
+      subcontent: "We reply within 24 hours",
+      href: `mailto:${email}`,
+    },
+  ];
+}
 
 const hours = [
   { day: "Monday", time: "Closed" },
@@ -80,7 +82,29 @@ function ContactForm() {
   );
 }
 
-export function ContactPage() {
+export interface ContactPageProps {
+  heading?: string;
+  headingHighlight?: string;
+  description?: string;
+  address?: string;
+  addressLine2?: string;
+  phone?: string;
+  email?: string;
+  faqHeading?: string;
+  faqDescription?: string;
+}
+
+export function ContactPage({
+  heading = "We Would Love to",
+  headingHighlight = "Hear From You",
+  description = "Have a question about our products, services, or upcoming events? Drop us a line and we will get back to you as soon as possible.",
+  address = "1230 Green Street",
+  addressLine2 = "Raleigh, NC 27603",
+  phone = "(919) 628-6531",
+  email = "sassydame23@yahoo.com",
+  faqHeading = "Common Questions",
+  faqDescription = "Check out our FAQ page for answers to commonly asked questions about shipping, returns, DTF printing, and more.",
+}: ContactPageProps) {
   return (
     <main className="flex-1">
       {/* Hero Section */}
@@ -91,12 +115,11 @@ export function ContactPage() {
               Get in Touch
             </span>
             <h1 className="font-serif text-4xl md:text-5xl font-bold mb-4">
-              We Would Love to
-              <span className="block text-secondary">Hear From You</span>
+              {heading}
+              <span className="block text-secondary">{headingHighlight}</span>
             </h1>
             <p className="text-lg text-muted-foreground">
-              Have a question about our products, services, or upcoming events?
-              Drop us a line and we will get back to you as soon as possible.
+              {description}
             </p>
           </div>
         </div>
@@ -120,7 +143,7 @@ export function ContactPage() {
 
               {/* Contact Cards */}
               <div className="space-y-4 mb-8">
-                {contactInfo.map((item, index) => (
+                {getContactInfo(address, addressLine2, phone, email).map((item, index) => (
                   <a
                     key={index}
                     href={item.href}
@@ -174,11 +197,10 @@ export function ContactPage() {
       <section className="py-16 bg-muted/30">
         <div className="container mx-auto px-4 text-center">
           <h2 className="font-serif text-2xl md:text-3xl font-bold mb-4">
-            Common Questions
+            {faqHeading}
           </h2>
           <p className="text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Check out our FAQ page for answers to commonly asked questions about
-            shipping, returns, DTF printing, and more.
+            {faqDescription}
           </p>
           <a
             href="/pages/faqs"

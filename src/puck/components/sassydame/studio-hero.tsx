@@ -6,7 +6,29 @@ import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 import { DropZone } from "@puckeditor/core";
 
-export function StudioHero() {
+export interface StudioHeroProps {
+  badge?: string;
+  headingLine1?: string;
+  headingLine2?: string;
+  headingHighlight?: string;
+  description?: string;
+  primaryButtonText?: string;
+  primaryButtonLink?: string;
+  secondaryButtonText?: string;
+  secondaryButtonLink?: string;
+}
+
+export function StudioHero({
+  badge = "Fully Equipped Creative Space",
+  headingLine1 = "Where Ideas",
+  headingLine2 = "Become",
+  headingHighlight = "Art",
+  description = "Step into our crafting studio and bring your creative vision to life. Professional equipment, cozy workspace, and expert guidance -- all under one roof.",
+  primaryButtonText = "Book Your Session",
+  primaryButtonLink = "/crafting-studio-rentals",
+  secondaryButtonText = "Rent Event Space",
+  secondaryButtonLink = "/events-space-rentals",
+}: StudioHeroProps) {
   return (
     <section className="relative min-h-[95vh] flex items-center overflow-hidden">
       <div className="container mx-auto px-4 relative z-10">
@@ -19,15 +41,15 @@ export function StudioHero() {
           >
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-sassy-periwinkle/15 border border-sassy-periwinkle/20 mb-6">
               <Paintbrush className="h-4 w-4 text-sassy-periwinkle" />
-              <span className="text-sm font-medium text-sassy-periwinkle">Fully Equipped Creative Space</span>
+              <span className="text-sm font-medium text-sassy-periwinkle">{badge}</span>
             </div>
 
             <h1 className="font-serif text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 leading-[0.95] text-[#2d2418]">
-              <span className="block">Where Ideas</span>
-              <span className="block">Become{' '}
+              <span className="block">{headingLine1}</span>
+              <span className="block">{headingLine2}{' '}
                 <span className="relative inline-block">
                   <span className="relative z-10 bg-gradient-to-r from-sassy-periwinkle via-sassy-rose to-sassy-sage bg-clip-text text-transparent">
-                    Art
+                    {headingHighlight}
                   </span>
                   <motion.span
                     initial={{ scaleX: 0 }}
@@ -40,16 +62,16 @@ export function StudioHero() {
             </h1>
 
             <p className="text-lg text-[#6b5c4d] max-w-lg mb-8 leading-relaxed">
-              Step into our crafting studio and bring your creative vision to life. Professional equipment, cozy workspace, and expert guidance -- all under one roof.
+              {description}
             </p>
 
             <div className="flex flex-wrap gap-4">
-              <Button size="lg" className="text-lg px-8 py-6 bg-sassy-periwinkle hover:bg-sassy-periwinkle/90 text-white rounded-full" onClick={() => window.location.href = '/crafting-studio-rentals'}>
-                Book Your Session
+              <Button size="lg" className="text-lg px-8 py-6 bg-sassy-periwinkle hover:bg-sassy-periwinkle/90 text-white rounded-full" onClick={() => window.location.href = primaryButtonLink}>
+                {primaryButtonText}
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
-              <Button size="lg" variant="outline" className="text-lg px-8 py-6 border-[#c8b8a6] text-[#5a4d3e] hover:bg-[#efe5d8] rounded-full" onClick={() => window.location.href = '/events-space-rentals'}>
-                Rent Event Space
+              <Button size="lg" variant="outline" className="text-lg px-8 py-6 border-[#c8b8a6] text-[#5a4d3e] hover:bg-[#efe5d8] rounded-full" onClick={() => window.location.href = secondaryButtonLink}>
+                {secondaryButtonText}
               </Button>
             </div>
           </motion.div>

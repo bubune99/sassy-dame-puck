@@ -30,16 +30,44 @@ const placeholderColors = [
   'from-sassy-orange/50 to-sassy-lime/50',
 ]
 
-const categories = [
-  { id: 'all', label: 'All' },
-  { id: 'dtf', label: 'DTF Prints' },
-  { id: 'uv', label: 'UV Stickers' },
-  { id: 'workshop', label: 'Workshops' },
-  { id: 'tumbler', label: 'Tumblers' },
-  { id: 'blanks', label: 'Blanks' },
-]
+export function PhotoGallerySection({
+  badgeText = "Gallery",
+  headingPrefix = "See What We",
+  headingHighlight = "Create",
+  subheading = "Browse our gallery of custom creations, workshop moments, and happy customers",
+  cat1Label = "All",
+  cat2Label = "DTF Prints",
+  cat3Label = "UV Stickers",
+  cat4Label = "Workshops",
+  cat5Label = "Tumblers",
+  cat6Label = "Blanks",
+  instagramText = "Follow us for daily inspiration and behind-the-scenes content",
+  instagramHandle = "@SassyDameDesigns",
+  instagramLink = "https://www.instagram.com/sassydamedesigns/",
+}: {
+  badgeText?: string;
+  headingPrefix?: string;
+  headingHighlight?: string;
+  subheading?: string;
+  cat1Label?: string;
+  cat2Label?: string;
+  cat3Label?: string;
+  cat4Label?: string;
+  cat5Label?: string;
+  cat6Label?: string;
+  instagramText?: string;
+  instagramHandle?: string;
+  instagramLink?: string;
+}) {
+  const categories = [
+    { id: 'all', label: cat1Label },
+    { id: 'dtf', label: cat2Label },
+    { id: 'uv', label: cat3Label },
+    { id: 'workshop', label: cat4Label },
+    { id: 'tumbler', label: cat5Label },
+    { id: 'blanks', label: cat6Label },
+  ]
 
-export function PhotoGallerySection() {
   const [selectedCategory, setSelectedCategory] = useState('all')
   const [lightboxOpen, setLightboxOpen] = useState(false)
   const [lightboxIndex, setLightboxIndex] = useState(0)
@@ -76,16 +104,16 @@ export function PhotoGallerySection() {
         >
           <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sassy-coral/15 text-sassy-coral text-sm font-medium mb-4">
             <Camera className="h-4 w-4" />
-            Gallery
+            {badgeText}
           </span>
           <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
-            See What We{' '}
+            {headingPrefix}{' '}
             <span className="bg-gradient-to-r from-sassy-lime via-sassy-teal to-sassy-periwinkle bg-clip-text text-transparent">
-              Create
+              {headingHighlight}
             </span>
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Browse our gallery of custom creations, workshop moments, and happy customers
+            {subheading}
           </p>
         </motion.div>
 
@@ -159,19 +187,19 @@ export function PhotoGallerySection() {
           className="text-center mt-12"
         >
           <p className="text-muted-foreground mb-4">
-            Follow us for daily inspiration and behind-the-scenes content
+            {instagramText}
           </p>
           <Button
             className="bg-gradient-to-r from-[#833AB4] via-[#FD1D1D] to-[#F77737] hover:opacity-90 text-white"
           >
             <a
-              href="https://www.instagram.com/sassydamedesigns/"
+              href={instagramLink}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center"
             >
               <Instagram className="mr-2 h-5 w-5" />
-              Follow @SassyDameDesigns
+              Follow {instagramHandle}
             </a>
           </Button>
         </motion.div>

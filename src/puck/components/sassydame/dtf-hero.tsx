@@ -15,7 +15,78 @@ import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 import { DropZone } from "@puckeditor/core";
 
-export function DtfHero() {
+export interface DtfHeroProps {
+  badgeText: string;
+  headingLine1: string;
+  headingLine2: string;
+  subheading: string;
+  turnaroundCallout: string;
+  primaryButtonText: string;
+  primaryButtonLink: string;
+  secondaryButtonText: string;
+  secondaryButtonLink: string;
+  stat1Value: string;
+  stat1Label: string;
+  stat2Value: string;
+  stat2Label: string;
+  stat3Value: string;
+  stat3Label: string;
+  card1Title: string;
+  card1Desc: string;
+  card1Href: string;
+  card2Title: string;
+  card2Desc: string;
+  card2Href: string;
+  card3Title: string;
+  card3Desc: string;
+  card3Href: string;
+  card4Title: string;
+  card4Desc: string;
+  card4Href: string;
+}
+
+export function DtfHero({
+  badgeText = '24-Hour Turnaround',
+  headingLine1 = 'Print',
+  headingLine2 = 'Without Limits',
+  subheading = 'Professional DTF transfers, UV stickers, patches, rhinestones and more -- vibrant, wash-resistant colors on any surface.',
+  turnaroundCallout = 'Orders before 12pm ship same day. No minimums. No setup fees.',
+  primaryButtonText = 'Open DTF Builder',
+  primaryButtonLink = '/dtf-builder',
+  secondaryButtonText = 'Browse Transfers',
+  secondaryButtonLink = '/collections/dtf-prints',
+  stat1Value = '24hr',
+  stat1Label = 'Turnaround time',
+  stat2Value = '$0',
+  stat2Label = 'Setup fees',
+  stat3Value = '1+',
+  stat3Label = 'Minimum order',
+  card1Title = 'DTF Transfers',
+  card1Desc = 'Full-color on any fabric',
+  card1Href = '/collections/dtf-prints',
+  card2Title = 'UV Stickers',
+  card2Desc = 'Waterproof & durable',
+  card2Href = '/collections/uv-dtf-stickers',
+  card3Title = 'Bundle Packs',
+  card3Desc = 'DTF + UV combos',
+  card3Href = '/collections/dtf-uv-bundle-pack',
+  card4Title = 'Gang Sheets',
+  card4Desc = 'Build your own layout',
+  card4Href = '/dtf-builder',
+}: DtfHeroProps) {
+  const stats = [
+    { value: stat1Value, label: stat1Label },
+    { value: stat2Value, label: stat2Label },
+    { value: stat3Value, label: stat3Label },
+  ]
+
+  const cards = [
+    { icon: Printer, title: card1Title, desc: card1Desc, color: 'from-sassy-teal/20 to-sassy-teal/5', border: 'border-sassy-teal/30', href: card1Href },
+    { icon: Sparkles, title: card2Title, desc: card2Desc, color: 'from-sassy-periwinkle/20 to-sassy-periwinkle/5', border: 'border-sassy-periwinkle/30', href: card2Href },
+    { icon: Package, title: card3Title, desc: card3Desc, color: 'from-sassy-lime/20 to-sassy-lime/5', border: 'border-sassy-lime/30', href: card3Href },
+    { icon: Layers, title: card4Title, desc: card4Desc, color: 'from-sassy-coral/20 to-sassy-coral/5', border: 'border-sassy-coral/30', href: card4Href },
+  ]
+
   return (
     <section className="relative min-h-[95vh] flex items-center overflow-hidden">
       {/* Gradient accent line at hero bottom */}
@@ -37,45 +108,41 @@ export function DtfHero() {
               className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-sassy-lime/25 to-sassy-teal/25 border-2 border-sassy-lime/50 mb-6 shadow-lg shadow-sassy-lime/10"
             >
               <Clock className="h-5 w-5 text-sassy-lime animate-pulse" />
-              <span className="text-sm font-bold text-sassy-lime tracking-wide uppercase">24-Hour Turnaround</span>
+              <span className="text-sm font-bold text-sassy-lime tracking-wide uppercase">{badgeText}</span>
               <Zap className="h-4 w-4 text-sassy-lime" />
             </motion.div>
 
             <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white mb-6 leading-[0.95]">
-              <span className="block">Print</span>
+              <span className="block">{headingLine1}</span>
               <span className="block bg-gradient-to-r from-sassy-teal via-sassy-periwinkle to-sassy-lime bg-clip-text text-transparent">
-                Without Limits
+                {headingLine2}
               </span>
             </h1>
 
             <p className="text-lg text-muted-foreground max-w-lg mb-4">
-              Professional DTF transfers, UV stickers, patches, rhinestones and more -- vibrant, wash-resistant colors on any surface.
+              {subheading}
             </p>
 
             {/* Turnaround callout */}
             <div className="inline-flex items-center gap-3 px-4 py-2 rounded-xl bg-sassy-coral/15 border border-sassy-coral/30 mb-8">
               <Zap className="h-5 w-5 text-sassy-coral" />
-              <span className="text-sm text-sassy-coral font-semibold">Orders before 12pm ship same day. No minimums. No setup fees.</span>
+              <span className="text-sm text-sassy-coral font-semibold">{turnaroundCallout}</span>
             </div>
 
             <div className="flex flex-wrap gap-4 mb-10">
-              <Button size="lg" className="text-lg px-10 py-7 bg-gradient-to-r from-sassy-teal to-sassy-periwinkle hover:from-sassy-teal/90 hover:to-sassy-periwinkle/90 text-white font-bold shadow-xl shadow-sassy-teal/25 rounded-2xl" onClick={() => window.location.href = '/dtf-builder'}>
-                Open DTF Builder
+              <Button size="lg" className="text-lg px-10 py-7 bg-gradient-to-r from-sassy-teal to-sassy-periwinkle hover:from-sassy-teal/90 hover:to-sassy-periwinkle/90 text-white font-bold shadow-xl shadow-sassy-teal/25 rounded-2xl" onClick={() => window.location.href = primaryButtonLink}>
+                {primaryButtonText}
                 <ArrowRight className="ml-2 h-6 w-6" />
               </Button>
-              <Button size="lg" className="text-lg px-10 py-7 bg-gradient-to-r from-sassy-lime/20 to-sassy-lime/10 border-2 border-sassy-lime/40 text-sassy-lime hover:bg-sassy-lime/20 font-bold rounded-2xl" onClick={() => window.location.href = '/collections/dtf-prints'}>
-                Browse Transfers
+              <Button size="lg" className="text-lg px-10 py-7 bg-gradient-to-r from-sassy-lime/20 to-sassy-lime/10 border-2 border-sassy-lime/40 text-sassy-lime hover:bg-sassy-lime/20 font-bold rounded-2xl" onClick={() => window.location.href = secondaryButtonLink}>
+                {secondaryButtonText}
                 <ChevronRight className="ml-1 h-5 w-5" />
               </Button>
             </div>
 
             {/* Stats row */}
             <div className="flex gap-8">
-              {[
-                { value: '24hr', label: 'Turnaround time' },
-                { value: '$0', label: 'Setup fees' },
-                { value: '1+', label: 'Minimum order' },
-              ].map((stat) => (
+              {stats.map((stat) => (
                 <div key={stat.label}>
                   <div className="text-2xl font-bold text-sassy-teal">{stat.value}</div>
                   <div className="text-xs text-muted-foreground uppercase tracking-wide">{stat.label}</div>
@@ -91,40 +158,7 @@ export function DtfHero() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="hidden lg:grid grid-cols-2 gap-4"
           >
-            {[
-              {
-                icon: Printer,
-                title: 'DTF Transfers',
-                desc: 'Full-color on any fabric',
-                color: 'from-sassy-teal/20 to-sassy-teal/5',
-                border: 'border-sassy-teal/30',
-                href: '/collections/dtf-prints',
-              },
-              {
-                icon: Sparkles,
-                title: 'UV Stickers',
-                desc: 'Waterproof & durable',
-                color: 'from-sassy-periwinkle/20 to-sassy-periwinkle/5',
-                border: 'border-sassy-periwinkle/30',
-                href: '/collections/uv-dtf-stickers',
-              },
-              {
-                icon: Package,
-                title: 'Bundle Packs',
-                desc: 'DTF + UV combos',
-                color: 'from-sassy-lime/20 to-sassy-lime/5',
-                border: 'border-sassy-lime/30',
-                href: '/collections/dtf-uv-bundle-pack',
-              },
-              {
-                icon: Layers,
-                title: 'Gang Sheets',
-                desc: 'Build your own layout',
-                color: 'from-sassy-coral/20 to-sassy-coral/5',
-                border: 'border-sassy-coral/30',
-                href: '/dtf-builder',
-              },
-            ].map((card, i) => (
+            {cards.map((card, i) => (
               <motion.div
                 key={card.title}
                 initial={{ opacity: 0, y: 20 }}

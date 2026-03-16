@@ -12,22 +12,50 @@ import { SpotlightCard } from './effects/spotlight-card'
 import { cn } from '@/lib/utils'
 import { DropZone } from "@puckeditor/core";
 
-export function DtfPricing() {
+export interface DtfPricingProps {
+  sectionHeading: string;
+  sectionHeadingHighlight: string;
+  sectionDescription: string;
+  card1Value: string;
+  card1Desc: string;
+  card2Value: string;
+  card2Desc: string;
+  card3Value: string;
+  card3Desc: string;
+  ctaButtonText: string;
+  ctaButtonLink: string;
+}
+
+export function DtfPricing({
+  sectionHeading = 'Transparent',
+  sectionHeadingHighlight = 'Pricing',
+  sectionDescription = 'No surprises, no hidden fees',
+  card1Value = 'No Minimums',
+  card1Desc = 'Order 1 or 1,000 -- same quality',
+  card2Value = 'No Setup Fees',
+  card2Desc = 'Just upload and we print',
+  card3Value = 'Same-Day Ship',
+  card3Desc = 'Order by 12pm Eastern',
+  ctaButtonText = 'Start Your Order',
+  ctaButtonLink = '/dtf-builder',
+}: DtfPricingProps) {
+  const cards = [
+    { icon: Shield, value: card1Value, desc: card1Desc, color: 'text-sassy-teal', bg: 'bg-sassy-teal/10' },
+    { icon: Zap, value: card2Value, desc: card2Desc, color: 'text-sassy-periwinkle', bg: 'bg-sassy-periwinkle/10' },
+    { icon: Clock, value: card3Value, desc: card3Desc, color: 'text-sassy-lime', bg: 'bg-sassy-lime/10' },
+  ]
+
   return (
     <section className="py-24 bg-background">
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="font-serif text-4xl md:text-5xl font-bold mb-4">
-            Transparent <span className="text-sassy-teal">Pricing</span>
+            {sectionHeading} <span className="text-sassy-teal">{sectionHeadingHighlight}</span>
           </h2>
-          <p className="text-muted-foreground text-lg mb-12">No surprises, no hidden fees</p>
+          <p className="text-muted-foreground text-lg mb-12">{sectionDescription}</p>
 
           <div className="grid md:grid-cols-3 gap-6">
-            {[
-              { icon: Shield, value: 'No Minimums', desc: 'Order 1 or 1,000 -- same quality', color: 'text-sassy-teal', bg: 'bg-sassy-teal/10' },
-              { icon: Zap, value: 'No Setup Fees', desc: 'Just upload and we print', color: 'text-sassy-periwinkle', bg: 'bg-sassy-periwinkle/10' },
-              { icon: Clock, value: 'Same-Day Ship', desc: 'Order by 12pm Eastern', color: 'text-sassy-lime', bg: 'bg-sassy-lime/10' },
-            ].map((item) => (
+            {cards.map((item) => (
               <motion.div
                 key={item.value}
                 initial={{ opacity: 0, y: 20 }}
@@ -51,8 +79,8 @@ export function DtfPricing() {
             viewport={{ once: true }}
             className="mt-12"
           >
-            <Button size="lg" className="bg-gradient-to-r from-sassy-teal to-sassy-periwinkle hover:from-sassy-teal/90 hover:to-sassy-periwinkle/90 text-white text-xl px-14 py-8 font-bold rounded-2xl shadow-xl shadow-sassy-teal/25" onClick={() => window.location.href = '/dtf-builder'}>
-              Start Your Order <ArrowRight className="ml-2 h-6 w-6" />
+            <Button size="lg" className="bg-gradient-to-r from-sassy-teal to-sassy-periwinkle hover:from-sassy-teal/90 hover:to-sassy-periwinkle/90 text-white text-xl px-14 py-8 font-bold rounded-2xl shadow-xl shadow-sassy-teal/25" onClick={() => window.location.href = ctaButtonLink}>
+              {ctaButtonText} <ArrowRight className="ml-2 h-6 w-6" />
             </Button>
           </motion.div>
         </div>

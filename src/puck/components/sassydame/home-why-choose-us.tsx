@@ -24,34 +24,81 @@ const staggerContainer = {
   visible: { transition: { staggerChildren: 0.08 } },
 }
 
-const trustPoints = [
-  {
-    icon: Clock,
-    title: '24-Hour Turnaround',
-    description: 'Lightning-fast production on most orders — get your transfers in just 24 hours',
-    color: 'text-sassy-coral',
-  },
-  {
-    icon: Truck,
-    title: 'Free Shipping $75+',
-    description: 'Free standard shipping on all orders over $75 across the US',
-    color: 'text-sassy-teal',
-  },
-  {
-    icon: Star,
-    title: '4.9 Star Rating',
-    description: 'Thousands of 5-star reviews from crafters, businesses & creators',
-    color: 'text-sassy-gold',
-  },
-  {
-    icon: Heart,
-    title: 'Made with Love',
-    description: 'Every order crafted with care and attention to detail',
-    color: 'text-sassy-rose',
-  },
-]
+export function HomeWhyChooseUs({
+  heading = "Why Crafters",
+  headingHighlight = "Love Us",
+  description = "5,000+ happy customers and counting. Here is why they keep coming back.",
+  trust1Title = "24-Hour Turnaround",
+  trust1Description = "Lightning-fast production on most orders — get your transfers in just 24 hours",
+  trust2Title = "Free Shipping $75+",
+  trust2Description = "Free standard shipping on all orders over $75 across the US",
+  trust3Title = "4.9 Star Rating",
+  trust3Description = "Thousands of 5-star reviews from crafters, businesses & creators",
+  trust4Title = "Made with Love",
+  trust4Description = "Every order crafted with care and attention to detail",
+  stat1Value = "5,000+",
+  stat1Label = "Happy Customers",
+  stat2Value = "50+",
+  stat2Label = "Workshops Hosted",
+  stat3Value = "1,000+",
+  stat3Label = "Custom Orders",
+  stat4Value = "4.9",
+  stat4Label = "Google Rating",
+}: {
+  heading?: string;
+  headingHighlight?: string;
+  description?: string;
+  trust1Title?: string;
+  trust1Description?: string;
+  trust2Title?: string;
+  trust2Description?: string;
+  trust3Title?: string;
+  trust3Description?: string;
+  trust4Title?: string;
+  trust4Description?: string;
+  stat1Value?: string;
+  stat1Label?: string;
+  stat2Value?: string;
+  stat2Label?: string;
+  stat3Value?: string;
+  stat3Label?: string;
+  stat4Value?: string;
+  stat4Label?: string;
+}) {
+  const trustPoints = [
+    {
+      icon: Clock,
+      title: trust1Title,
+      description: trust1Description,
+      color: 'text-sassy-coral',
+    },
+    {
+      icon: Truck,
+      title: trust2Title,
+      description: trust2Description,
+      color: 'text-sassy-teal',
+    },
+    {
+      icon: Star,
+      title: trust3Title,
+      description: trust3Description,
+      color: 'text-sassy-gold',
+    },
+    {
+      icon: Heart,
+      title: trust4Title,
+      description: trust4Description,
+      color: 'text-sassy-rose',
+    },
+  ]
 
-export function HomeWhyChooseUs() {
+  const stats = [
+    { value: stat1Value, label: stat1Label, color: 'text-sassy-lime', spotlight: 'rgba(163,210,51,0.15)' },
+    { value: stat2Value, label: stat2Label, color: 'text-sassy-teal', spotlight: 'rgba(56,163,165,0.15)' },
+    { value: stat3Value, label: stat3Label, color: 'text-sassy-periwinkle', spotlight: 'rgba(131,121,199,0.15)' },
+    { value: stat4Value, label: stat4Label, color: 'text-sassy-coral', spotlight: 'rgba(232,93,81,0.15)' },
+  ]
+
   const trustSpotlightColors: Record<string, string> = {
     'text-sassy-coral': 'rgba(232,93,81,0.15)',
     'text-sassy-teal': 'rgba(56,163,165,0.15)',
@@ -74,9 +121,9 @@ export function HomeWhyChooseUs() {
             custom={0}
             className="font-serif text-4xl md:text-5xl lg:text-6xl font-black mb-4"
           >
-            Why Crafters{' '}
+            {heading}{' '}
             <span className="bg-gradient-to-r from-sassy-fuchsia via-sassy-coral to-sassy-gold bg-clip-text text-transparent">
-              Love Us
+              {headingHighlight}
             </span>
           </motion.h2>
           <motion.p
@@ -84,7 +131,7 @@ export function HomeWhyChooseUs() {
             custom={1}
             className="text-muted-foreground text-lg max-w-xl mx-auto"
           >
-            5,000+ happy customers and counting. Here is why they keep coming back.
+            {description}
           </motion.p>
         </motion.div>
 
@@ -124,12 +171,7 @@ export function HomeWhyChooseUs() {
           variants={staggerContainer}
           className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto"
         >
-          {[
-            { value: '5,000+', label: 'Happy Customers', color: 'text-sassy-lime', spotlight: 'rgba(163,210,51,0.15)' },
-            { value: '50+', label: 'Workshops Hosted', color: 'text-sassy-teal', spotlight: 'rgba(56,163,165,0.15)' },
-            { value: '1,000+', label: 'Custom Orders', color: 'text-sassy-periwinkle', spotlight: 'rgba(131,121,199,0.15)' },
-            { value: '4.9', label: 'Google Rating', color: 'text-sassy-coral', spotlight: 'rgba(232,93,81,0.15)' },
-          ].map((stat, i) => (
+          {stats.map((stat, i) => (
             <motion.div
               key={stat.label}
               variants={fadeUp}

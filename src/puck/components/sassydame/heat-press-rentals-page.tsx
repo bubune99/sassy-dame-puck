@@ -58,7 +58,31 @@ const equipmentList = [
   "Embroidery Machine",
 ];
 
-export function HeatPressRentalsPage() {
+export interface HeatPressRentalsPageProps {
+  badgeText?: string;
+  heading?: string;
+  headingHighlight?: string;
+  description?: string;
+  packagesHeading?: string;
+  packagesDescription?: string;
+  equipmentHeading?: string;
+  equipmentDescription?: string;
+  ctaHeading?: string;
+  ctaDescription?: string;
+}
+
+export function HeatPressRentalsPage({
+  badgeText = "Create Without the Investment",
+  heading = "Heat Press",
+  headingHighlight = "Rentals",
+  description = "Access professional crafting equipment without the hefty price tag. Our fully-equipped studio is perfect for personal projects, small businesses, or trying out new crafts.",
+  packagesHeading = "Rental Packages",
+  packagesDescription = "Choose the package that fits your crafting needs",
+  equipmentHeading = "Professional Equipment",
+  equipmentDescription = "Our studio is stocked with top-of-the-line crafting equipment. No need to buy expensive machines for one-time projects!",
+  ctaHeading = "Ready to Create?",
+  ctaDescription = "Book your studio time today and bring your creative vision to life. Walk-ins welcome based on availability!",
+}: HeatPressRentalsPageProps) {
   return (
     <main className="min-h-screen bg-background">
       {/* Hero Section */}
@@ -72,14 +96,13 @@ export function HeatPressRentalsPage() {
           >
             <div className="inline-flex items-center gap-2 bg-accent/20 text-accent-foreground px-4 py-2 rounded-full text-sm font-medium mb-6">
               <Scissors className="h-4 w-4" />
-              <span>Create Without the Investment</span>
+              <span>{badgeText}</span>
             </div>
             <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-balance">
-              Heat Press <span className="text-primary">Rentals</span>
+              {heading} <span className="text-primary">{headingHighlight}</span>
             </h1>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Access professional crafting equipment without the hefty price tag. Our fully-equipped
-              studio is perfect for personal projects, small businesses, or trying out new crafts.
+              {description}
             </p>
           </motion.div>
         </div>
@@ -94,8 +117,8 @@ export function HeatPressRentalsPage() {
             viewport={{ once: true }}
             className="text-center mb-12"
           >
-            <h2 className="font-serif text-3xl font-bold mb-4">Rental Packages</h2>
-            <p className="text-muted-foreground">Choose the package that fits your crafting needs</p>
+            <h2 className="font-serif text-3xl font-bold mb-4">{packagesHeading}</h2>
+            <p className="text-muted-foreground">{packagesDescription}</p>
           </motion.div>
 
           <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
@@ -158,10 +181,9 @@ export function HeatPressRentalsPage() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
               >
-                <h2 className="font-serif text-3xl font-bold mb-4">Professional Equipment</h2>
+                <h2 className="font-serif text-3xl font-bold mb-4">{equipmentHeading}</h2>
                 <p className="text-muted-foreground mb-6">
-                  Our studio is stocked with top-of-the-line crafting equipment. No need to buy
-                  expensive machines for one-time projects!
+                  {equipmentDescription}
                 </p>
                 <div className="grid grid-cols-2 gap-3">
                   {equipmentList.map((item) => (
@@ -217,10 +239,9 @@ export function HeatPressRentalsPage() {
             className="max-w-3xl mx-auto text-center bg-card rounded-2xl p-10 border border-border"
           >
             <Calendar className="h-12 w-12 text-primary mx-auto mb-4" />
-            <h2 className="font-serif text-3xl font-bold mb-4">Ready to Create?</h2>
+            <h2 className="font-serif text-3xl font-bold mb-4">{ctaHeading}</h2>
             <p className="text-muted-foreground mb-6">
-              Book your studio time today and bring your creative vision to life.
-              Walk-ins welcome based on availability!
+              {ctaDescription}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <button className="inline-flex items-center justify-center rounded-md text-sm font-medium bg-primary text-primary-foreground hover:bg-primary/90 h-11 px-8">

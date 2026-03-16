@@ -123,7 +123,37 @@ const pricingTiers = [
   },
 ];
 
-export function HallRentalsPage() {
+export interface HallRentalsPageProps {
+  badgeText?: string;
+  heading?: string;
+  headingHighlight?: string;
+  description?: string;
+  capacity?: string;
+  sqft?: string;
+  eventTypesHeading?: string;
+  eventTypesDescription?: string;
+  amenitiesHeading?: string;
+  amenitiesDescription?: string;
+  pricingHeading?: string;
+  ctaHeading?: string;
+  ctaDescription?: string;
+}
+
+export function HallRentalsPage({
+  badgeText = "Large Event Venue",
+  heading = "Your Event,",
+  headingHighlight = "Our Hall",
+  description = "A spacious, versatile venue for up to 100 guests. From birthday bashes to wedding receptions, our hall is ready for your next big event.",
+  capacity = "100",
+  sqft = "3,000",
+  eventTypesHeading = "Perfect For Any Occasion",
+  eventTypesDescription = "Our hall adapts to whatever you have in mind",
+  amenitiesHeading = "Everything Included",
+  amenitiesDescription = "Our venue comes fully equipped so you can focus on enjoying your event",
+  pricingHeading = "Simple, Transparent Pricing",
+  ctaHeading = "Ready to Book the Hall?",
+  ctaDescription = "Reserve your date today. We will handle the setup so you can focus on making memories.",
+}: HallRentalsPageProps) {
   return (
     <main className="flex-1">
       {/* Animated background */}
@@ -156,19 +186,18 @@ export function HallRentalsPage() {
               >
                 <div className="inline-flex items-center gap-2 bg-sassy-coral/10 text-sassy-coral px-4 py-2 rounded-full text-sm font-medium mb-6">
                   <Building2 className="h-4 w-4" />
-                  <span>Large Event Venue</span>
+                  <span>{badgeText}</span>
                 </div>
 
                 <h1 className="font-serif text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 leading-[0.95]">
-                  <span className="block">Your Event,</span>
+                  <span className="block">{heading}</span>
                   <span className="block bg-gradient-to-r from-sassy-coral via-sassy-gold to-sassy-orange bg-clip-text text-transparent">
-                    Our Hall
+                    {headingHighlight}
                   </span>
                 </h1>
 
                 <p className="text-lg text-muted-foreground max-w-lg mb-8 leading-relaxed">
-                  A spacious, versatile venue for up to 100 guests. From birthday bashes to wedding receptions,
-                  our hall is ready for your next big event.
+                  {description}
                 </p>
 
                 <div className="flex flex-wrap gap-4 mb-10">
@@ -189,8 +218,8 @@ export function HallRentalsPage() {
 
                 <div className="flex gap-8">
                   {[
-                    { icon: Users, value: "100", label: "Max guests" },
-                    { icon: Building2, value: "3,000", label: "Sq ft space" },
+                    { icon: Users, value: capacity, label: "Max guests" },
+                    { icon: Building2, value: sqft, label: "Sq ft space" },
                     { icon: Star, value: "4.9", label: "Avg rating" },
                   ].map((stat) => (
                     <div key={stat.label} className="flex items-center gap-2.5">

@@ -12,7 +12,35 @@ import {
 import { Button } from '@/components/ui/button'
 import { DropZone } from "@puckeditor/core";
 
-export function HomeHero() {
+export function HomeHero({
+  badgeText = "1230 Green Street, Raleigh NC",
+  heading = "Where Creativity",
+  headingHighlight = "Meets Community.",
+  subheading = "SassyDame Designs is your local craft and print studio in Raleigh, NC. From custom DTF printing and crafting workshops to heat press rentals and community events — we are the home for makers, creators, and small businesses.",
+  primaryButtonText = "Our Story",
+  primaryButtonLink = "/about",
+  secondaryButtonText = "Shop Products",
+  secondaryButtonLink = "/products",
+  tertiaryButtonText = "Visit Our Studio",
+  tertiaryButtonLink = "/pages/visit-us",
+  trustItem1 = "Local Raleigh Studio",
+  trustItem2 = "Workshops & Events",
+  trustItem3 = "4.9 Google Rating",
+}: {
+  badgeText?: string;
+  heading?: string;
+  headingHighlight?: string;
+  subheading?: string;
+  primaryButtonText?: string;
+  primaryButtonLink?: string;
+  secondaryButtonText?: string;
+  secondaryButtonLink?: string;
+  tertiaryButtonText?: string;
+  tertiaryButtonLink?: string;
+  trustItem1?: string;
+  trustItem2?: string;
+  trustItem3?: string;
+}) {
   return (
     <section className="relative overflow-hidden bg-gradient-to-br from-sassy-teal/20 via-sassy-sky/10 to-sassy-fuchsia/15">
       {/* Animated background blobs */}
@@ -53,7 +81,7 @@ export function HomeHero() {
           >
             <MapPin className="h-5 w-5 text-sassy-teal" />
             <span className="text-sm md:text-base font-bold tracking-wide text-sassy-teal uppercase">
-              1230 Green Street, Raleigh NC
+              {badgeText}
             </span>
           </motion.div>
 
@@ -63,9 +91,9 @@ export function HomeHero() {
             transition={{ delay: 0.2, duration: 0.6 }}
             className="font-serif text-5xl md:text-7xl lg:text-8xl font-black mb-6 leading-[0.95] tracking-tight text-foreground"
           >
-            <span className="block">Where Creativity</span>
+            <span className="block">{heading}</span>
             <span className="block bg-gradient-to-r from-sassy-fuchsia via-sassy-coral to-sassy-gold bg-clip-text text-transparent">
-              Meets Community.
+              {headingHighlight}
             </span>
           </motion.h1>
 
@@ -75,9 +103,7 @@ export function HomeHero() {
             transition={{ delay: 0.4, duration: 0.5 }}
             className="text-lg md:text-xl text-muted-foreground mb-10 max-w-2xl mx-auto leading-relaxed"
           >
-            SassyDame Designs is your local craft and print studio in Raleigh, NC.
-            From custom DTF printing and crafting workshops to heat press rentals and community events
-            — we are the home for makers, creators, and small businesses.
+            {subheading}
           </motion.p>
 
           {/* Big CTAs */}
@@ -89,24 +115,24 @@ export function HomeHero() {
           >
             <Button
               className="h-16 px-12 text-lg font-bold rounded-xl bg-sassy-coral hover:bg-sassy-coral/90 text-white shadow-lg shadow-sassy-coral/30 hover:shadow-xl hover:shadow-sassy-coral/40 transition-all duration-300 hover:scale-105"
-              onClick={() => window.location.href = '/about'}
+              onClick={() => window.location.href = primaryButtonLink}
             >
-              Our Story
+              {primaryButtonText}
               <Heart className="ml-2 h-5 w-5" />
             </Button>
             <Button
               className="h-16 px-12 text-lg font-bold rounded-xl bg-sassy-lime hover:bg-sassy-lime/90 text-gray-900 shadow-lg shadow-sassy-lime/30 hover:shadow-xl hover:shadow-sassy-lime/40 transition-all duration-300 hover:scale-105"
-              onClick={() => window.location.href = '/products'}
+              onClick={() => window.location.href = secondaryButtonLink}
             >
-              Shop Products
+              {secondaryButtonText}
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
             <Button
               variant="outline"
               className="h-16 px-12 text-lg font-bold rounded-xl border-2 border-sassy-teal text-sassy-teal hover:bg-sassy-teal hover:text-white transition-all duration-300 hover:scale-105"
-              onClick={() => window.location.href = '/pages/visit-us'}
+              onClick={() => window.location.href = tertiaryButtonLink}
             >
-              Visit Our Studio
+              {tertiaryButtonText}
               <MapPin className="ml-2 h-5 w-5" />
             </Button>
           </motion.div>
@@ -120,17 +146,17 @@ export function HomeHero() {
           >
             <span className="flex items-center gap-2">
               <CheckCircle className="h-4 w-4 text-sassy-teal" />
-              Local Raleigh Studio
+              {trustItem1}
             </span>
             <span className="hidden sm:inline text-border">|</span>
             <span className="flex items-center gap-2">
               <CheckCircle className="h-4 w-4 text-sassy-coral" />
-              Workshops & Events
+              {trustItem2}
             </span>
             <span className="hidden sm:inline text-border">|</span>
             <span className="flex items-center gap-2">
               <CheckCircle className="h-4 w-4 text-sassy-gold" />
-              4.9 Google Rating
+              {trustItem3}
             </span>
           </motion.div>
         </div>

@@ -6,37 +6,77 @@ import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 import { DropZone } from "@puckeditor/core";
 
-const demoEvents = [
-  {
-    id: '1',
-    title: 'DTF Printing Workshop for Beginners',
-    date: '2026-03-15',
-    time: '10:00 AM - 2:00 PM',
-    category: 'Workshop',
-    isFree: false,
-    color: 'bg-sassy-teal',
-  },
-  {
-    id: '2',
-    title: 'Craft Night: Spring Designs',
-    date: '2026-03-22',
-    time: '6:00 PM - 9:00 PM',
-    category: 'Craft Night',
-    isFree: true,
-    color: 'bg-sassy-coral',
-  },
-  {
-    id: '3',
-    title: 'Advanced Gang Sheet Techniques',
-    date: '2026-04-05',
-    time: '1:00 PM - 4:00 PM',
-    category: 'Online Class',
-    isFree: false,
-    color: 'bg-sassy-periwinkle',
-  },
-]
+export interface EventsHeroProps {
+  communityText: string;
+  headingLine1: string;
+  headingLine2: string;
+  description: string;
+  primaryButtonText: string;
+  secondaryButtonText: string;
+  stat1Value: string;
+  stat1Label: string;
+  stat2Value: string;
+  stat2Label: string;
+  stat3Value: string;
+  stat3Label: string;
+  event1Title: string;
+  event1Date: string;
+  event1Time: string;
+  event1Category: string;
+  event1IsFree: boolean;
+  event2Title: string;
+  event2Date: string;
+  event2Time: string;
+  event2Category: string;
+  event2IsFree: boolean;
+  event3Title: string;
+  event3Date: string;
+  event3Time: string;
+  event3Category: string;
+  event3IsFree: boolean;
+}
 
-export function EventsHero() {
+export function EventsHero({
+  communityText = 'Join 500+ community members',
+  headingLine1 = 'Learn, Create,',
+  headingLine2 = 'Connect',
+  description = 'Workshops, craft nights, space rentals, and custom event shirts. Discover your next creative adventure with us.',
+  primaryButtonText = 'View Upcoming Events',
+  secondaryButtonText = 'Rent a Space',
+  stat1Value = '50+',
+  stat1Label = 'Events hosted',
+  stat2Value = '500+',
+  stat2Label = 'Attendees',
+  stat3Value = '4.9',
+  stat3Label = 'Avg rating',
+  event1Title = 'DTF Printing Workshop for Beginners',
+  event1Date = '2026-03-15',
+  event1Time = '10:00 AM - 2:00 PM',
+  event1Category = 'Workshop',
+  event1IsFree = false,
+  event2Title = 'Craft Night: Spring Designs',
+  event2Date = '2026-03-22',
+  event2Time = '6:00 PM - 9:00 PM',
+  event2Category = 'Craft Night',
+  event2IsFree = true,
+  event3Title = 'Advanced Gang Sheet Techniques',
+  event3Date = '2026-04-05',
+  event3Time = '1:00 PM - 4:00 PM',
+  event3Category = 'Online Class',
+  event3IsFree = false,
+}: EventsHeroProps) {
+  const stats = [
+    { icon: Calendar, value: stat1Value, label: stat1Label },
+    { icon: Users, value: stat2Value, label: stat2Label },
+    { icon: Star, value: stat3Value, label: stat3Label },
+  ]
+
+  const demoEvents = [
+    { id: '1', title: event1Title, date: event1Date, time: event1Time, category: event1Category, isFree: event1IsFree, color: 'bg-sassy-teal' },
+    { id: '2', title: event2Title, date: event2Date, time: event2Time, category: event2Category, isFree: event2IsFree, color: 'bg-sassy-coral' },
+    { id: '3', title: event3Title, date: event3Date, time: event3Time, category: event3Category, isFree: event3IsFree, color: 'bg-sassy-periwinkle' },
+  ]
+
   return (
     <section className="relative min-h-[90vh] flex items-center overflow-hidden">
       <div className="container mx-auto px-4 relative z-10">
@@ -55,37 +95,33 @@ export function EventsHero() {
                   </div>
                 ))}
               </div>
-              <span className="text-sm font-medium text-muted-foreground">Join 500+ community members</span>
+              <span className="text-sm font-medium text-muted-foreground">{communityText}</span>
             </div>
 
             <h1 className="font-serif text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 leading-[0.95]">
-              <span className="block">Learn, Create,</span>
+              <span className="block">{headingLine1}</span>
               <span className="block bg-gradient-to-r from-sassy-coral via-sassy-gold to-sassy-orange bg-clip-text text-transparent">
-                Connect
+                {headingLine2}
               </span>
             </h1>
 
             <p className="text-lg text-muted-foreground max-w-lg mb-8 leading-relaxed">
-              Workshops, craft nights, space rentals, and custom event shirts. Discover your next creative adventure with us.
+              {description}
             </p>
 
             <div className="flex flex-wrap gap-4 mb-10">
               <Button size="lg" className="text-xl px-10 py-7 bg-gradient-to-r from-sassy-coral to-sassy-orange hover:from-sassy-coral/90 hover:to-sassy-orange/90 text-white shadow-lg shadow-sassy-coral/25 rounded-2xl font-bold" onClick={() => { const el = document.getElementById('upcoming'); el?.scrollIntoView({ behavior: 'smooth' }); }}>
-                View Upcoming Events
+                {primaryButtonText}
                 <ArrowRight className="ml-2 h-6 w-6" />
               </Button>
               <Button size="lg" className="text-xl px-10 py-7 bg-gradient-to-r from-sassy-gold to-sassy-lime text-foreground hover:from-sassy-gold/90 hover:to-sassy-lime/90 shadow-lg shadow-sassy-gold/25 rounded-2xl font-bold" onClick={() => { const el = document.getElementById('rentals'); el?.scrollIntoView({ behavior: 'smooth' }); }}>
-                Rent a Space
+                {secondaryButtonText}
               </Button>
             </div>
 
             {/* Quick stats */}
             <div className="flex gap-8">
-              {[
-                { icon: Calendar, value: '50+', label: 'Events hosted' },
-                { icon: Users, value: '500+', label: 'Attendees' },
-                { icon: Star, value: '4.9', label: 'Avg rating' },
-              ].map((stat) => (
+              {stats.map((stat) => (
                 <div key={stat.label} className="flex items-center gap-2.5">
                   <stat.icon className="h-5 w-5 text-sassy-coral" />
                   <div>

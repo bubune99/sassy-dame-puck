@@ -5,12 +5,38 @@ import { SpotlightCard } from './effects/spotlight-card'
 import { GlowingBorder } from './effects/glowing-border'
 import { DropZone } from "@puckeditor/core";
 
-export function ServicesBulkPricing() {
+export interface ServicesBulkPricingProps {
+  heading?: string;
+  headingHighlight?: string;
+  subheading?: string;
+  tier1Range?: string;
+  tier1Discount?: string;
+  tier2Range?: string;
+  tier2Discount?: string;
+  tier3Range?: string;
+  tier3Discount?: string;
+  tier4Range?: string;
+  tier4Discount?: string;
+}
+
+export function ServicesBulkPricing({
+  heading = "Volume",
+  headingHighlight = "Discounts",
+  subheading = "The more you order, the more you save",
+  tier1Range = "12-24",
+  tier1Discount = "10%",
+  tier2Range = "25-49",
+  tier2Discount = "15%",
+  tier3Range = "50-99",
+  tier3Discount = "20%",
+  tier4Range = "100+",
+  tier4Discount = "25%+",
+}: ServicesBulkPricingProps) {
   const tiers = [
-    { range: '12-24', discount: '10%', popular: false },
-    { range: '25-49', discount: '15%', popular: false },
-    { range: '50-99', discount: '20%', popular: true },
-    { range: '100+', discount: '25%+', popular: false },
+    { range: tier1Range, discount: tier1Discount, popular: false },
+    { range: tier2Range, discount: tier2Discount, popular: false },
+    { range: tier3Range, discount: tier3Discount, popular: true },
+    { range: tier4Range, discount: tier4Discount, popular: false },
   ]
 
   return (
@@ -18,9 +44,9 @@ export function ServicesBulkPricing() {
       <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="font-serif text-4xl md:text-5xl font-bold mb-4">
-            Volume <span className="text-sassy-gold">Discounts</span>
+            {heading} <span className="text-sassy-gold">{headingHighlight}</span>
           </h2>
-          <p className="text-muted-foreground text-lg mb-12">The more you order, the more you save</p>
+          <p className="text-muted-foreground text-lg mb-12">{subheading}</p>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {tiers.map((tier) => (

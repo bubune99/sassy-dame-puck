@@ -6,35 +6,55 @@ import { Button } from '@/components/ui/button'
 import { GlowingBorder } from './effects/glowing-border'
 import { DropZone } from "@puckeditor/core";
 
-const features = [
-  {
-    icon: Layers,
-    title: 'Build Custom Gang Sheets',
-    description: 'Maximize your transfer material by arranging multiple designs on a single sheet',
-    color: 'text-sassy-teal bg-sassy-teal/15',
-  },
-  {
-    icon: Palette,
-    title: 'Upload Your Designs',
-    description: 'Support for PNG, SVG, and other popular formats with transparent backgrounds',
-    color: 'text-sassy-periwinkle bg-sassy-periwinkle/15',
-  },
-  {
-    icon: Zap,
-    title: 'Instant Pricing',
-    description: 'See your costs in real-time as you build your perfect gang sheet',
-    color: 'text-sassy-gold bg-sassy-gold/15',
-  },
+const featureIcons = [Layers, Palette, Zap]
+const featureColors = [
+  'text-sassy-teal bg-sassy-teal/15',
+  'text-sassy-periwinkle bg-sassy-periwinkle/15',
+  'text-sassy-gold bg-sassy-gold/15',
 ]
 
-const benefits = [
-  'No minimum order quantity',
-  'Premium DTF transfer quality',
-  'Fast turnaround times',
-  'Satisfaction guaranteed',
-]
+export function DTFPromoSection({
+  badgeText = "DTF Builder",
+  headingLine1 = "Design Your Own",
+  headingLine2 = "Gang Sheets",
+  description = "Our easy-to-use DTF Builder lets you create custom gang sheets with your designs. Perfect for small businesses, crafters, and anyone who wants professional DTF transfers.",
+  benefit1 = "No minimum order quantity",
+  benefit2 = "Premium DTF transfer quality",
+  benefit3 = "Fast turnaround times",
+  benefit4 = "Satisfaction guaranteed",
+  buttonText = "Try DTF Builder",
+  buttonLink = "/dtf-builder",
+  feature1Title = "Build Custom Gang Sheets",
+  feature1Description = "Maximize your transfer material by arranging multiple designs on a single sheet",
+  feature2Title = "Upload Your Designs",
+  feature2Description = "Support for PNG, SVG, and other popular formats with transparent backgrounds",
+  feature3Title = "Instant Pricing",
+  feature3Description = "See your costs in real-time as you build your perfect gang sheet",
+}: {
+  badgeText?: string;
+  headingLine1?: string;
+  headingLine2?: string;
+  description?: string;
+  benefit1?: string;
+  benefit2?: string;
+  benefit3?: string;
+  benefit4?: string;
+  buttonText?: string;
+  buttonLink?: string;
+  feature1Title?: string;
+  feature1Description?: string;
+  feature2Title?: string;
+  feature2Description?: string;
+  feature3Title?: string;
+  feature3Description?: string;
+}) {
+  const benefits = [benefit1, benefit2, benefit3, benefit4]
+  const features = [
+    { title: feature1Title, description: feature1Description },
+    { title: feature2Title, description: feature2Description },
+    { title: feature3Title, description: feature3Description },
+  ]
 
-export function DTFPromoSection() {
   return (
     <section className="py-20 relative overflow-hidden">
       {/* Background gradient */}
@@ -50,16 +70,14 @@ export function DTFPromoSection() {
               viewport={{ once: true }}
             >
               <span className="inline-block px-3 py-1 rounded-full bg-sassy-teal/15 text-sassy-teal text-sm font-medium mb-4">
-                DTF Builder
+                {badgeText}
               </span>
               <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
-                Design Your Own
-                <span className="block bg-gradient-to-r from-sassy-lime via-sassy-sky to-sassy-periwinkle bg-clip-text text-transparent">Gang Sheets</span>
+                {headingLine1}
+                <span className="block bg-gradient-to-r from-sassy-lime via-sassy-sky to-sassy-periwinkle bg-clip-text text-transparent">{headingLine2}</span>
               </h2>
               <p className="text-lg text-muted-foreground mb-8 max-w-lg">
-                Our easy-to-use DTF Builder lets you create custom gang sheets
-                with your designs. Perfect for small businesses, crafters, and
-                anyone who wants professional DTF transfers.
+                {description}
               </p>
 
               {/* Benefits List */}
@@ -80,7 +98,7 @@ export function DTFPromoSection() {
               </ul>
 
               <Button size="lg" className="group bg-sassy-lime hover:bg-sassy-lime/90 text-foreground">
-                Try DTF Builder
+                {buttonText}
                 <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
               </Button>
             </motion.div>
@@ -88,29 +106,33 @@ export function DTFPromoSection() {
 
           {/* Right Content - Feature Cards */}
           <div className="space-y-4">
-            {features.map((feature, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, x: 30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.15 }}
-              >
-                <GlowingBorder animate={false} containerClassName="hover:shadow-lg transition-shadow">
-                  <div className="p-6 flex items-start gap-4">
-                    <div className={`h-12 w-12 rounded-lg ${feature.color} flex items-center justify-center flex-shrink-0`}>
-                      <feature.icon className="h-6 w-6" />
+            {features.map((feature, index) => {
+              const Icon = featureIcons[index]
+              const color = featureColors[index]
+              return (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, x: 30 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.15 }}
+                >
+                  <GlowingBorder animate={false} containerClassName="hover:shadow-lg transition-shadow">
+                    <div className="p-6 flex items-start gap-4">
+                      <div className={`h-12 w-12 rounded-lg ${color} flex items-center justify-center flex-shrink-0`}>
+                        <Icon className="h-6 w-6" />
+                      </div>
+                      <div>
+                        <h3 className="font-semibold text-lg mb-1">{feature.title}</h3>
+                        <p className="text-muted-foreground text-sm">
+                          {feature.description}
+                        </p>
+                      </div>
                     </div>
-                    <div>
-                      <h3 className="font-semibold text-lg mb-1">{feature.title}</h3>
-                      <p className="text-muted-foreground text-sm">
-                        {feature.description}
-                      </p>
-                    </div>
-                  </div>
-                </GlowingBorder>
-              </motion.div>
-            ))}
+                  </GlowingBorder>
+                </motion.div>
+              )
+            })}
           </div>
         </div>
       </div>

@@ -86,33 +86,52 @@ function StatCard({
   )
 }
 
-function MainFeatureCard() {
-  return (
-    <div className="flex flex-col items-center justify-center h-full rounded-2xl border border-border p-8 bg-gradient-to-b from-sassy-teal/10 to-sassy-lime/10 text-center">
-      <Printer className="h-16 w-16 text-sassy-teal mb-6" />
-      <h3 className="font-serif text-2xl font-bold mb-3">DTF Builder Tool</h3>
-      <p className="text-muted-foreground mb-6 max-w-xs">
-        Design custom gang sheets with our intuitive builder. Upload your artwork, arrange transfers, and order in minutes.
-      </p>
-      <Button className="bg-sassy-teal hover:bg-sassy-teal/90 text-white">
-        Start Building
-      </Button>
-    </div>
-  )
-}
-
-export function BentoFeatures() {
+export function BentoFeatures({
+  badgeText = "What We Offer",
+  headingPrefix = "Your One-Stop",
+  headingHighlight = "Craft Shop",
+  card1Title = "UV Stickers",
+  card1Description = "Premium UV-printed stickers and decals with stunning detail",
+  mainFeatureTitle = "DTF Builder Tool",
+  mainFeatureDescription = "Design custom gang sheets with our intuitive builder. Upload your artwork, arrange transfers, and order in minutes.",
+  mainFeatureButtonText = "Start Building",
+  card2Title = "Custom Apparel",
+  card2Description = "Personalized shirts, hoodies, and more with your designs",
+  card3Title = "Craft Blanks",
+  card3Description = "High-quality blanks for sublimation, HTV, and more",
+  statValue = "4.9",
+  statLabel = "Google Rating from 500+ Reviews",
+  card4Title = "Classes & Events",
+  card4Description = "Learn new skills with hands-on workshops",
+}: {
+  badgeText?: string;
+  headingPrefix?: string;
+  headingHighlight?: string;
+  card1Title?: string;
+  card1Description?: string;
+  mainFeatureTitle?: string;
+  mainFeatureDescription?: string;
+  mainFeatureButtonText?: string;
+  card2Title?: string;
+  card2Description?: string;
+  card3Title?: string;
+  card3Description?: string;
+  statValue?: string;
+  statLabel?: string;
+  card4Title?: string;
+  card4Description?: string;
+}) {
   return (
     <section className="py-20 bg-background">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <span className="inline-block px-3 py-1 rounded-full bg-sassy-teal/15 text-sassy-teal text-sm font-medium mb-4">
-            What We Offer
+            {badgeText}
           </span>
           <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
-            Your One-Stop{' '}
+            {headingPrefix}{' '}
             <span className="bg-gradient-to-r from-sassy-teal via-sassy-sky to-sassy-fuchsia bg-clip-text text-transparent">
-              Craft Shop
+              {headingHighlight}
             </span>
           </h2>
         </div>
@@ -128,8 +147,8 @@ export function BentoFeatures() {
             <motion.div variants={itemVariants} className="md:col-span-1 md:row-span-1">
               <BentoCard
                 icon={Sparkles}
-                title="UV Stickers"
-                description="Premium UV-printed stickers and decals with stunning detail"
+                title={card1Title}
+                description={card1Description}
                 color="text-sassy-periwinkle"
                 bgColor="bg-sassy-periwinkle/15"
               />
@@ -137,15 +156,24 @@ export function BentoFeatures() {
 
             {/* Slot 2: Main Feature - Spans 3 rows */}
             <motion.div variants={itemVariants} className="md:col-span-1 md:row-span-3">
-              <MainFeatureCard />
+              <div className="flex flex-col items-center justify-center h-full rounded-2xl border border-border p-8 bg-gradient-to-b from-sassy-teal/10 to-sassy-lime/10 text-center">
+                <Printer className="h-16 w-16 text-sassy-teal mb-6" />
+                <h3 className="font-serif text-2xl font-bold mb-3">{mainFeatureTitle}</h3>
+                <p className="text-muted-foreground mb-6 max-w-xs">
+                  {mainFeatureDescription}
+                </p>
+                <Button className="bg-sassy-teal hover:bg-sassy-teal/90 text-white">
+                  {mainFeatureButtonText}
+                </Button>
+              </div>
             </motion.div>
 
             {/* Slot 3: Custom Apparel */}
             <motion.div variants={itemVariants} className="md:col-span-1 md:row-span-1">
               <BentoCard
                 icon={Shirt}
-                title="Custom Apparel"
-                description="Personalized shirts, hoodies, and more with your designs"
+                title={card2Title}
+                description={card2Description}
                 color="text-sassy-coral"
                 bgColor="bg-sassy-coral/15"
               />
@@ -155,8 +183,8 @@ export function BentoFeatures() {
             <motion.div variants={itemVariants} className="md:col-span-1 md:row-span-1">
               <BentoCard
                 icon={Paintbrush}
-                title="Craft Blanks"
-                description="High-quality blanks for sublimation, HTV, and more"
+                title={card3Title}
+                description={card3Description}
                 color="text-sassy-lime"
                 bgColor="bg-sassy-lime/15"
               />
@@ -164,15 +192,15 @@ export function BentoFeatures() {
 
             {/* Slot 5: Statistic - Spans 2 rows */}
             <motion.div variants={itemVariants} className="md:col-span-1 md:row-span-2">
-              <StatCard value="4.9" label="Google Rating from 500+ Reviews" color="text-sassy-gold" />
+              <StatCard value={statValue} label={statLabel} color="text-sassy-gold" />
             </motion.div>
 
             {/* Slot 6: Classes & Events */}
             <motion.div variants={itemVariants} className="md:col-span-1 md:row-span-1">
               <BentoCard
                 icon={Calendar}
-                title="Classes & Events"
-                description="Learn new skills with hands-on workshops"
+                title={card4Title}
+                description={card4Description}
                 color="text-sassy-gold"
                 bgColor="bg-sassy-gold/15"
               />

@@ -14,16 +14,58 @@ import { GlowingBorder } from './effects/glowing-border'
 import { cn } from '@/lib/utils'
 import { DropZone } from "@puckeditor/core";
 
-export function DtfStickerComparison() {
-  const uvFeatures = [
-    'UV-cured ink technology',
-    'Waterproof & scratch-resistant',
-    'Applies to hard surfaces (tumblers, laptops, glass)',
-    'No lamination needed -- built-in protective layer',
-    'Vibrant colors that resist fading',
-    'Peel-and-stick application',
-    'Dishwasher safe on tumblers',
-  ]
+export interface DtfStickerComparisonProps {
+  badgeText: string;
+  sectionHeading: string;
+  sectionHeadingMiddle: string;
+  sectionHeadingEnd: string;
+  sectionDescription: string;
+  uvCardTitle: string;
+  uvCardSubtitle: string;
+  uvCardDescription: string;
+  uvFeature1: string;
+  uvFeature2: string;
+  uvFeature3: string;
+  uvFeature4: string;
+  uvFeature5: string;
+  uvFeature6: string;
+  uvFeature7: string;
+  uvCtaButtonText: string;
+  uvCtaButtonLink: string;
+  regularCardTitle: string;
+  regularCardSubtitle: string;
+  regularCardDescription: string;
+  bottomLineTitle: string;
+  bottomLineDescription: string;
+  upgradeCalloutText: string;
+}
+
+export function DtfStickerComparison({
+  badgeText = 'Know the Difference',
+  sectionHeading = 'UV DTF',
+  sectionHeadingMiddle = 'vs',
+  sectionHeadingEnd = 'Regular Stickers',
+  sectionDescription = 'Not all stickers are created equal. See why UV DTF is the premium choice for durability and vibrancy.',
+  uvCardTitle = 'UV DTF Stickers',
+  uvCardSubtitle = 'Premium UV-Cured Technology',
+  uvCardDescription = 'UV DTF uses ultraviolet light to cure special inks directly onto a transfer film with a built-in adhesive and protective laminate layer. The result is a sticker that is <strong className="text-foreground">waterproof, scratch-resistant, and fade-proof</strong> -- ideal for tumblers, hard hats, laptops, and any hard surface.',
+  uvFeature1 = 'UV-cured ink technology',
+  uvFeature2 = 'Waterproof & scratch-resistant',
+  uvFeature3 = 'Applies to hard surfaces (tumblers, laptops, glass)',
+  uvFeature4 = 'No lamination needed -- built-in protective layer',
+  uvFeature5 = 'Vibrant colors that resist fading',
+  uvFeature6 = 'Peel-and-stick application',
+  uvFeature7 = 'Dishwasher safe on tumblers',
+  uvCtaButtonText = 'Shop UV DTF Stickers',
+  uvCtaButtonLink = '/collections/uv-dtf-stickers',
+  regularCardTitle = 'Regular Stickers',
+  regularCardSubtitle = 'Standard Vinyl / Paper',
+  regularCardDescription = 'Traditional stickers use standard inkjet or laser printing on vinyl or paper stock. They require a separate lamination step for any water resistance and are more prone to fading, peeling, and scratching over time.',
+  bottomLineTitle = 'The Bottom Line',
+  bottomLineDescription = 'UV DTF stickers use <strong className="text-foreground">UV-cured ink on a special transfer film</strong> with a built-in adhesive and laminate -- making them waterproof, dishwasher-safe, and scratch-proof right out of the box. Regular stickers need additional lamination and still cannot match the durability of UV DTF.',
+  upgradeCalloutText = 'Upgrade to UV DTF',
+}: DtfStickerComparisonProps) {
+  const uvFeatures = [uvFeature1, uvFeature2, uvFeature3, uvFeature4, uvFeature5, uvFeature6, uvFeature7]
 
   const regularFeatures = [
     { text: 'Standard inkjet/laser printing', has: true },
@@ -50,15 +92,15 @@ export function DtfStickerComparison() {
         >
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-sassy-coral/15 border border-sassy-coral/30 mb-6">
             <Droplets className="h-4 w-4 text-sassy-coral" />
-            <span className="text-sm font-semibold text-sassy-coral uppercase tracking-wider">Know the Difference</span>
+            <span className="text-sm font-semibold text-sassy-coral uppercase tracking-wider">{badgeText}</span>
           </div>
           <h2 className="text-4xl md:text-6xl font-bold mb-4 text-foreground">
-            UV DTF{' '}
-            <span className="text-sassy-periwinkle">vs</span>{' '}
-            Regular Stickers
+            {sectionHeading}{' '}
+            <span className="text-sassy-periwinkle">{sectionHeadingMiddle}</span>{' '}
+            {sectionHeadingEnd}
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Not all stickers are created equal. See why UV DTF is the premium choice for durability and vibrancy.
+            {sectionDescription}
           </p>
         </motion.div>
 
@@ -81,14 +123,12 @@ export function DtfStickerComparison() {
                 <Sun className="h-7 w-7 text-white" />
               </div>
               <div>
-                <h3 className="text-2xl font-bold text-white">UV DTF Stickers</h3>
-                <p className="text-sm text-sassy-teal">Premium UV-Cured Technology</p>
+                <h3 className="text-2xl font-bold text-white">{uvCardTitle}</h3>
+                <p className="text-sm text-sassy-teal">{uvCardSubtitle}</p>
               </div>
             </div>
 
-            <p className="text-muted-foreground mb-6 leading-relaxed">
-              UV DTF uses ultraviolet light to cure special inks directly onto a transfer film with a built-in adhesive and protective laminate layer. The result is a sticker that is <strong className="text-foreground">waterproof, scratch-resistant, and fade-proof</strong> -- ideal for tumblers, hard hats, laptops, and any hard surface.
-            </p>
+            <p className="text-muted-foreground mb-6 leading-relaxed" dangerouslySetInnerHTML={{ __html: uvCardDescription }} />
 
             <ul className="space-y-3">
               {uvFeatures.map((feature) => (
@@ -101,8 +141,8 @@ export function DtfStickerComparison() {
               ))}
             </ul>
 
-            <Button size="lg" className="w-full mt-8 text-lg py-7 bg-gradient-to-r from-sassy-teal to-sassy-periwinkle text-white font-bold rounded-2xl shadow-xl shadow-sassy-teal/25" onClick={() => window.location.href = '/collections/uv-dtf-stickers'}>
-              Shop UV DTF Stickers
+            <Button size="lg" className="w-full mt-8 text-lg py-7 bg-gradient-to-r from-sassy-teal to-sassy-periwinkle text-white font-bold rounded-2xl shadow-xl shadow-sassy-teal/25" onClick={() => window.location.href = uvCtaButtonLink}>
+              {uvCtaButtonText}
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
           </div>
@@ -121,13 +161,13 @@ export function DtfStickerComparison() {
                 <Layers className="h-7 w-7 text-muted-foreground" />
               </div>
               <div>
-                <h3 className="text-2xl font-bold text-foreground/80">Regular Stickers</h3>
-                <p className="text-sm text-muted-foreground">Standard Vinyl / Paper</p>
+                <h3 className="text-2xl font-bold text-foreground/80">{regularCardTitle}</h3>
+                <p className="text-sm text-muted-foreground">{regularCardSubtitle}</p>
               </div>
             </div>
 
             <p className="text-muted-foreground mb-6 leading-relaxed">
-              Traditional stickers use standard inkjet or laser printing on vinyl or paper stock. They require a separate lamination step for any water resistance and are more prone to fading, peeling, and scratching over time.
+              {regularCardDescription}
             </p>
 
             <ul className="space-y-3">
@@ -155,7 +195,7 @@ export function DtfStickerComparison() {
 
             <div className="mt-8 p-4 rounded-2xl bg-sassy-coral/10 border border-sassy-coral/20">
               <p className="text-sm text-sassy-coral/80 text-center">
-                <strong className="text-sassy-coral">Upgrade to UV DTF</strong> for professional-grade durability and vibrant colors that last.
+                <strong className="text-sassy-coral">{upgradeCalloutText}</strong> for professional-grade durability and vibrant colors that last.
               </p>
             </div>
           </motion.div>
@@ -168,10 +208,8 @@ export function DtfStickerComparison() {
           viewport={{ once: true }}
           className="max-w-3xl mx-auto mt-12 p-6 rounded-3xl border border-sassy-lime/20 bg-sassy-lime/5 text-center"
         >
-          <h4 className="text-lg font-bold text-sassy-lime mb-2">The Bottom Line</h4>
-          <p className="text-muted-foreground">
-            UV DTF stickers use <strong className="text-foreground">UV-cured ink on a special transfer film</strong> with a built-in adhesive and laminate -- making them waterproof, dishwasher-safe, and scratch-proof right out of the box. Regular stickers need additional lamination and still cannot match the durability of UV DTF.
-          </p>
+          <h4 className="text-lg font-bold text-sassy-lime mb-2">{bottomLineTitle}</h4>
+          <p className="text-muted-foreground" dangerouslySetInnerHTML={{ __html: bottomLineDescription }} />
         </motion.div>
       </div>
 

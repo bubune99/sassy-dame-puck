@@ -53,7 +53,31 @@ const milestones = [
   },
 ];
 
-export function AboutPage() {
+export interface AboutPageProps {
+  heading?: string;
+  headingHighlight?: string;
+  heroParagraph?: string;
+  missionHeading?: string;
+  missionParagraph1?: string;
+  missionParagraph2?: string;
+  valuesHeading?: string;
+  valuesDescription?: string;
+  ctaHeading?: string;
+  ctaDescription?: string;
+}
+
+export function AboutPage({
+  heading = "Crafting Dreams,",
+  headingHighlight = "Building Community",
+  heroParagraph = "SassyDame Designs started with a simple dream: to create a space where crafters of all skill levels could find quality supplies, learn new techniques, and connect with fellow creators. What began in a small spare room has grown into a beloved community hub.",
+  missionHeading = "Our Mission",
+  missionParagraph1 = "We are dedicated to making crafting accessible, enjoyable, and rewarding for everyone. Whether you are looking to start a small business, create personalized gifts, or simply explore a new hobby, we are here to support your creative journey.",
+  missionParagraph2 = "Our focus on DTF printing technology allows us to offer cutting-edge solutions for custom apparel and merchandise, while our workshops and events bring the community together to learn and grow.",
+  valuesHeading = "What We Stand For",
+  valuesDescription = "Our values guide everything we do, from the products we select to the events we host.",
+  ctaHeading = "Ready to Start Creating?",
+  ctaDescription = "Visit our store, join a workshop, or start shopping online. We cannot wait to be part of your creative journey!",
+}: AboutPageProps) {
   return (
     <main className="flex-1">
       {/* Hero Section */}
@@ -64,14 +88,11 @@ export function AboutPage() {
               Our Story
             </span>
             <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-              Crafting Dreams,
-              <span className="block text-primary">Building Community</span>
+              {heading}
+              <span className="block text-primary">{headingHighlight}</span>
             </h1>
             <p className="text-lg text-muted-foreground leading-relaxed">
-              SassyDame Designs started with a simple dream: to create a space where
-              crafters of all skill levels could find quality supplies, learn new techniques,
-              and connect with fellow creators. What began in a small spare room has grown
-              into a beloved community hub.
+              {heroParagraph}
             </p>
           </div>
         </div>
@@ -83,18 +104,13 @@ export function AboutPage() {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
               <h2 className="font-serif text-3xl md:text-4xl font-bold mb-6">
-                Our Mission
+                {missionHeading}
               </h2>
               <p className="text-muted-foreground leading-relaxed mb-6">
-                We are dedicated to making crafting accessible, enjoyable, and rewarding
-                for everyone. Whether you are looking to start a small business, create
-                personalized gifts, or simply explore a new hobby, we are here to support
-                your creative journey.
+                {missionParagraph1}
               </p>
               <p className="text-muted-foreground leading-relaxed mb-8">
-                Our focus on DTF printing technology allows us to offer cutting-edge
-                solutions for custom apparel and merchandise, while our workshops and
-                events bring the community together to learn and grow.
+                {missionParagraph2}
               </p>
               <a
                 href="/events"
@@ -120,11 +136,10 @@ export function AboutPage() {
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="font-serif text-3xl md:text-4xl font-bold mb-4">
-              What We Stand For
+              {valuesHeading}
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Our values guide everything we do, from the products we select to
-              the events we host.
+              {valuesDescription}
             </p>
           </div>
 
@@ -180,11 +195,10 @@ export function AboutPage() {
       <section className="py-20 bg-primary text-primary-foreground">
         <div className="container mx-auto px-4 text-center">
           <h2 className="font-serif text-3xl md:text-4xl font-bold mb-4">
-            Ready to Start Creating?
+            {ctaHeading}
           </h2>
           <p className="text-primary-foreground/80 max-w-2xl mx-auto mb-8">
-            Visit our store, join a workshop, or start shopping online.
-            We cannot wait to be part of your creative journey!
+            {ctaDescription}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a

@@ -28,7 +28,45 @@ const staggerContainer = {
   visible: { transition: { staggerChildren: 0.08 } },
 }
 
-export function HomeStorefront() {
+export function HomeStorefront({
+  badgeText = "Custom Storefronts",
+  heading = "Your Brand.",
+  headingHighlight = "Your Store.",
+  description = "We build custom online storefronts for teams, organizations, schools & businesses. Your members order directly, we produce and ship — you sit back and earn. No inventory. No hassle. Full customization.",
+  bullet1 = "Fully branded storefront with your logo & colors",
+  bullet2 = "No minimum orders — perfect for fundraisers",
+  bullet3 = "We handle production, packing & shipping",
+  bullet4 = "Real-time order tracking & analytics dashboard",
+  buttonText = "Start Your Storefront",
+  buttonLink = "/custom-storefront",
+  card1Label = "Team Store",
+  card2Label = "School Spirit",
+  card3Label = "Fundraiser",
+  card4Label = "Business Merch",
+}: {
+  badgeText?: string;
+  heading?: string;
+  headingHighlight?: string;
+  description?: string;
+  bullet1?: string;
+  bullet2?: string;
+  bullet3?: string;
+  bullet4?: string;
+  buttonText?: string;
+  buttonLink?: string;
+  card1Label?: string;
+  card2Label?: string;
+  card3Label?: string;
+  card4Label?: string;
+}) {
+  const bullets = [bullet1, bullet2, bullet3, bullet4].filter(Boolean)
+  const cards = [
+    { label: card1Label, color: 'bg-sassy-coral', icon: Users },
+    { label: card2Label, color: 'bg-sassy-periwinkle', icon: Award },
+    { label: card3Label, color: 'bg-sassy-lime', icon: Heart },
+    { label: card4Label, color: 'bg-sassy-teal', icon: Store },
+  ]
+
   return (
     <section className="py-24 md:py-32 bg-gradient-to-b from-background via-sassy-periwinkle/10 to-background">
       <div className="container mx-auto px-4">
@@ -45,7 +83,7 @@ export function HomeStorefront() {
               <motion.div variants={fadeUp} custom={0}>
                 <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-sassy-periwinkle/10 text-sassy-periwinkle text-sm font-semibold uppercase tracking-wider mb-6">
                   <Store className="h-4 w-4" />
-                  Custom Storefronts
+                  {badgeText}
                 </span>
               </motion.div>
               <motion.h2
@@ -53,9 +91,9 @@ export function HomeStorefront() {
                 custom={1}
                 className="font-serif text-4xl md:text-5xl lg:text-6xl font-black mb-6 leading-tight"
               >
-                Your Brand.{' '}
+                {heading}{' '}
                 <span className="bg-gradient-to-r from-sassy-periwinkle via-sassy-sky to-sassy-fuchsia bg-clip-text text-transparent">
-                  Your Store.
+                  {headingHighlight}
                 </span>
               </motion.h2>
               <motion.p
@@ -63,18 +101,11 @@ export function HomeStorefront() {
                 custom={2}
                 className="text-muted-foreground text-lg mb-8 leading-relaxed"
               >
-                We build custom online storefronts for teams, organizations, schools & businesses.
-                Your members order directly, we produce and ship — you sit back and earn.
-                No inventory. No hassle. Full customization.
+                {description}
               </motion.p>
 
               <motion.ul variants={fadeUp} custom={3} className="space-y-4 mb-10">
-                {[
-                  'Fully branded storefront with your logo & colors',
-                  'No minimum orders — perfect for fundraisers',
-                  'We handle production, packing & shipping',
-                  'Real-time order tracking & analytics dashboard',
-                ].map((item, i) => (
+                {bullets.map((item, i) => (
                   <li key={i} className="flex items-start gap-3">
                     <CheckCircle className="h-5 w-5 text-sassy-lime mt-0.5 flex-shrink-0" />
                     <span className="text-foreground/80">{item}</span>
@@ -85,9 +116,9 @@ export function HomeStorefront() {
               <motion.div variants={fadeUp} custom={4}>
                 <Button
                   className="h-16 px-14 text-lg font-bold rounded-xl bg-sassy-periwinkle hover:bg-sassy-periwinkle/90 text-white shadow-[0_0_30px_rgba(131,121,199,0.4)] hover:shadow-[0_0_50px_rgba(131,121,199,0.6)] transition-all duration-300 hover:scale-105"
-                  onClick={() => window.location.href = '/custom-storefront'}
+                  onClick={() => window.location.href = buttonLink}
                 >
-                  Start Your Storefront
+                  {buttonText}
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
               </motion.div>
@@ -98,12 +129,7 @@ export function HomeStorefront() {
               <div className="relative">
                 {/* Mock storefront cards */}
                 <div className="grid grid-cols-2 gap-4">
-                  {[
-                    { label: 'Team Store', color: 'bg-sassy-coral', icon: Users },
-                    { label: 'School Spirit', color: 'bg-sassy-periwinkle', icon: Award },
-                    { label: 'Fundraiser', color: 'bg-sassy-lime', icon: Heart },
-                    { label: 'Business Merch', color: 'bg-sassy-teal', icon: Store },
-                  ].map((card, i) => (
+                  {cards.map((card, i) => (
                     <GlowingBorder key={card.label} containerClassName="rounded-2xl">
                       <motion.div
                         whileHover={{ scale: 1.05, rotate: i % 2 === 0 ? 2 : -2 }}

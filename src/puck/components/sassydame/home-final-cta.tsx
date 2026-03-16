@@ -23,7 +23,25 @@ const staggerContainer = {
   visible: { transition: { staggerChildren: 0.08 } },
 }
 
-export function HomeFinalCta() {
+export function HomeFinalCta({
+  badgeText = "24-Hour Turnaround Available",
+  heading = "Ready to Create",
+  headingHighlight = "Something Amazing?",
+  description = "Join thousands of crafters, businesses & creators who trust SassyDame Designs for premium quality, lightning-fast turnaround & unbeatable service.",
+  primaryButtonText = "Shop All Products",
+  primaryButtonLink = "/products",
+  secondaryButtonText = "Get a Custom Quote",
+  secondaryButtonLink = "/custom-order",
+}: {
+  badgeText?: string;
+  heading?: string;
+  headingHighlight?: string;
+  description?: string;
+  primaryButtonText?: string;
+  primaryButtonLink?: string;
+  secondaryButtonText?: string;
+  secondaryButtonLink?: string;
+}) {
   return (
     <section className="relative py-24 md:py-32 overflow-hidden bg-gradient-to-br from-sassy-coral/15 via-sassy-fuchsia/10 to-sassy-lime/15">
       <motion.div
@@ -53,7 +71,7 @@ export function HomeFinalCta() {
             <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-sassy-teal/15 border border-sassy-teal/30 backdrop-blur-sm mb-8">
               <Clock className="h-5 w-5 text-sassy-teal" />
               <span className="font-bold text-sassy-teal uppercase tracking-wide text-sm">
-                24-Hour Turnaround Available
+                {badgeText}
               </span>
             </div>
           </motion.div>
@@ -63,9 +81,9 @@ export function HomeFinalCta() {
             custom={1}
             className="font-serif text-4xl md:text-6xl lg:text-7xl font-black mb-6 leading-tight text-foreground"
           >
-            Ready to Create{' '}
+            {heading}{' '}
             <span className="bg-gradient-to-r from-sassy-fuchsia via-sassy-coral to-sassy-gold bg-clip-text text-transparent">
-              Something Amazing?
+              {headingHighlight}
             </span>
           </motion.h2>
 
@@ -74,8 +92,7 @@ export function HomeFinalCta() {
             custom={2}
             className="text-lg md:text-xl text-muted-foreground mb-10 max-w-2xl mx-auto"
           >
-            Join thousands of crafters, businesses & creators who trust SassyDame Designs
-            for premium quality, lightning-fast turnaround & unbeatable service.
+            {description}
           </motion.p>
 
           <motion.div
@@ -85,16 +102,16 @@ export function HomeFinalCta() {
           >
             <Button
               className="h-18 px-16 text-xl font-black rounded-2xl bg-sassy-coral hover:bg-sassy-coral/90 text-white shadow-lg shadow-sassy-coral/30 hover:shadow-xl transition-all duration-300 hover:scale-105 py-5"
-              onClick={() => window.location.href = '/products'}
+              onClick={() => window.location.href = primaryButtonLink}
             >
-              Shop All Products
+              {primaryButtonText}
               <ArrowRight className="ml-2 h-6 w-6" />
             </Button>
             <Button
               className="h-18 px-16 text-xl font-black rounded-2xl bg-sassy-lime hover:bg-sassy-lime/90 text-gray-900 shadow-lg shadow-sassy-lime/30 hover:shadow-xl transition-all duration-300 hover:scale-105 py-5"
-              onClick={() => window.location.href = '/custom-order'}
+              onClick={() => window.location.href = secondaryButtonLink}
             >
-              Get a Custom Quote
+              {secondaryButtonText}
               <Sparkles className="ml-2 h-6 w-6" />
             </Button>
           </motion.div>

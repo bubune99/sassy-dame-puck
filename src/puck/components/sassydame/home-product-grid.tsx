@@ -28,80 +28,134 @@ const staggerContainer = {
   visible: { transition: { staggerChildren: 0.08 } },
 }
 
-const productCategories = [
-  {
-    title: 'DTF Transfers',
-    description: 'Premium direct-to-film transfers with vibrant colors and sharp detail',
-    href: '/collections/dtf-transfers',
-    icon: Layers,
-    color: 'bg-sassy-coral',
-    hoverColor: 'hover:bg-sassy-coral/90',
-    textColor: 'text-white',
-    borderGlow: 'hover:shadow-[0_0_40px_rgba(232,93,81,0.4)]',
-  },
-  {
-    title: 'UV DTF',
-    description: 'Ultra-durable UV DTF decals for hard surfaces, tumblers & more',
-    href: '/collections/uv-dtf-stickers',
-    icon: Sparkles,
-    color: 'bg-sassy-periwinkle',
-    hoverColor: 'hover:bg-sassy-periwinkle/90',
-    textColor: 'text-white',
-    borderGlow: 'hover:shadow-[0_0_40px_rgba(131,121,199,0.4)]',
-  },
-  {
-    title: 'Patches',
-    description: 'Custom embroidered & printed patches for hats, jackets & bags',
-    href: '/collections/patches',
-    icon: Shield,
-    color: 'bg-sassy-teal',
-    hoverColor: 'hover:bg-sassy-teal/90',
-    textColor: 'text-white',
-    borderGlow: 'hover:shadow-[0_0_40px_rgba(56,163,165,0.4)]',
-  },
-  {
-    title: 'Rhinestones',
-    description: 'Sparkling rhinestone transfers that add glamour to any project',
-    href: '/collections/rhinestones',
-    icon: Gem,
-    color: 'bg-sassy-rose',
-    hoverColor: 'hover:bg-sassy-rose/90',
-    textColor: 'text-white',
-    borderGlow: 'hover:shadow-[0_0_40px_rgba(199,101,130,0.4)]',
-  },
-  {
-    title: 'Ready-Made DTF',
-    description: 'Ready to press designs — just pick, order & apply. It\'s that easy!',
-    href: '/collections/ready-to-press-dtf-designs',
-    icon: Zap,
-    color: 'bg-sassy-lime',
-    hoverColor: 'hover:bg-sassy-lime/90',
-    textColor: 'text-gray-900',
-    borderGlow: 'hover:shadow-[0_0_40px_rgba(163,210,51,0.4)]',
-  },
-  {
-    title: 'Digital Downloads',
-    description: 'Instant download designs, templates & artwork files',
-    href: '/collections/digital-downloads',
-    icon: Download,
-    color: 'bg-sassy-gold',
-    hoverColor: 'hover:bg-sassy-gold/90',
-    textColor: 'text-gray-900',
-    borderGlow: 'hover:shadow-[0_0_40px_rgba(215,183,60,0.4)]',
-  },
-  {
-    title: 'Custom Vinyl Lettering',
-    description: 'Precision-cut vinyl letters & graphics for any surface',
-    href: '/collections/custom-vinyl-lettering',
-    icon: Type,
-    color: 'bg-sassy-orange',
-    hoverColor: 'hover:bg-sassy-orange/90',
-    textColor: 'text-white',
-    borderGlow: 'hover:shadow-[0_0_40px_rgba(225,150,60,0.4)]',
-  },
-]
+export function HomeProductGrid({
+  badgeText = "Shop by Category",
+  heading = "What Are You",
+  headingHighlight = "Creating Today?",
+  description = "From custom DTF transfers to rhinestone bling — we have everything to bring your ideas to life.",
+  cat1Title = "DTF Transfers",
+  cat1Description = "Premium direct-to-film transfers with vibrant colors and sharp detail",
+  cat1Link = "/collections/dtf-transfers",
+  cat2Title = "UV DTF",
+  cat2Description = "Ultra-durable UV DTF decals for hard surfaces, tumblers & more",
+  cat2Link = "/collections/uv-dtf-stickers",
+  cat3Title = "Patches",
+  cat3Description = "Custom embroidered & printed patches for hats, jackets & bags",
+  cat3Link = "/collections/patches",
+  cat4Title = "Rhinestones",
+  cat4Description = "Sparkling rhinestone transfers that add glamour to any project",
+  cat4Link = "/collections/rhinestones",
+  cat5Title = "Ready-Made DTF",
+  cat5Description = "Ready to press designs — just pick, order & apply. It's that easy!",
+  cat5Link = "/collections/ready-to-press-dtf-designs",
+  cat6Title = "Digital Downloads",
+  cat6Description = "Instant download designs, templates & artwork files",
+  cat6Link = "/collections/digital-downloads",
+  cat7Title = "Custom Vinyl Lettering",
+  cat7Description = "Precision-cut vinyl letters & graphics for any surface",
+  cat7Link = "/collections/custom-vinyl-lettering",
+  cardCtaText = "Shop Now",
+}: {
+  badgeText?: string;
+  heading?: string;
+  headingHighlight?: string;
+  description?: string;
+  cat1Title?: string;
+  cat1Description?: string;
+  cat1Link?: string;
+  cat2Title?: string;
+  cat2Description?: string;
+  cat2Link?: string;
+  cat3Title?: string;
+  cat3Description?: string;
+  cat3Link?: string;
+  cat4Title?: string;
+  cat4Description?: string;
+  cat4Link?: string;
+  cat5Title?: string;
+  cat5Description?: string;
+  cat5Link?: string;
+  cat6Title?: string;
+  cat6Description?: string;
+  cat6Link?: string;
+  cat7Title?: string;
+  cat7Description?: string;
+  cat7Link?: string;
+  cardCtaText?: string;
+}) {
+  const productCategories = [
+    {
+      title: cat1Title,
+      description: cat1Description,
+      href: cat1Link,
+      icon: Layers,
+      color: 'bg-sassy-coral',
+      hoverColor: 'hover:bg-sassy-coral/90',
+      textColor: 'text-white',
+      borderGlow: 'hover:shadow-[0_0_40px_rgba(232,93,81,0.4)]',
+    },
+    {
+      title: cat2Title,
+      description: cat2Description,
+      href: cat2Link,
+      icon: Sparkles,
+      color: 'bg-sassy-periwinkle',
+      hoverColor: 'hover:bg-sassy-periwinkle/90',
+      textColor: 'text-white',
+      borderGlow: 'hover:shadow-[0_0_40px_rgba(131,121,199,0.4)]',
+    },
+    {
+      title: cat3Title,
+      description: cat3Description,
+      href: cat3Link,
+      icon: Shield,
+      color: 'bg-sassy-teal',
+      hoverColor: 'hover:bg-sassy-teal/90',
+      textColor: 'text-white',
+      borderGlow: 'hover:shadow-[0_0_40px_rgba(56,163,165,0.4)]',
+    },
+    {
+      title: cat4Title,
+      description: cat4Description,
+      href: cat4Link,
+      icon: Gem,
+      color: 'bg-sassy-rose',
+      hoverColor: 'hover:bg-sassy-rose/90',
+      textColor: 'text-white',
+      borderGlow: 'hover:shadow-[0_0_40px_rgba(199,101,130,0.4)]',
+    },
+    {
+      title: cat5Title,
+      description: cat5Description,
+      href: cat5Link,
+      icon: Zap,
+      color: 'bg-sassy-lime',
+      hoverColor: 'hover:bg-sassy-lime/90',
+      textColor: 'text-gray-900',
+      borderGlow: 'hover:shadow-[0_0_40px_rgba(163,210,51,0.4)]',
+    },
+    {
+      title: cat6Title,
+      description: cat6Description,
+      href: cat6Link,
+      icon: Download,
+      color: 'bg-sassy-gold',
+      hoverColor: 'hover:bg-sassy-gold/90',
+      textColor: 'text-gray-900',
+      borderGlow: 'hover:shadow-[0_0_40px_rgba(215,183,60,0.4)]',
+    },
+    {
+      title: cat7Title,
+      description: cat7Description,
+      href: cat7Link,
+      icon: Type,
+      color: 'bg-sassy-orange',
+      hoverColor: 'hover:bg-sassy-orange/90',
+      textColor: 'text-white',
+      borderGlow: 'hover:shadow-[0_0_40px_rgba(225,150,60,0.4)]',
+    },
+  ]
 
-export function HomeProductGrid() {
   const spotlightColors: Record<string, string> = {
     'bg-sassy-coral': 'rgba(232,93,81,0.2)',
     'bg-sassy-periwinkle': 'rgba(131,121,199,0.2)',
@@ -124,7 +178,7 @@ export function HomeProductGrid() {
         >
           <motion.div variants={fadeUp} custom={0}>
             <span className="inline-block px-4 py-1.5 rounded-full bg-sassy-coral/10 text-sassy-coral text-sm font-semibold uppercase tracking-wider mb-4">
-              Shop by Category
+              {badgeText}
             </span>
           </motion.div>
           <motion.h2
@@ -132,9 +186,9 @@ export function HomeProductGrid() {
             custom={1}
             className="font-serif text-4xl md:text-5xl lg:text-6xl font-black mb-4"
           >
-            What Are You{' '}
+            {heading}{' '}
             <span className="bg-gradient-to-r from-sassy-teal via-sassy-sky to-sassy-fuchsia bg-clip-text text-transparent">
-              Creating Today?
+              {headingHighlight}
             </span>
           </motion.h2>
           <motion.p
@@ -142,7 +196,7 @@ export function HomeProductGrid() {
             custom={2}
             className="text-muted-foreground text-lg max-w-2xl mx-auto"
           >
-            From custom DTF transfers to rhinestone bling — we have everything to bring your ideas to life.
+            {description}
           </motion.p>
         </motion.div>
 
@@ -177,7 +231,7 @@ export function HomeProductGrid() {
                     </div>
 
                     <div className="relative z-10 mt-6 flex items-center gap-2 font-semibold text-sm group-hover:gap-4 transition-all">
-                      Shop Now <ArrowRight className="h-4 w-4" />
+                      {cardCtaText} <ArrowRight className="h-4 w-4" />
                     </div>
                   </div>
                 </SpotlightCard>

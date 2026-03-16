@@ -8,102 +8,148 @@ import { SpotlightCard } from './effects/spotlight-card'
 import { cn } from '@/lib/utils'
 import { DropZone } from "@puckeditor/core";
 
-const demoEvents = [
-  {
-    id: '1',
-    title: 'DTF Printing Workshop for Beginners',
-    date: '2026-03-15',
-    time: '10:00 AM - 2:00 PM',
-    location: 'SassyDame Studio',
-    description: 'Learn the basics of DTF printing in this hands-on workshop. Perfect for beginners who want to start their crafting journey!',
-    capacity: 12,
-    spotsLeft: 4,
-    price: 49,
-    isFree: false,
-    category: 'Workshop',
-    featured: true,
-    color: 'bg-sassy-teal',
-  },
-  {
-    id: '2',
-    title: 'Craft Night: Spring Designs',
-    date: '2026-03-22',
-    time: '6:00 PM - 9:00 PM',
-    location: 'SassyDame Studio',
-    description: 'Join us for a fun evening creating spring-themed crafts. All supplies included! Bring your friends.',
-    capacity: 20,
-    spotsLeft: 8,
-    price: 0,
-    isFree: true,
-    category: 'Craft Night',
-    featured: true,
-    color: 'bg-sassy-coral',
-  },
-  {
-    id: '3',
-    title: 'Advanced Gang Sheet Techniques',
-    date: '2026-04-05',
-    time: '1:00 PM - 4:00 PM',
-    location: 'Online via Zoom',
-    description: 'Take your DTF business to the next level with advanced gang sheet optimization techniques.',
-    capacity: 50,
-    spotsLeft: 32,
-    price: 29,
-    isFree: false,
-    category: 'Online Class',
-    featured: true,
-    color: 'bg-sassy-periwinkle',
-  },
-  {
-    id: '4',
-    title: 'Kids Craft Saturday',
-    date: '2026-04-12',
-    time: '10:00 AM - 12:00 PM',
-    location: 'SassyDame Studio',
-    description: 'A fun crafting session for kids ages 6-12. They\'ll create their own custom t-shirt design!',
-    capacity: 15,
-    spotsLeft: 10,
-    price: 25,
-    isFree: false,
-    category: 'Kids',
-    featured: false,
-    color: 'bg-sassy-gold',
-  },
-  {
-    id: '5',
-    title: 'Small Business Meetup',
-    date: '2026-04-19',
-    time: '5:00 PM - 7:00 PM',
-    location: 'SassyDame Studio',
-    description: 'Connect with other local crafters and small business owners. Share tips, network, and build community!',
-    capacity: 30,
-    spotsLeft: 12,
-    price: 0,
-    isFree: true,
-    category: 'Networking',
-    featured: false,
-    color: 'bg-sassy-lime',
-  },
-  {
-    id: '6',
-    title: 'Sublimation 101: Tumblers & Mugs',
-    date: '2026-04-26',
-    time: '11:00 AM - 3:00 PM',
-    location: 'SassyDame Studio',
-    description: 'Master sublimation printing on tumblers, mugs, and drinkware. Take home your creations!',
-    capacity: 10,
-    spotsLeft: 3,
-    price: 59,
-    isFree: false,
-    category: 'Workshop',
-    featured: false,
-    color: 'bg-sassy-rose',
-  },
-]
+export interface EventsListingsProps {
+  sectionHeading: string;
+  sectionHeadingHighlight: string;
+  sectionDescription: string;
+  event1Title: string;
+  event1Date: string;
+  event1Time: string;
+  event1Location: string;
+  event1Description: string;
+  event1Category: string;
+  event1Price: number;
+  event1IsFree: boolean;
+  event1Capacity: number;
+  event1SpotsLeft: number;
+  event2Title: string;
+  event2Date: string;
+  event2Time: string;
+  event2Location: string;
+  event2Description: string;
+  event2Category: string;
+  event2Price: number;
+  event2IsFree: boolean;
+  event2Capacity: number;
+  event2SpotsLeft: number;
+  event3Title: string;
+  event3Date: string;
+  event3Time: string;
+  event3Location: string;
+  event3Description: string;
+  event3Category: string;
+  event3Price: number;
+  event3IsFree: boolean;
+  event3Capacity: number;
+  event3SpotsLeft: number;
+  event4Title: string;
+  event4Date: string;
+  event4Time: string;
+  event4Location: string;
+  event4Description: string;
+  event4Category: string;
+  event4Price: number;
+  event4IsFree: boolean;
+  event4Capacity: number;
+  event4SpotsLeft: number;
+  event5Title: string;
+  event5Date: string;
+  event5Time: string;
+  event5Location: string;
+  event5Description: string;
+  event5Category: string;
+  event5Price: number;
+  event5IsFree: boolean;
+  event5Capacity: number;
+  event5SpotsLeft: number;
+  event6Title: string;
+  event6Date: string;
+  event6Time: string;
+  event6Location: string;
+  event6Description: string;
+  event6Category: string;
+  event6Price: number;
+  event6IsFree: boolean;
+  event6Capacity: number;
+  event6SpotsLeft: number;
+}
 
-const categories = ['All', 'Workshop', 'Craft Night', 'Online Class', 'Kids', 'Networking']
+export function EventsListings({
+  sectionHeading = 'Upcoming',
+  sectionHeadingHighlight = 'Events',
+  sectionDescription = 'Find your next creative adventure',
+  event1Title = 'DTF Printing Workshop for Beginners',
+  event1Date = '2026-03-15',
+  event1Time = '10:00 AM - 2:00 PM',
+  event1Location = 'SassyDame Studio',
+  event1Description = 'Learn the basics of DTF printing in this hands-on workshop. Perfect for beginners who want to start their crafting journey!',
+  event1Category = 'Workshop',
+  event1Price = 49,
+  event1IsFree = false,
+  event1Capacity = 12,
+  event1SpotsLeft = 4,
+  event2Title = 'Craft Night: Spring Designs',
+  event2Date = '2026-03-22',
+  event2Time = '6:00 PM - 9:00 PM',
+  event2Location = 'SassyDame Studio',
+  event2Description = 'Join us for a fun evening creating spring-themed crafts. All supplies included! Bring your friends.',
+  event2Category = 'Craft Night',
+  event2Price = 0,
+  event2IsFree = true,
+  event2Capacity = 20,
+  event2SpotsLeft = 8,
+  event3Title = 'Advanced Gang Sheet Techniques',
+  event3Date = '2026-04-05',
+  event3Time = '1:00 PM - 4:00 PM',
+  event3Location = 'Online via Zoom',
+  event3Description = 'Take your DTF business to the next level with advanced gang sheet optimization techniques.',
+  event3Category = 'Online Class',
+  event3Price = 29,
+  event3IsFree = false,
+  event3Capacity = 50,
+  event3SpotsLeft = 32,
+  event4Title = 'Kids Craft Saturday',
+  event4Date = '2026-04-12',
+  event4Time = '10:00 AM - 12:00 PM',
+  event4Location = 'SassyDame Studio',
+  event4Description = "A fun crafting session for kids ages 6-12. They'll create their own custom t-shirt design!",
+  event4Category = 'Kids',
+  event4Price = 25,
+  event4IsFree = false,
+  event4Capacity = 15,
+  event4SpotsLeft = 10,
+  event5Title = 'Small Business Meetup',
+  event5Date = '2026-04-19',
+  event5Time = '5:00 PM - 7:00 PM',
+  event5Location = 'SassyDame Studio',
+  event5Description = 'Connect with other local crafters and small business owners. Share tips, network, and build community!',
+  event5Category = 'Networking',
+  event5Price = 0,
+  event5IsFree = true,
+  event5Capacity = 30,
+  event5SpotsLeft = 12,
+  event6Title = 'Sublimation 101: Tumblers & Mugs',
+  event6Date = '2026-04-26',
+  event6Time = '11:00 AM - 3:00 PM',
+  event6Location = 'SassyDame Studio',
+  event6Description = 'Master sublimation printing on tumblers, mugs, and drinkware. Take home your creations!',
+  event6Category = 'Workshop',
+  event6Price = 59,
+  event6IsFree = false,
+  event6Capacity = 10,
+  event6SpotsLeft = 3,
+}: EventsListingsProps) {
+  const demoEvents = [
+    { id: '1', title: event1Title, date: event1Date, time: event1Time, location: event1Location, description: event1Description, capacity: event1Capacity, spotsLeft: event1SpotsLeft, price: event1Price, isFree: event1IsFree, category: event1Category, featured: true, color: 'bg-sassy-teal' },
+    { id: '2', title: event2Title, date: event2Date, time: event2Time, location: event2Location, description: event2Description, capacity: event2Capacity, spotsLeft: event2SpotsLeft, price: event2Price, isFree: event2IsFree, category: event2Category, featured: true, color: 'bg-sassy-coral' },
+    { id: '3', title: event3Title, date: event3Date, time: event3Time, location: event3Location, description: event3Description, capacity: event3Capacity, spotsLeft: event3SpotsLeft, price: event3Price, isFree: event3IsFree, category: event3Category, featured: true, color: 'bg-sassy-periwinkle' },
+    { id: '4', title: event4Title, date: event4Date, time: event4Time, location: event4Location, description: event4Description, capacity: event4Capacity, spotsLeft: event4SpotsLeft, price: event4Price, isFree: event4IsFree, category: event4Category, featured: false, color: 'bg-sassy-gold' },
+    { id: '5', title: event5Title, date: event5Date, time: event5Time, location: event5Location, description: event5Description, capacity: event5Capacity, spotsLeft: event5SpotsLeft, price: event5Price, isFree: event5IsFree, category: event5Category, featured: false, color: 'bg-sassy-lime' },
+    { id: '6', title: event6Title, date: event6Date, time: event6Time, location: event6Location, description: event6Description, capacity: event6Capacity, spotsLeft: event6SpotsLeft, price: event6Price, isFree: event6IsFree, category: event6Category, featured: false, color: 'bg-sassy-rose' },
+  ]
 
-export function EventsListings() {
+  const categories = ['All', 'Workshop', 'Craft Night', 'Online Class', 'Kids', 'Networking']
+
   const [activeFilter, setActiveFilter] = useState('All')
 
   const filtered = activeFilter === 'All'
@@ -115,9 +161,9 @@ export function EventsListings() {
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="font-serif text-4xl md:text-5xl font-bold mb-4">
-            Upcoming <span className="bg-gradient-to-r from-sassy-coral to-sassy-orange bg-clip-text text-transparent">Events</span>
+            {sectionHeading} <span className="bg-gradient-to-r from-sassy-coral to-sassy-orange bg-clip-text text-transparent">{sectionHeadingHighlight}</span>
           </h2>
-          <p className="text-muted-foreground text-lg">Find your next creative adventure</p>
+          <p className="text-muted-foreground text-lg">{sectionDescription}</p>
         </div>
 
         {/* Category filters */}

@@ -6,22 +6,60 @@ import { SpotlightCard } from './effects/spotlight-card'
 import { cn } from '@/lib/utils'
 import { DropZone } from "@puckeditor/core";
 
-export function StudioSpaces() {
+export interface StudioSpacesProps {
+  sectionBadge?: string;
+  sectionHeading?: string;
+  sectionHeadingHighlight?: string;
+  space1Title?: string;
+  space1Description?: string;
+  space1Link?: string;
+  space1Feature1?: string;
+  space1Feature2?: string;
+  space1Feature3?: string;
+  space1Feature4?: string;
+  space2Title?: string;
+  space2Description?: string;
+  space2Link?: string;
+  space2Feature1?: string;
+  space2Feature2?: string;
+  space2Feature3?: string;
+  space2Feature4?: string;
+}
+
+export function StudioSpaces({
+  sectionBadge = "Two Unique Spaces",
+  sectionHeading = "Choose Your",
+  sectionHeadingHighlight = "Creative Setting",
+  space1Title = "Heat Press Rentals",
+  space1Description = "Our fully-equipped workspace with professional heat presses, cutting machines, sublimation printers, and every tool a crafter could dream of.",
+  space1Link = "/crafting-studio-rentals",
+  space1Feature1 = "10 workstations",
+  space1Feature2 = "All equipment included",
+  space1Feature3 = "Expert staff on-site",
+  space1Feature4 = "Complimentary supplies",
+  space2Title = "Event Space",
+  space2Description = "Host birthday parties, team-building events, bridal showers, or craft nights in our vibrant, Instagram-worthy event area.",
+  space2Link = "/events-space-rentals",
+  space2Feature1 = "Seats up to 30",
+  space2Feature2 = "Catering available",
+  space2Feature3 = "Custom setups",
+  space2Feature4 = "Photo-worthy decor",
+}: StudioSpacesProps) {
   const spaces = [
     {
-      title: 'Heat Press Rentals',
-      desc: 'Our fully-equipped workspace with professional heat presses, cutting machines, sublimation printers, and every tool a crafter could dream of.',
-      href: '/crafting-studio-rentals',
-      features: ['10 workstations', 'All equipment included', 'Expert staff on-site', 'Complimentary supplies'],
+      title: space1Title,
+      desc: space1Description,
+      href: space1Link,
+      features: [space1Feature1, space1Feature2, space1Feature3, space1Feature4],
       color: 'text-sassy-periwinkle',
       spotlight: 'rgba(168, 148, 255, 0.15)',
       icon: Scissors,
     },
     {
-      title: 'Event Space',
-      desc: 'Host birthday parties, team-building events, bridal showers, or craft nights in our vibrant, Instagram-worthy event area.',
-      href: '/events-space-rentals',
-      features: ['Seats up to 30', 'Catering available', 'Custom setups', 'Photo-worthy decor'],
+      title: space2Title,
+      desc: space2Description,
+      href: space2Link,
+      features: [space2Feature1, space2Feature2, space2Feature3, space2Feature4],
       color: 'text-sassy-coral',
       spotlight: 'rgba(255, 148, 128, 0.15)',
       icon: Heart,
@@ -38,12 +76,12 @@ export function StudioSpaces() {
           className="text-center mb-16"
         >
           <span className="inline-block px-4 py-1.5 rounded-full bg-sassy-periwinkle/10 text-sassy-periwinkle text-sm font-medium mb-4">
-            Two Unique Spaces
+            {sectionBadge}
           </span>
           <h2 className="font-serif text-4xl md:text-5xl font-bold mb-4">
-            Choose Your{' '}
+            {sectionHeading}{' '}
             <span className="bg-gradient-to-r from-sassy-periwinkle to-sassy-rose bg-clip-text text-transparent">
-              Creative Setting
+              {sectionHeadingHighlight}
             </span>
           </h2>
         </motion.div>
