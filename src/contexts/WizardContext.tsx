@@ -1,8 +1,7 @@
 'use client';
 
-import React, { createContext, useContext, useState, useEffect, ReactNode, useRef } from 'react';
-import Shepherd from 'shepherd.js';
-import 'shepherd.js/dist/css/shepherd.css';
+import React, { createContext, useContext, useState, useEffect, useCallback, ReactNode } from 'react';
+import Joyride, { CallBackProps, STATUS, ACTIONS, EVENTS, Step } from 'react-joyride';
 
 type TourId = string;
 
@@ -22,146 +21,140 @@ interface WizardProviderProps {
 
 const WizardContext = createContext<WizardContextType | undefined>(undefined);
 
-interface TourStep {
-  id: string;
-  title?: string;
-  text: string;
-  attachTo?: { element: string; on: string };
-  buttons?: Array<{ text: string; action: string | (() => void); classes?: string }>;
-  classes?: string;
-  highlightClass?: string;
-  scrollTo?: boolean;
-  canClickTarget?: boolean;
-}
+// Define tours with Joyride steps
+const tours: Record<TourId, Step[]> = {
+  'page-builder-intro': [
+    {
+      target: 'body',
+      content: 'Welcome to the Page Builder! This is your visual page builder for creating beautiful pages by dragging and dropping components. Let\'s take a quick tour.',
+      title: 'Welcome to the Page Builder',
+      placement: 'center',
+      disableBeacon: true,
+    },
+    {
+      target: '[data-tour="sidebar"]',
+      content: 'Use the sidebar to navigate between Pages, Media, and Settings. Everything you need is right here.',
+      title: 'Navigation Sidebar',
+      placement: 'right',
+      disableBeacon: true,
+    },
+    {
+      target: '[data-tour="pages-link"]',
+      content: 'Create and manage your website pages. Click any page to open it in the visual editor where you can drag and drop components.',
+      title: 'Pages',
+      placement: 'right',
+      disableBeacon: true,
+    },
+    {
+      target: '[data-tour="media-link"]',
+      content: 'Upload and organize images and files. These can be used in your pages through the Image component.',
+      title: 'Media Library',
+      placement: 'right',
+      disableBeacon: true,
+    },
+    {
+      target: '[data-tour="ai-help"]',
+      content: 'Need help? Click the AI Help button to chat with an assistant that can guide you through building pages and using the editor.',
+      title: 'AI Assistant',
+      placement: 'bottom',
+      disableBeacon: true,
+    },
+    {
+      target: '[data-tour="header"]',
+      content: 'The top bar shows where you are and provides quick access to the guided tour and AI assistant. You can retake this tour anytime by clicking the Help button.',
+      title: 'Top Bar',
+      placement: 'bottom',
+      disableBeacon: true,
+    },
+  ],
 
-interface TourConfig {
-  steps: TourStep[];
-  options?: {
-    useModalOverlay?: boolean;
-    exitOnEsc?: boolean;
-    keyboardNavigation?: boolean;
-    defaultStepOptions?: {
-      scrollTo?: boolean;
-      cancelIcon?: { enabled?: boolean };
-    };
-  };
-}
+  'puck-editor': [
+    {
+      target: 'body',
+      content: 'This is the Puck visual editor. You can drag components from the left sidebar onto the canvas to build your page.',
+      title: 'The Visual Editor',
+      placement: 'center',
+      disableBeacon: true,
+    },
+    {
+      target: '.custom-sidebar',
+      content: 'Browse available components here. Drag any component onto the canvas. Categories include Primitives, Layout, Content, and Pre-built sections.',
+      title: 'Components Panel',
+      placement: 'right',
+      disableBeacon: true,
+    },
+    {
+      target: '.puck-editor-container',
+      content: 'This is your page canvas. Click any component to select it, then edit its properties in the right panel.',
+      title: 'Canvas',
+      placement: 'left',
+      disableBeacon: true,
+    },
+    {
+      target: 'body',
+      content: 'When you\'re happy with your page, click Publish in the top right to save your changes. The page will be live immediately at its URL.',
+      title: 'Save & Publish',
+      placement: 'center',
+      disableBeacon: true,
+    },
+  ],
+};
 
-const tourStyles = `
-  .shepherd-element {
-    background: white !important;
-    border-radius: 12px !important;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15) !important;
-    padding: 20px !important;
-    max-width: 360px !important;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif !important;
-  }
-  .shepherd-header { padding-bottom: 12px !important; }
-  .shepherd-title { font-size: 18px !important; font-weight: 600 !important; color: #1d1d1f !important; }
-  .shepherd-text { font-size: 15px !important; line-height: 1.5 !important; color: #424245 !important; margin: 8px 0 16px 0 !important; }
-  .shepherd-footer { display: flex !important; justify-content: flex-end !important; gap: 8px !important; padding-top: 12px !important; }
-  .shepherd-button { background: #007aff !important; color: white !important; border: none !important; border-radius: 8px !important; padding: 8px 16px !important; font-size: 15px !important; font-weight: 500 !important; cursor: pointer !important; transition: background 0.2s !important; }
-  .shepherd-button:hover { background: #0051d5 !important; }
-  .shepherd-button-secondary { background: #f5f5f7 !important; color: #1d1d1f !important; }
-  .shepherd-button-secondary:hover { background: #e8e8ed !important; }
-  .shepherd-modal-overlay-container { background: rgba(0, 0, 0, 0.5) !important; }
-`;
-
-const tours: Record<TourId, TourConfig> = {
-  'page-builder-intro': {
-    steps: [
-      {
-        id: 'welcome',
-        title: 'Welcome to the Page Builder',
-        text: 'This is your visual page builder. Create beautiful pages by dragging and dropping components. Let\u2019s take a quick tour.',
-        buttons: [{ text: 'Get Started', action: 'next' }]
-      },
-      {
-        id: 'sidebar',
-        title: 'Navigation',
-        text: 'Use the sidebar to navigate between Pages, Media, and Settings. Everything you need is right here.',
-        attachTo: { element: '[data-tour="sidebar"]', on: 'right' },
-        buttons: [{ text: 'Next', action: 'next' }]
-      },
-      {
-        id: 'pages',
-        title: 'Pages',
-        text: 'Create and manage your website pages. Click any page to open it in the visual editor where you can drag and drop components.',
-        attachTo: { element: '[data-tour="pages-link"]', on: 'right' },
-        buttons: [{ text: 'Next', action: 'next' }]
-      },
-      {
-        id: 'media',
-        title: 'Media Library',
-        text: 'Upload and organize images and files. These can be used in your pages through the Image component.',
-        attachTo: { element: '[data-tour="media-link"]', on: 'right' },
-        buttons: [{ text: 'Next', action: 'next' }]
-      },
-      {
-        id: 'ai-help',
-        title: 'AI Assistant',
-        text: 'Need help? Click the AI Help button to chat with an assistant that can guide you through building pages.',
-        attachTo: { element: '[data-tour="ai-help"]', on: 'bottom' },
-        buttons: [{ text: 'Next', action: 'next' }]
-      },
-      {
-        id: 'header',
-        title: 'Top Bar',
-        text: 'The top bar shows where you are and provides quick access to help and the AI assistant.',
-        attachTo: { element: '[data-tour="header"]', on: 'bottom' },
-        buttons: [{ text: 'Finish', action: 'complete' }]
-      },
-    ],
-    options: {
-      useModalOverlay: true,
-      exitOnEsc: true,
-      keyboardNavigation: true,
-      defaultStepOptions: { scrollTo: true, cancelIcon: { enabled: true } }
-    }
+// Joyride tooltip styling
+const joyrideStyles = {
+  options: {
+    arrowColor: '#fff',
+    backgroundColor: '#fff',
+    overlayColor: 'rgba(0, 0, 0, 0.5)',
+    primaryColor: '#007aff',
+    textColor: '#1d1d1f',
+    zIndex: 10000,
   },
-
-  'puck-editor': {
-    steps: [
-      {
-        id: 'editor-welcome',
-        title: 'The Visual Editor',
-        text: 'This is the Puck visual editor. You can drag components from the left sidebar onto the canvas to build your page.',
-        buttons: [{ text: 'Let\u2019s Go', action: 'next' }]
-      },
-      {
-        id: 'components-panel',
-        title: 'Components',
-        text: 'Browse available components here. Drag any component onto the canvas. Categories include Layout, Content, and Pre-built sections.',
-        attachTo: { element: '.custom-sidebar', on: 'right' },
-        buttons: [{ text: 'Next', action: 'next' }]
-      },
-      {
-        id: 'canvas',
-        title: 'Canvas',
-        text: 'This is your page canvas. Click any component to select it, then edit its properties in the right panel.',
-        attachTo: { element: '.puck-editor-container', on: 'left' },
-        buttons: [{ text: 'Next', action: 'next' }]
-      },
-      {
-        id: 'publish',
-        title: 'Save & Publish',
-        text: 'When you\u2019re happy with your page, click Publish to save your changes. The page will be live immediately.',
-        buttons: [{ text: 'Got It', action: 'complete' }]
-      },
-    ],
-    options: {
-      useModalOverlay: true,
-      exitOnEsc: true,
-      defaultStepOptions: { scrollTo: true, cancelIcon: { enabled: true } }
-    }
+  tooltip: {
+    borderRadius: '12px',
+    boxShadow: '0 10px 40px rgba(0, 0, 0, 0.15)',
+    padding: '20px',
+    fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+  },
+  tooltipTitle: {
+    fontSize: '18px',
+    fontWeight: 600,
+    color: '#1d1d1f',
+    marginBottom: '8px',
+  },
+  tooltipContent: {
+    fontSize: '15px',
+    lineHeight: 1.5,
+    color: '#424245',
+  },
+  buttonNext: {
+    backgroundColor: '#007aff',
+    borderRadius: '8px',
+    color: '#fff',
+    fontSize: '15px',
+    fontWeight: 500,
+    padding: '8px 16px',
+  },
+  buttonBack: {
+    backgroundColor: '#f5f5f7',
+    borderRadius: '8px',
+    color: '#1d1d1f',
+    fontSize: '15px',
+    fontWeight: 500,
+    marginRight: '8px',
+  },
+  buttonSkip: {
+    color: '#86868b',
+    fontSize: '14px',
   },
 };
 
 export function WizardProvider({ children }: WizardProviderProps) {
   const [isTourActive, setIsTourActive] = useState(false);
   const [currentTourId, setCurrentTourId] = useState<TourId | null>(null);
+  const [steps, setSteps] = useState<Step[]>([]);
+  const [stepIndex, setStepIndex] = useState(0);
   const [completedTours, setCompletedTours] = useState<Set<TourId>>(new Set());
-  const tourRef = useRef<InstanceType<typeof Shepherd.Tour> | null>(null);
 
   useEffect(() => {
     const stored = localStorage.getItem('completedTours');
@@ -176,76 +169,74 @@ export function WizardProvider({ children }: WizardProviderProps) {
     }
   }, [completedTours]);
 
-  useEffect(() => {
-    const styleElement = document.createElement('style');
-    styleElement.textContent = tourStyles;
-    document.head.appendChild(styleElement);
-    return () => { document.head.removeChild(styleElement); };
-  }, []);
-
-  const startTour = (tourId: TourId) => {
-    const tourConfig = tours[tourId];
-    if (!tourConfig) { console.warn(`Tour "${tourId}" not found`); return; }
-    if (tourRef.current) { tourRef.current.complete(); }
-
-    const tour = new Shepherd.Tour({
-      useModalOverlay: tourConfig.options?.useModalOverlay ?? true,
-      defaultStepOptions: {
-        cancelIcon: { enabled: tourConfig.options?.defaultStepOptions?.cancelIcon?.enabled ?? true },
-        scrollTo: tourConfig.options?.defaultStepOptions?.scrollTo ?? true,
-      },
-    });
-
-    tourConfig.steps.forEach((step) => {
-      const shepherdStep: any = {
-        id: step.id,
-        title: step.title,
-        text: step.text,
-        scrollTo: step.scrollTo ?? true,
-        classes: step.classes,
-        canClickTarget: step.canClickTarget ?? false,
-        buttons: step.buttons?.map((button) => {
-          if (typeof button.action === 'string') {
-            if (button.action === 'next') return { text: button.text, action: tour.next, classes: button.classes };
-            if (button.action === 'back') return { text: button.text, action: tour.back, classes: button.classes };
-            if (button.action === 'complete') return { text: button.text, action: tour.complete, classes: button.classes };
-          }
-          return { text: button.text, action: button.action, classes: button.classes };
-        }),
-      };
-      if (step.attachTo) shepherdStep.attachTo = step.attachTo;
-      tour.addStep(shepherdStep);
-    });
-
-    tour.on('complete', () => { markTourCompleted(tourId); endTour(); });
-    tour.on('cancel', () => { endTour(); });
-
-    tourRef.current = tour;
+  const startTour = useCallback((tourId: TourId) => {
+    const tourSteps = tours[tourId];
+    if (!tourSteps) {
+      console.warn(`Tour "${tourId}" not found`);
+      return;
+    }
+    setSteps(tourSteps);
+    setStepIndex(0);
     setCurrentTourId(tourId);
     setIsTourActive(true);
-    tour.start();
-  };
+  }, []);
 
-  const endTour = () => {
-    if (tourRef.current) { tourRef.current.complete(); tourRef.current = null; }
+  const endTour = useCallback(() => {
     setIsTourActive(false);
     setCurrentTourId(null);
-  };
+    setStepIndex(0);
+  }, []);
 
-  const markTourCompleted = (tourId: TourId) => {
+  const markTourCompleted = useCallback((tourId: TourId) => {
     setCompletedTours((prev) => new Set([...prev, tourId]));
-  };
+  }, []);
 
-  const isTourCompleted = (tourId: TourId) => completedTours.has(tourId);
+  const isTourCompleted = useCallback((tourId: TourId) => {
+    return completedTours.has(tourId);
+  }, [completedTours]);
 
-  const resetTourHistory = () => {
+  const resetTourHistory = useCallback(() => {
     setCompletedTours(new Set());
     localStorage.removeItem('completedTours');
-  };
+  }, []);
+
+  const handleJoyrideCallback = useCallback((data: CallBackProps) => {
+    const { action, index, status, type } = data;
+
+    if (status === STATUS.FINISHED) {
+      if (currentTourId) markTourCompleted(currentTourId);
+      endTour();
+    } else if (status === STATUS.SKIPPED) {
+      endTour();
+    } else if (type === EVENTS.STEP_AFTER || type === EVENTS.TARGET_NOT_FOUND) {
+      setStepIndex(index + (action === ACTIONS.PREV ? -1 : 1));
+    }
+  }, [currentTourId, markTourCompleted, endTour]);
 
   return (
-    <WizardContext.Provider value={{ startTour, endTour, isTourActive, currentTourId, markTourCompleted, isTourCompleted, resetTourHistory }}>
+    <WizardContext.Provider
+      value={{ startTour, endTour, isTourActive, currentTourId, markTourCompleted, isTourCompleted, resetTourHistory }}
+    >
       {children}
+      <Joyride
+        steps={steps}
+        stepIndex={stepIndex}
+        run={isTourActive}
+        continuous
+        scrollToFirstStep
+        showProgress
+        showSkipButton
+        disableOverlayClose
+        callback={handleJoyrideCallback}
+        styles={joyrideStyles}
+        locale={{
+          back: 'Back',
+          close: 'Close',
+          last: 'Finish',
+          next: 'Next',
+          skip: 'Skip Tour',
+        }}
+      />
     </WizardContext.Provider>
   );
 }
