@@ -23,9 +23,6 @@ const Puck = dynamic(
 // Import Puck styles
 import '@puckeditor/core/puck.css';
 
-// Import custom Puck AI plugin
-import { aiChatPlugin } from '@/puck/plugins/aiChatPlugin';
-
 // Import editor components
 import { EditorContextMenu } from '@/puck/components/EditorContextMenu';
 import { DraggableOutline } from '@/puck/components/DraggableOutline';
@@ -37,8 +34,7 @@ import { Drawer } from '@puckeditor/core';
 import { layoutPuckConfig } from '../../../../../puck/layout/config';
 import type { Data } from '@puckeditor/core';
 
-// Use custom AI chat plugin
-const puckPlugins = [aiChatPlugin];
+const puckPlugins: any[] = [];
 
 // Default announcement bar data structure for Puck
 const defaultAnnouncementData: Data = {

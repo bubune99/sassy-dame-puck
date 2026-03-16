@@ -8,9 +8,6 @@ import Link from 'next/link';
 import { Puck, Data, Drawer } from '@puckeditor/core';
 import '@puckeditor/core/puck.css';
 
-// Import custom Puck AI plugin
-import { aiChatPlugin } from '@/puck/plugins/aiChatPlugin';
-
 // Import editor components
 import { EditorContextMenu } from '@/puck/components/EditorContextMenu';
 import { DraggableOutline } from '@/puck/components/DraggableOutline';
@@ -20,8 +17,7 @@ import { HelpModeProvider } from '@/lib/puck/help-mode-context';
 // Import layout Puck configuration
 import { layoutPuckConfig } from '@/puck/layout/config';
 
-// Use custom AI chat plugin
-const puckPlugins = [aiChatPlugin];
+const puckPlugins: any[] = [];
 
 // Component preview SVG icons for layout components
 const componentPreviews: Record<string, React.ReactNode> = {
