@@ -8,6 +8,7 @@ import { SpotlightCard } from './effects/spotlight-card'
 import { cn } from '@/lib/utils'
 export interface StudioSpacesProps {
   content?: React.FC;
+  puck?: { isEditing?: boolean };
   sectionBadge?: string;
   sectionHeading?: string;
   sectionHeadingHighlight?: string;
@@ -29,6 +30,7 @@ export interface StudioSpacesProps {
 
 export function StudioSpaces({
   content,
+  puck,
   sectionBadge = "Two Unique Spaces",
   sectionHeading = "Choose Your",
   sectionHeadingHighlight = "Creative Setting",

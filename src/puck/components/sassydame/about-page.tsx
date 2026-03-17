@@ -55,6 +55,7 @@ const milestones = [
 
 export interface AboutPageProps {
   content?: React.FC;
+  puck?: { isEditing?: boolean };
   heading?: string;
   headingHighlight?: string;
   heroParagraph?: string;
@@ -69,6 +70,7 @@ export interface AboutPageProps {
 
 export function AboutPage({
   content,
+  puck,
   heading = "Crafting Dreams,",
   headingHighlight = "Building Community",
   heroParagraph = "SassyDame Designs started with a simple dream: to create a space where crafters of all skill levels could find quality supplies, learn new techniques, and connect with fellow creators. What began in a small spare room has grown into a beloved community hub.",

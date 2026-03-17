@@ -14,6 +14,7 @@ import {
 import { Button } from '@/components/ui/button'
 export function HomeHero({
   content,
+  puck,
   badgeText = "1230 Green Street, Raleigh NC",
   heading = "Where Creativity",
   headingHighlight = "Meets Community.",
@@ -29,6 +30,7 @@ export function HomeHero({
   trustItem3 = "4.9 Google Rating",
 }: {
   content?: React.FC;
+  puck?: { isEditing?: boolean };
   badgeText?: string;
   heading?: string;
   headingHighlight?: string;

@@ -16,6 +16,7 @@ const categoryStyles = [
 
 export function BrandShowcase({
   content,
+  puck,
   badgeText = "Everything Under One Roof",
   headingPrefix = "One Brand,",
   headingHighlight = "Five Experiences",
@@ -32,6 +33,7 @@ export function BrandShowcase({
   cat5Description = "Professional equipment for your projects",
 }: {
   content?: React.FC;
+  puck?: { isEditing?: boolean };
   badgeText?: string;
   headingPrefix?: string;
   headingHighlight?: string;

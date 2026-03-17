@@ -98,6 +98,7 @@ const includes = [
 
 export interface CustomShirtsPageProps {
   content?: React.FC;
+  puck?: { isEditing?: boolean };
   badgeText?: string;
   heading?: string;
   headingHighlight?: string;
@@ -114,6 +115,7 @@ export interface CustomShirtsPageProps {
 
 export function CustomShirtsPage({
   content,
+  puck,
   badgeText = "Custom Event Shirts",
   heading = "Your Event,",
   headingHighlight = "Your Shirts",

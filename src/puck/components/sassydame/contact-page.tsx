@@ -84,6 +84,7 @@ function ContactForm() {
 
 export interface ContactPageProps {
   content?: React.FC;
+  puck?: { isEditing?: boolean };
   heading?: string;
   headingHighlight?: string;
   description?: string;
@@ -97,6 +98,7 @@ export interface ContactPageProps {
 
 export function ContactPage({
   content,
+  puck,
   heading = "We Would Love to",
   headingHighlight = "Hear From You",
   description = "Have a question about our products, services, or upcoming events? Drop us a line and we will get back to you as soon as possible.",

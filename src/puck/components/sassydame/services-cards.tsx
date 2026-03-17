@@ -7,6 +7,7 @@ import { Package, Printer, MapPin, Shirt, CheckCircle } from 'lucide-react'
 import { GlowingBorder } from './effects/glowing-border'
 export interface ServicesCardsProps {
   content?: React.FC;
+  puck?: { isEditing?: boolean };
   sectionBadge?: string;
   sectionHeading?: string;
   sectionHeadingHighlight?: string;
@@ -38,6 +39,7 @@ export interface ServicesCardsProps {
 
 export function ServicesCards({
   content,
+  puck,
   sectionBadge = "Our Services",
   sectionHeading = "What We",
   sectionHeadingHighlight = "Deliver",

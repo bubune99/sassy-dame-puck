@@ -14,6 +14,7 @@ import { SpotlightCard } from './effects/spotlight-card'
 import { cn } from '@/lib/utils'
 export interface DtfPricingProps {
   content?: React.FC;
+  puck?: { isEditing?: boolean };
   sectionHeading: string;
   sectionHeadingHighlight: string;
   sectionDescription: string;
@@ -29,6 +30,7 @@ export interface DtfPricingProps {
 
 export function DtfPricing({
   content,
+  puck,
   sectionHeading = 'Transparent',
   sectionHeadingHighlight = 'Pricing',
   sectionDescription = 'No surprises, no hidden fees',

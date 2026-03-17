@@ -7,6 +7,7 @@ import { Calendar, Users } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 export interface StudioCtaProps {
   content?: React.FC;
+  puck?: { isEditing?: boolean };
   heading?: string;
   description?: string;
   primaryButtonText?: string;
@@ -18,6 +19,7 @@ export interface StudioCtaProps {
 
 export function StudioCta({
   content,
+  puck,
   heading = "Ready to Create?",
   description = "Book your studio session today. Walk-ins welcome based on availability.",
   primaryButtonText = "Book Online",

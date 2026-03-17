@@ -125,6 +125,7 @@ const pricingTiers = [
 
 export interface HallRentalsPageProps {
   content?: React.FC;
+  puck?: { isEditing?: boolean };
   badgeText?: string;
   heading?: string;
   headingHighlight?: string;
@@ -142,6 +143,7 @@ export interface HallRentalsPageProps {
 
 export function HallRentalsPage({
   content,
+  puck,
   badgeText = "Large Event Venue",
   heading = "Your Event,",
   headingHighlight = "Our Hall",

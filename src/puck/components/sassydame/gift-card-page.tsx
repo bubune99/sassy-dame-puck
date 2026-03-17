@@ -9,6 +9,7 @@ const giftCardAmounts = [25, 50, 75, 100, 150, 200];
 
 export interface GiftCardPageProps {
   content?: React.FC;
+  puck?: { isEditing?: boolean };
   badgeText?: string;
   heading?: string;
   headingHighlight?: string;
@@ -19,6 +20,7 @@ export interface GiftCardPageProps {
 
 export function GiftCardPage({
   content,
+  puck,
   badgeText = "The Perfect Gift for Crafters",
   heading = "SassyDame Designs",
   headingHighlight = "Gift Card",

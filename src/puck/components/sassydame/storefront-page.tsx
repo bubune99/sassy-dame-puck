@@ -291,6 +291,7 @@ function StorefrontCTA({ ctaHeading, ctaDescription }: { ctaHeading: string; cta
 // ---- PAGE ----
 export interface StorefrontPageProps {
   content?: React.FC;
+  puck?: { isEditing?: boolean };
   heading?: string;
   headingHighlight?: string;
   description?: string;
@@ -306,6 +307,7 @@ export interface StorefrontPageProps {
 
 export function StorefrontPage({
   content,
+  puck,
   heading = "Your Brand,",
   headingHighlight = "Your Store",
   description = "We build custom-branded online storefronts for teams, schools, churches, businesses, and organizations -- powered by SassyDame. You sell, we print and ship.",

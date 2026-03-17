@@ -60,6 +60,7 @@ const equipmentList = [
 
 export interface HeatPressRentalsPageProps {
   content?: React.FC;
+  puck?: { isEditing?: boolean };
   badgeText?: string;
   heading?: string;
   headingHighlight?: string;
@@ -74,6 +75,7 @@ export interface HeatPressRentalsPageProps {
 
 export function HeatPressRentalsPage({
   content,
+  puck,
   badgeText = "Create Without the Investment",
   heading = "Heat Press",
   headingHighlight = "Rentals",

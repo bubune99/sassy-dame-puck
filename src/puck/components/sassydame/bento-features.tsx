@@ -40,6 +40,7 @@ function BentoCard({
   className,
 }: {
   content?: React.FC;
+  puck?: { isEditing?: boolean };
   icon: React.ElementType
   title: string
   description: string
@@ -88,6 +89,7 @@ function StatCard({
 
 export function BentoFeatures({
   content,
+  puck,
   badgeText = "What We Offer",
   headingPrefix = "Your One-Stop",
   headingHighlight = "Craft Shop",

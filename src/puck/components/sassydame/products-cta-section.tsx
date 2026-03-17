@@ -9,6 +9,7 @@ const benefitIcons = [Truck, Package, BadgeCheck, Clock]
 
 export function ProductsCTASection({
   content,
+  puck,
   product1Title = "DTF + UV Bundle Packs",
   product1Description = "Save big with our curated bundles perfect for beginners and pros alike",
   product1Tag = "Best Value",
@@ -27,6 +28,7 @@ export function ProductsCTASection({
   bottomButtonLink = "/products",
 }: {
   content?: React.FC;
+  puck?: { isEditing?: boolean };
   product1Title?: string;
   product1Description?: string;
   product1Tag?: string;

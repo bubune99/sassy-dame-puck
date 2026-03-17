@@ -47,6 +47,7 @@ const categoryColors: Record<string, string> = {
 
 export interface BlogPageProps {
   content?: React.FC;
+  puck?: { isEditing?: boolean };
   heading?: string;
   headingHighlight?: string;
   description?: string;
@@ -60,6 +61,7 @@ export interface BlogPageProps {
 
 export function BlogPage({
   content,
+  puck,
   heading = "SassyDame",
   headingHighlight = "Blog",
   description = "Crafting tips, tutorials, and news from our studio. Stay inspired and keep up with everything happening at SassyDame Designs.",

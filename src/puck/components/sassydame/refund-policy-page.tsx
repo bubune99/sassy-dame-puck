@@ -3,6 +3,7 @@
 import React from "react";
 export interface RefundPolicyPageProps {
   content?: React.FC;
+  puck?: { isEditing?: boolean };
   title?: string;
   bodyContent?: string;
 }
@@ -31,6 +32,7 @@ Additional Terms
 
 export function RefundPolicyPage({
   content,
+  puck,
   title = "Refund Policy",
   bodyContent = defaultContent,
 }: RefundPolicyPageProps) {

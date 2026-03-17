@@ -3,6 +3,7 @@
 import React from "react";
 export interface TermsOfServicePageProps {
   content?: React.FC;
+  puck?: { isEditing?: boolean };
   title?: string;
   bodyContent?: string;
 }
@@ -51,6 +52,7 @@ Raleigh, NC 27603`;
 
 export function TermsOfServicePage({
   content,
+  puck,
   title = "Terms of Service",
   bodyContent = defaultContent,
 }: TermsOfServicePageProps) {

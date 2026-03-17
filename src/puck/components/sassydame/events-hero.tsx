@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 export interface EventsHeroProps {
   content?: React.FC;
+  puck?: { isEditing?: boolean };
   communityText: string;
   headingLine1: string;
   headingLine2: string;
@@ -39,6 +40,7 @@ export interface EventsHeroProps {
 
 export function EventsHero({
   content,
+  puck,
   communityText = 'Join 500+ community members',
   headingLine1 = 'Learn, Create,',
   headingLine2 = 'Connect',

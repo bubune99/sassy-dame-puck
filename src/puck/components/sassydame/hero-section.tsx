@@ -9,6 +9,7 @@ import { TextReveal, TextFadeIn } from './effects/text-reveal'
 import { FloatingElements, FloatingShapes } from './effects/floating-elements'
 export function HeroSection({
   content,
+  puck,
   badgeText = "Your Local Craft Destination",
   headingLine1 = "Create Something",
   headingLine2 = "Beautiful",
@@ -22,6 +23,7 @@ export function HeroSection({
   trustItem3 = "Quality Guaranteed",
 }: {
   content?: React.FC;
+  puck?: { isEditing?: boolean };
   badgeText?: string;
   headingLine1?: string;
   headingLine2?: string;

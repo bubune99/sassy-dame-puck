@@ -27,6 +27,7 @@ const staggerContainer = {
 
 export function HomeStickerMall({
   content,
+  puck,
   badgeText = "Sticker Mall",
   heading = "Stickers That",
   headingHighlight = "Pop",
@@ -45,6 +46,7 @@ export function HomeStickerMall({
   ctaButtonLink = "/collections/uv-dtf-stickers",
 }: {
   content?: React.FC;
+  puck?: { isEditing?: boolean };
   badgeText?: string;
   heading?: string;
   headingHighlight?: string;

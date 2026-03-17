@@ -3,6 +3,7 @@
 import React from "react";
 export interface PrivacyPolicyPageProps {
   content?: React.FC;
+  puck?: { isEditing?: boolean };
   title?: string;
   bodyContent?: string;
 }
@@ -31,6 +32,7 @@ For more information about our privacy practices, if you have questions, or if y
 
 export function PrivacyPolicyPage({
   content,
+  puck,
   title = "Privacy Policy",
   bodyContent = defaultContent,
 }: PrivacyPolicyPageProps) {

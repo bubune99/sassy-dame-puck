@@ -32,6 +32,7 @@ const placeholderColors = [
 
 export function PhotoGallerySection({
   content,
+  puck,
   badgeText = "Gallery",
   headingPrefix = "See What We",
   headingHighlight = "Create",
@@ -47,6 +48,7 @@ export function PhotoGallerySection({
   instagramLink = "https://www.instagram.com/sassydamedesigns/",
 }: {
   content?: React.FC;
+  puck?: { isEditing?: boolean };
   badgeText?: string;
   headingPrefix?: string;
   headingHighlight?: string;

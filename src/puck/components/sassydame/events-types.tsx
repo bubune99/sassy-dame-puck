@@ -8,6 +8,7 @@ import { SpotlightCard } from './effects/spotlight-card'
 import { cn } from '@/lib/utils'
 export interface EventsTypesProps {
   content?: React.FC;
+  puck?: { isEditing?: boolean };
   sectionHeading: string;
   sectionHeadingHighlight: string;
   sectionDescription: string;
@@ -27,6 +28,7 @@ export interface EventsTypesProps {
 
 export function EventsTypes({
   content,
+  puck,
   sectionHeading = 'Something for',
   sectionHeadingHighlight = 'Everyone',
   sectionDescription = 'From intimate workshops to large hall rentals, we have the perfect setting for your next event.',

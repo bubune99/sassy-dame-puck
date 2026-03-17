@@ -27,6 +27,7 @@ const staggerContainer = {
 
 export function HomeExplore({
   content,
+  puck,
   badgeText = "Explore SassyDame",
   heading = "Everything Under",
   headingHighlight = "One Roof",
@@ -46,6 +47,7 @@ export function HomeExplore({
   cardCtaText = "Explore",
 }: {
   content?: React.FC;
+  puck?: { isEditing?: boolean };
   badgeText?: string;
   heading?: string;
   headingHighlight?: string;

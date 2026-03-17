@@ -8,6 +8,7 @@ import { SpotlightCard } from './effects/spotlight-card'
 import { cn } from '@/lib/utils'
 export interface StudioEquipmentProps {
   content?: React.FC;
+  puck?: { isEditing?: boolean };
   heading?: string;
   headingHighlight?: string;
   subheading?: string;
@@ -23,6 +24,7 @@ export interface StudioEquipmentProps {
 
 export function StudioEquipment({
   content,
+  puck,
   heading = "Professional",
   headingHighlight = "Equipment",
   subheading = "Everything you need, ready to use",

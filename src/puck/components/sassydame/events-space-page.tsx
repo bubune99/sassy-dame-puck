@@ -89,6 +89,7 @@ const packages = [
 
 export interface EventsSpacePageProps {
   content?: React.FC;
+  puck?: { isEditing?: boolean };
   badgeText?: string;
   heading?: string;
   headingHighlight?: string;
@@ -103,6 +104,7 @@ export interface EventsSpacePageProps {
 
 export function EventsSpacePage({
   content,
+  puck,
   badgeText = "Host Your Event With Us",
   heading = "Events & Space",
   headingHighlight = "Rentals",

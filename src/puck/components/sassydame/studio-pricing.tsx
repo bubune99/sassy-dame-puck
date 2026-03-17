@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button'
 import { GlowingBorder } from './effects/glowing-border'
 export interface StudioPricingProps {
   content?: React.FC;
+  puck?: { isEditing?: boolean };
   heading?: string;
   headingHighlight?: string;
   subheading?: string;
@@ -29,6 +30,7 @@ export interface StudioPricingProps {
 
 export function StudioPricing({
   content,
+  puck,
   heading = "Simple",
   headingHighlight = "Pricing",
   subheading = "Pay for the time you need -- no memberships, no commitments",

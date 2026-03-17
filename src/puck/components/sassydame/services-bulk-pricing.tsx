@@ -7,6 +7,7 @@ import { SpotlightCard } from './effects/spotlight-card'
 import { GlowingBorder } from './effects/glowing-border'
 export interface ServicesBulkPricingProps {
   content?: React.FC;
+  puck?: { isEditing?: boolean };
   heading?: string;
   headingHighlight?: string;
   subheading?: string;
@@ -22,6 +23,7 @@ export interface ServicesBulkPricingProps {
 
 export function ServicesBulkPricing({
   content,
+  puck,
   heading = "Volume",
   headingHighlight = "Discounts",
   subheading = "The more you order, the more you save",

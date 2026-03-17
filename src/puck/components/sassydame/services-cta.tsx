@@ -7,6 +7,7 @@ import { Phone } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 export interface ServicesCtaProps {
   content?: React.FC;
+  puck?: { isEditing?: boolean };
   heading?: string;
   description?: string;
   primaryButtonText?: string;
@@ -18,6 +19,7 @@ export interface ServicesCtaProps {
 
 export function ServicesCta({
   content,
+  puck,
   heading = "Ready to Get Started?",
   description = "Tell us about your project and receive a custom quote within 24 hours. No obligation, no pressure.",
   primaryButtonText = "Request a Quote",

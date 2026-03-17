@@ -12,6 +12,7 @@ import {
 import { cn } from '@/lib/utils'
 export interface DtfHowItWorksProps {
   content?: React.FC;
+  puck?: { isEditing?: boolean };
   sectionHeading: string;
   sectionHeadingHighlight: string;
   sectionSubheading: string;
@@ -27,6 +28,7 @@ export interface DtfHowItWorksProps {
 
 export function DtfHowItWorks({
   content,
+  puck,
   sectionHeading = 'How It',
   sectionHeadingHighlight = 'Works',
   sectionSubheading = 'From design to finished product in four simple steps',

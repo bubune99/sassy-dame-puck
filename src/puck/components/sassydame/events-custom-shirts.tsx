@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 export interface EventsCustomShirtsProps {
   content?: React.FC;
+  puck?: { isEditing?: boolean };
   badgeText: string;
   sectionHeading: string;
   sectionHeadingHighlight: string;
@@ -31,6 +32,7 @@ export interface EventsCustomShirtsProps {
 
 export function EventsCustomShirts({
   content,
+  puck,
   badgeText = 'Custom Event Shirts',
   sectionHeading = 'Custom Shirts for',
   sectionHeadingHighlight = 'Your Event',

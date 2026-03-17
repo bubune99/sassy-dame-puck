@@ -24,6 +24,7 @@ const productTypes = [
 
 export interface BulkOrderPageProps {
   content?: React.FC;
+  puck?: { isEditing?: boolean };
   badgeText?: string;
   heading?: string;
   headingHighlight?: string;
@@ -36,6 +37,7 @@ export interface BulkOrderPageProps {
 
 export function BulkOrderPage({
   content,
+  puck,
   badgeText = "Save More with Bulk Orders",
   heading = "Bulk & Wholesale",
   headingHighlight = "Orders",

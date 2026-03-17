@@ -25,6 +25,7 @@ const staggerContainer = {
 
 export function HomeFinalCta({
   content,
+  puck,
   badgeText = "24-Hour Turnaround Available",
   heading = "Ready to Create",
   headingHighlight = "Something Amazing?",
@@ -35,6 +36,7 @@ export function HomeFinalCta({
   secondaryButtonLink = "/custom-order",
 }: {
   content?: React.FC;
+  puck?: { isEditing?: boolean };
   badgeText?: string;
   heading?: string;
   headingHighlight?: string;

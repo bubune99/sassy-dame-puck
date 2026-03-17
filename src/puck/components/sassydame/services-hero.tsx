@@ -7,6 +7,7 @@ import { Package, Clock, Star, Truck, ArrowRight, Award } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 export interface ServicesHeroProps {
   content?: React.FC;
+  puck?: { isEditing?: boolean };
   badge?: string;
   headingLine1?: string;
   headingLine2?: string;
@@ -27,6 +28,7 @@ export interface ServicesHeroProps {
 
 export function ServicesHero({
   content,
+  puck,
   badge = "Trusted by 1000+ Businesses",
   headingLine1 = "Your Brand,",
   headingLine2 = "Our Expertise",

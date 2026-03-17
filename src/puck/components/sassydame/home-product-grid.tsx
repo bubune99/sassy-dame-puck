@@ -30,6 +30,7 @@ const staggerContainer = {
 
 export function HomeProductGrid({
   content,
+  puck,
   badgeText = "Shop by Category",
   heading = "What Are You",
   headingHighlight = "Creating Today?",
@@ -58,6 +59,7 @@ export function HomeProductGrid({
   cardCtaText = "Shop Now",
 }: {
   content?: React.FC;
+  puck?: { isEditing?: boolean };
   badgeText?: string;
   heading?: string;
   headingHighlight?: string;

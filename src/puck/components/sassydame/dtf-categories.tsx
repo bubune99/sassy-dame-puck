@@ -19,6 +19,7 @@ import { SpotlightCard } from './effects/spotlight-card'
 import { cn } from '@/lib/utils'
 export interface DtfCategoriesProps {
   content?: React.FC;
+  puck?: { isEditing?: boolean };
   badgeText: string;
   sectionHeading: string;
   sectionHeadingHighlight: string;
@@ -54,6 +55,7 @@ export interface DtfCategoriesProps {
 
 export function DtfCategories({
   content,
+  puck,
   badgeText = 'Full Product Line',
   sectionHeading = 'Browse Our',
   sectionHeadingHighlight = 'Transfers',

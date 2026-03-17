@@ -3,6 +3,7 @@
 import React from "react";
 export interface ShippingPolicyPageProps {
   content?: React.FC;
+  puck?: { isEditing?: boolean };
   title?: string;
   bodyContent?: string;
 }
@@ -33,6 +34,7 @@ If you have any further questions, please do not hesitate to contact us at sassy
 
 export function ShippingPolicyPage({
   content,
+  puck,
   title = "Shipping Policy",
   bodyContent = defaultContent,
 }: ShippingPolicyPageProps) {

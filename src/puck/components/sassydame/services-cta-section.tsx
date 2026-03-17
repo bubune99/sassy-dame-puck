@@ -25,6 +25,7 @@ const serviceColors = [
 
 export function ServicesCTASection({
   content,
+  puck,
   badgeText = "What We Offer",
   headingPrefix = "Your One-Stop",
   headingHighlight = "Craft Shop",
@@ -45,6 +46,7 @@ export function ServicesCTASection({
   bottomButtonText = "Contact Us",
 }: {
   content?: React.FC;
+  puck?: { isEditing?: boolean };
   badgeText?: string;
   headingPrefix?: string;
   headingHighlight?: string;

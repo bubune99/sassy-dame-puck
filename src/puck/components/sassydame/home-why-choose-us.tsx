@@ -26,6 +26,7 @@ const staggerContainer = {
 
 export function HomeWhyChooseUs({
   content,
+  puck,
   heading = "Why Crafters",
   headingHighlight = "Love Us",
   description = "5,000+ happy customers and counting. Here is why they keep coming back.",
@@ -47,6 +48,7 @@ export function HomeWhyChooseUs({
   stat4Label = "Google Rating",
 }: {
   content?: React.FC;
+  puck?: { isEditing?: boolean };
   heading?: string;
   headingHighlight?: string;
   description?: string;

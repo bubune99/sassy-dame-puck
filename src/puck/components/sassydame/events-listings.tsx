@@ -10,6 +10,7 @@ import { SpotlightCard } from './effects/spotlight-card'
 import { cn } from '@/lib/utils'
 export interface EventsListingsProps {
   content?: React.FC;
+  puck?: { isEditing?: boolean };
   sectionHeading: string;
   sectionHeadingHighlight: string;
   sectionDescription: string;
@@ -77,6 +78,7 @@ export interface EventsListingsProps {
 
 export function EventsListings({
   content,
+  puck,
   sectionHeading = 'Upcoming',
   sectionHeadingHighlight = 'Events',
   sectionDescription = 'Find your next creative adventure',

@@ -3,6 +3,7 @@
 import React from "react";
 export interface DTFBuilderPageProps {
   content?: React.FC;
+  puck?: { isEditing?: boolean };
   badgeText?: string;
   heading?: string;
   description?: string;
@@ -17,6 +18,7 @@ export interface DTFBuilderPageProps {
 
 export function DTFBuilderPage({
   content,
+  puck,
   badgeText = "Powered by Drip Apps",
   heading = "DTF Gang Sheet Builder",
   description = "Create custom gang sheets by uploading your designs and arranging them on a single transfer sheet. Maximize your space, minimize your costs.",

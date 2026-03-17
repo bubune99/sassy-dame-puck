@@ -17,6 +17,7 @@ import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 export interface DtfHeroProps {
   content?: React.FC;
+  puck?: { isEditing?: boolean };
   badgeText: string;
   headingLine1: string;
   headingLine2: string;
@@ -48,6 +49,7 @@ export interface DtfHeroProps {
 
 export function DtfHero({
   content,
+  puck,
   badgeText = '24-Hour Turnaround',
   headingLine1 = 'Print',
   headingLine2 = 'Without Limits',

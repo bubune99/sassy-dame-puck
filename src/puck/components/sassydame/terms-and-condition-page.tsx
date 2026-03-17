@@ -3,6 +3,7 @@
 import React from "react";
 export interface TermsAndConditionPageProps {
   content?: React.FC;
+  puck?: { isEditing?: boolean };
   title?: string;
   bodyContent?: string;
 }
@@ -39,6 +40,7 @@ By using our Store or placing an order, you acknowledge that you have read, unde
 
 export function TermsAndConditionPage({
   content,
+  puck,
   title = "Terms and Conditions",
   bodyContent = defaultContent,
 }: TermsAndConditionPageProps) {

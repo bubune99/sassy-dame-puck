@@ -21,6 +21,7 @@ const staggerContainer = {
 
 export function HomeSignsBanners({
   content,
+  puck,
   badgeText = "Signs & Banners",
   heading = "Make a",
   headingHighlight = "BIG",
@@ -38,6 +39,7 @@ export function HomeSignsBanners({
   pill6 = "Window Clings",
 }: {
   content?: React.FC;
+  puck?: { isEditing?: boolean };
   badgeText?: string;
   heading?: string;
   headingHighlight?: string;

@@ -36,6 +36,7 @@ const expectations = [
 
 export interface VisitUsPageProps {
   content?: React.FC;
+  puck?: { isEditing?: boolean };
   heading?: string;
   headingHighlight?: string;
   description?: string;
@@ -51,6 +52,7 @@ export interface VisitUsPageProps {
 
 export function VisitUsPage({
   content,
+  puck,
   heading = "Visit Our",
   headingHighlight = "Studio",
   description = "Stop by our Raleigh studio to browse products, pick up orders, or use our professional crafting equipment. We would love to meet you!",

@@ -7,6 +7,7 @@ import { Ticket, Building2, Shirt } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 export interface EventsCtaProps {
   content?: React.FC;
+  puck?: { isEditing?: boolean };
   heading: string;
   headingHighlight: string;
   description: string;
@@ -20,6 +21,7 @@ export interface EventsCtaProps {
 
 export function EventsCta({
   content,
+  puck,
   heading = 'Ready to',
   headingHighlight = 'Get Started?',
   description = 'Rent our space, book a class, or order custom event shirts. We handle the details so you can focus on the fun.',

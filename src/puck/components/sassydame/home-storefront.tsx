@@ -30,6 +30,7 @@ const staggerContainer = {
 
 export function HomeStorefront({
   content,
+  puck,
   badgeText = "Custom Storefronts",
   heading = "Your Brand.",
   headingHighlight = "Your Store.",
@@ -46,6 +47,7 @@ export function HomeStorefront({
   card4Label = "Business Merch",
 }: {
   content?: React.FC;
+  puck?: { isEditing?: boolean };
   badgeText?: string;
   heading?: string;
   headingHighlight?: string;

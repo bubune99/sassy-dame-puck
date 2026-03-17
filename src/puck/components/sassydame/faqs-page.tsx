@@ -84,6 +84,7 @@ function FAQItem({ q, a }: { q: string; a: string }) {
 
 export interface FAQsPageProps {
   content?: React.FC;
+  puck?: { isEditing?: boolean };
   heading?: string;
   description?: string;
   generalQ1?: string;
@@ -100,6 +101,7 @@ export interface FAQsPageProps {
 
 export function FAQsPage({
   content,
+  puck,
   heading = "Frequently Asked Questions",
   description = "Find answers to common questions about our products, shipping, and services.",
   generalQ1 = "Do You Offer Wholesale Prices?",

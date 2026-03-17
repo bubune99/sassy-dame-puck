@@ -8,6 +8,7 @@ import { SpotlightCard } from './effects/spotlight-card'
 import { cn } from '@/lib/utils'
 export interface ServicesProcessProps {
   content?: React.FC;
+  puck?: { isEditing?: boolean };
   heading?: string;
   headingHighlight?: string;
   subheading?: string;
@@ -23,6 +24,7 @@ export interface ServicesProcessProps {
 
 export function ServicesProcess({
   content,
+  puck,
   heading = "How It",
   headingHighlight = "Works",
   subheading = "Simple, transparent, professional",

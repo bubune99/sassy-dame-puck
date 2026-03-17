@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 export interface StudioHeroProps {
   content?: React.FC;
+  puck?: { isEditing?: boolean };
   badge?: string;
   headingLine1?: string;
   headingLine2?: string;
@@ -21,6 +22,7 @@ export interface StudioHeroProps {
 
 export function StudioHero({
   content,
+  puck,
   badge = "Fully Equipped Creative Space",
   headingLine1 = "Where Ideas",
   headingLine2 = "Become",

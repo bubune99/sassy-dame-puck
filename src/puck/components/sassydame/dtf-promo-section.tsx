@@ -15,6 +15,7 @@ const featureColors = [
 
 export function DTFPromoSection({
   content,
+  puck,
   badgeText = "DTF Builder",
   headingLine1 = "Design Your Own",
   headingLine2 = "Gang Sheets",
@@ -33,6 +34,7 @@ export function DTFPromoSection({
   feature3Description = "See your costs in real-time as you build your perfect gang sheet",
 }: {
   content?: React.FC;
+  puck?: { isEditing?: boolean };
   badgeText?: string;
   headingLine1?: string;
   headingLine2?: string;

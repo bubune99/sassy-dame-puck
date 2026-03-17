@@ -9,6 +9,7 @@ import { GlowingBorder } from './effects/glowing-border'
 import { cn } from '@/lib/utils'
 export interface EventsRentalsProps {
   content?: React.FC;
+  puck?: { isEditing?: boolean };
   badgeText: string;
   sectionHeading: string;
   sectionHeadingHighlight: string;
@@ -39,6 +40,7 @@ export interface EventsRentalsProps {
 
 export function EventsRentals({
   content,
+  puck,
   badgeText = 'Space & Hall Rentals',
   sectionHeading = 'Your Event,',
   sectionHeadingHighlight = 'Our Space',

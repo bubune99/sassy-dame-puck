@@ -23,6 +23,7 @@ function StarRating({ rating }: { rating: number }) {
 
 export function GoogleReviewsSection({
   content,
+  puck,
   ratingValue = "4.9",
   reviewCountText = "(127 reviews)",
   headingPrefix = "What Our",
@@ -50,6 +51,7 @@ export function GoogleReviewsSection({
   reviewButtonLink = "https://g.page/r/YOUR_GOOGLE_PLACE_ID/review",
 }: {
   content?: React.FC;
+  puck?: { isEditing?: boolean };
   ratingValue?: string;
   reviewCountText?: string;
   headingPrefix?: string;

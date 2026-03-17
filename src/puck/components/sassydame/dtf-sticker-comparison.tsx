@@ -16,6 +16,7 @@ import { GlowingBorder } from './effects/glowing-border'
 import { cn } from '@/lib/utils'
 export interface DtfStickerComparisonProps {
   content?: React.FC;
+  puck?: { isEditing?: boolean };
   badgeText: string;
   sectionHeading: string;
   sectionHeadingMiddle: string;
@@ -43,6 +44,7 @@ export interface DtfStickerComparisonProps {
 
 export function DtfStickerComparison({
   content,
+  puck,
   badgeText = 'Know the Difference',
   sectionHeading = 'UV DTF',
   sectionHeadingMiddle = 'vs',
