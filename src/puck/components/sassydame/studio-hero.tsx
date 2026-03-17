@@ -1,12 +1,13 @@
 'use client'
 
+import React from 'react';
+
 import { motion } from 'framer-motion'
 import { Paintbrush, ArrowRight, Camera } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
-import { DropZone } from "@puckeditor/core";
-
 export interface StudioHeroProps {
+  content?: React.FC;
   badge?: string;
   headingLine1?: string;
   headingLine2?: string;
@@ -19,6 +20,7 @@ export interface StudioHeroProps {
 }
 
 export function StudioHero({
+  content,
   badge = "Fully Equipped Creative Space",
   headingLine1 = "Where Ideas",
   headingLine2 = "Become",
@@ -108,9 +110,7 @@ export function StudioHero({
           </motion.div>
         </div>
       </div>
-
-      {/* Puck: Editable content slot */}
-      <DropZone zone="content" />
-    </section>
+      {content && typeof content === "function" && content({})}
+</section>
   )
 }

@@ -1,10 +1,10 @@
 'use client'
 
+import React from 'react';
+
 import { motion } from 'framer-motion'
 import { ArrowRight, Printer, Sparkles, Shirt, Calendar, Users } from 'lucide-react'
 import { cn } from '@/lib/utils'
-import { DropZone } from "@puckeditor/core";
-
 const categoryIcons = [Printer, Sparkles, Shirt, Calendar, Users]
 const categoryStyles = [
   { color: 'text-sassy-teal', bgColor: 'bg-sassy-teal' },
@@ -15,6 +15,7 @@ const categoryStyles = [
 ]
 
 export function BrandShowcase({
+  content,
   badgeText = "Everything Under One Roof",
   headingPrefix = "One Brand,",
   headingHighlight = "Five Experiences",
@@ -30,6 +31,7 @@ export function BrandShowcase({
   cat5Label = "Heat Press Rentals",
   cat5Description = "Professional equipment for your projects",
 }: {
+  content?: React.FC;
   badgeText?: string;
   headingPrefix?: string;
   headingHighlight?: string;
@@ -128,9 +130,7 @@ export function BrandShowcase({
           })}
         </div>
       </div>
-
-      {/* Puck: Editable content slot */}
-      <DropZone zone="content" />
-    </section>
+      {content && typeof content === "function" && content({})}
+</section>
   )
 }

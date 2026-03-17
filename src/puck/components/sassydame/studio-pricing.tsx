@@ -1,12 +1,13 @@
 'use client'
 
+import React from 'react';
+
 import { motion } from 'framer-motion'
 import { Clock, CheckCircle } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { GlowingBorder } from './effects/glowing-border'
-import { DropZone } from "@puckeditor/core";
-
 export interface StudioPricingProps {
+  content?: React.FC;
   heading?: string;
   headingHighlight?: string;
   subheading?: string;
@@ -27,6 +28,7 @@ export interface StudioPricingProps {
 }
 
 export function StudioPricing({
+  content,
   heading = "Simple",
   headingHighlight = "Pricing",
   subheading = "Pay for the time you need -- no memberships, no commitments",
@@ -126,9 +128,7 @@ export function StudioPricing({
           ))}
         </div>
       </div>
-
-      {/* Puck: Editable content slot */}
-      <DropZone zone="content" />
-    </section>
+      {content && typeof content === "function" && content({})}
+</section>
   )
 }

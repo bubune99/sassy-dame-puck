@@ -1,5 +1,7 @@
 "use client";
 
+import React from "react";
+
 import { motion } from "framer-motion";
 import {
   Shirt,
@@ -17,8 +19,6 @@ import {
   Heart,
   Package,
 } from "lucide-react";
-import { DropZone } from "@puckeditor/core";
-
 const steps = [
   {
     step: "01",
@@ -97,6 +97,7 @@ const includes = [
 ];
 
 export interface CustomShirtsPageProps {
+  content?: React.FC;
   badgeText?: string;
   heading?: string;
   headingHighlight?: string;
@@ -112,6 +113,7 @@ export interface CustomShirtsPageProps {
 }
 
 export function CustomShirtsPage({
+  content,
   badgeText = "Custom Event Shirts",
   heading = "Your Event,",
   headingHighlight = "Your Shirts",
@@ -439,9 +441,7 @@ export function CustomShirtsPage({
           </motion.div>
         </div>
       </section>
-
-      {/* Puck: Editable content slot */}
-      <DropZone zone="content" />
-    </main>
+      {content && typeof content === "function" && content({})}
+</main>
   );
 }

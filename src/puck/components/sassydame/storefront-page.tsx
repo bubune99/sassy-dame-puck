@@ -1,5 +1,7 @@
 "use client";
 
+import React from "react";
+
 import { motion } from "framer-motion";
 import {
   ArrowRight,
@@ -21,8 +23,6 @@ import {
   Phone,
   Mail,
 } from "lucide-react";
-import { DropZone } from "@puckeditor/core";
-
 // ---- HERO ----
 function StorefrontHero({ heroHeading, heroHeadingHighlight, heroDescription }: { heroHeading: string; heroHeadingHighlight: string; heroDescription: string }) {
   return (
@@ -290,6 +290,7 @@ function StorefrontCTA({ ctaHeading, ctaDescription }: { ctaHeading: string; cta
 
 // ---- PAGE ----
 export interface StorefrontPageProps {
+  content?: React.FC;
   heading?: string;
   headingHighlight?: string;
   description?: string;
@@ -304,6 +305,7 @@ export interface StorefrontPageProps {
 }
 
 export function StorefrontPage({
+  content,
   heading = "Your Brand,",
   headingHighlight = "Your Store",
   description = "We build custom-branded online storefronts for teams, schools, churches, businesses, and organizations -- powered by SassyDame. You sell, we print and ship.",
@@ -323,9 +325,7 @@ export function StorefrontPage({
       <Features sectionHeading={featuresHeading} sectionDescription={featuresDescription} />
       <UseCases sectionHeading={useCasesHeading} sectionDescription={useCasesDescription} />
       <StorefrontCTA ctaHeading={ctaHeading} ctaDescription={ctaDescription} />
-
-      {/* Puck: Editable content slot */}
-      <DropZone zone="content" />
-    </main>
+      {content && typeof content === "function" && content({})}
+</main>
   );
 }

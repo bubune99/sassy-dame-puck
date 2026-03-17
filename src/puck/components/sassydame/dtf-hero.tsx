@@ -1,5 +1,7 @@
 'use client'
 
+import React from 'react';
+
 import { motion } from 'framer-motion'
 import {
   ArrowRight,
@@ -13,9 +15,8 @@ import {
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
-import { DropZone } from "@puckeditor/core";
-
 export interface DtfHeroProps {
+  content?: React.FC;
   badgeText: string;
   headingLine1: string;
   headingLine2: string;
@@ -46,6 +47,7 @@ export interface DtfHeroProps {
 }
 
 export function DtfHero({
+  content,
   badgeText = '24-Hour Turnaround',
   headingLine1 = 'Print',
   headingLine2 = 'Without Limits',
@@ -183,9 +185,7 @@ export function DtfHero({
           </motion.div>
         </div>
       </div>
-
-      {/* Puck: Editable content slot */}
-      <DropZone zone="content" />
-    </section>
+      {content && typeof content === "function" && content({})}
+</section>
   )
 }

@@ -1,12 +1,13 @@
 'use client'
 
+import React from 'react';
+
 import { motion } from 'framer-motion'
 import { Calendar, Users, ArrowRight, Star } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
-import { DropZone } from "@puckeditor/core";
-
 export interface EventsHeroProps {
+  content?: React.FC;
   communityText: string;
   headingLine1: string;
   headingLine2: string;
@@ -37,6 +38,7 @@ export interface EventsHeroProps {
 }
 
 export function EventsHero({
+  content,
   communityText = 'Join 500+ community members',
   headingLine1 = 'Learn, Create,',
   headingLine2 = 'Connect',
@@ -169,9 +171,7 @@ export function EventsHero({
           </div>
         </div>
       </div>
-
-      {/* Puck: Editable content slot */}
-      <DropZone zone="content" />
-    </section>
+      {content && typeof content === "function" && content({})}
+</section>
   )
 }

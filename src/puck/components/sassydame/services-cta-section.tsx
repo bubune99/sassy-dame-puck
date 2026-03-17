@@ -1,5 +1,7 @@
 'use client'
 
+import React from 'react';
+
 import { motion } from 'framer-motion'
 import {
   Printer,
@@ -11,8 +13,6 @@ import {
   Sparkles,
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { DropZone } from "@puckeditor/core";
-
 const serviceIcons = [Printer, Sparkles, Shirt, Paintbrush, Calendar, Users]
 const serviceColors = [
   { color: 'bg-sassy-teal/15 text-sassy-teal', hoverColor: 'group-hover:bg-sassy-teal group-hover:text-white' },
@@ -24,6 +24,7 @@ const serviceColors = [
 ]
 
 export function ServicesCTASection({
+  content,
   badgeText = "What We Offer",
   headingPrefix = "Your One-Stop",
   headingHighlight = "Craft Shop",
@@ -43,6 +44,7 @@ export function ServicesCTASection({
   bottomText = "Not sure where to start? We are here to help!",
   bottomButtonText = "Contact Us",
 }: {
+  content?: React.FC;
   badgeText?: string;
   headingPrefix?: string;
   headingHighlight?: string;
@@ -148,9 +150,7 @@ export function ServicesCTASection({
           </Button>
         </motion.div>
       </div>
-
-      {/* Puck: Editable content slot */}
-      <DropZone zone="content" />
-    </section>
+      {content && typeof content === "function" && content({})}
+</section>
   )
 }

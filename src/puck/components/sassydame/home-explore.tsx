@@ -1,5 +1,7 @@
 'use client'
 
+import React from 'react';
+
 import { motion } from 'framer-motion'
 import {
   ArrowRight,
@@ -9,8 +11,6 @@ import {
   Wrench,
 } from 'lucide-react'
 import { SpotlightCard } from './effects/spotlight-card'
-import { DropZone } from "@puckeditor/core";
-
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },
   visible: (i: number) => ({
@@ -26,6 +26,7 @@ const staggerContainer = {
 }
 
 export function HomeExplore({
+  content,
   badgeText = "Explore SassyDame",
   heading = "Everything Under",
   headingHighlight = "One Roof",
@@ -44,6 +45,7 @@ export function HomeExplore({
   card4Link = "/services",
   cardCtaText = "Explore",
 }: {
+  content?: React.FC;
   badgeText?: string;
   heading?: string;
   headingHighlight?: string;
@@ -179,9 +181,7 @@ export function HomeExplore({
           ))}
         </motion.div>
       </div>
-
-      {/* Puck: Editable content slot */}
-      <DropZone zone="content" />
-    </section>
+      {content && typeof content === "function" && content({})}
+</section>
   )
 }

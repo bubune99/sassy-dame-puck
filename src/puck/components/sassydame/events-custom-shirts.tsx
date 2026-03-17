@@ -1,12 +1,13 @@
 'use client'
 
+import React from 'react';
+
 import { motion } from 'framer-motion'
 import { Shirt, Palette, PartyPopper } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
-import { DropZone } from "@puckeditor/core";
-
 export interface EventsCustomShirtsProps {
+  content?: React.FC;
   badgeText: string;
   sectionHeading: string;
   sectionHeadingHighlight: string;
@@ -29,6 +30,7 @@ export interface EventsCustomShirtsProps {
 }
 
 export function EventsCustomShirts({
+  content,
   badgeText = 'Custom Event Shirts',
   sectionHeading = 'Custom Shirts for',
   sectionHeadingHighlight = 'Your Event',
@@ -142,9 +144,7 @@ export function EventsCustomShirts({
           </div>
         </motion.div>
       </div>
-
-      {/* Puck: Editable content slot */}
-      <DropZone zone="content" />
-    </section>
+      {content && typeof content === "function" && content({})}
+</section>
   )
 }

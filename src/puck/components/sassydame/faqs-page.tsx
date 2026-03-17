@@ -1,9 +1,9 @@
 "use client";
 
+import React from "react";
+
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
-import { DropZone } from "@puckeditor/core";
-
 const faqSections = [
   {
     title: "General",
@@ -83,6 +83,7 @@ function FAQItem({ q, a }: { q: string; a: string }) {
 }
 
 export interface FAQsPageProps {
+  content?: React.FC;
   heading?: string;
   description?: string;
   generalQ1?: string;
@@ -98,6 +99,7 @@ export interface FAQsPageProps {
 }
 
 export function FAQsPage({
+  content,
   heading = "Frequently Asked Questions",
   description = "Find answers to common questions about our products, shipping, and services.",
   generalQ1 = "Do You Offer Wholesale Prices?",
@@ -165,10 +167,8 @@ export function FAQsPage({
             {contactEmail}
           </a>
         </div>
-
-        {/* Puck: Editable content slot */}
-        <DropZone zone="content" />
-      </div>
+      {content && typeof content === "function" && content({})}
+</div>
     </main>
   );
 }

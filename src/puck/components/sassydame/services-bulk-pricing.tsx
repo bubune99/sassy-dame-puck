@@ -1,11 +1,12 @@
 'use client'
 
+import React from 'react';
+
 import { motion } from 'framer-motion'
 import { SpotlightCard } from './effects/spotlight-card'
 import { GlowingBorder } from './effects/glowing-border'
-import { DropZone } from "@puckeditor/core";
-
 export interface ServicesBulkPricingProps {
+  content?: React.FC;
   heading?: string;
   headingHighlight?: string;
   subheading?: string;
@@ -20,6 +21,7 @@ export interface ServicesBulkPricingProps {
 }
 
 export function ServicesBulkPricing({
+  content,
   heading = "Volume",
   headingHighlight = "Discounts",
   subheading = "The more you order, the more you save",
@@ -78,9 +80,7 @@ export function ServicesBulkPricing({
           </div>
         </div>
       </div>
-
-      {/* Puck: Editable content slot */}
-      <DropZone zone="content" />
-    </section>
+      {content && typeof content === "function" && content({})}
+</section>
   )
 }

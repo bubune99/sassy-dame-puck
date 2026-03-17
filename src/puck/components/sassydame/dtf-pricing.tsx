@@ -1,5 +1,7 @@
 'use client'
 
+import React from 'react';
+
 import { motion } from 'framer-motion'
 import {
   ArrowRight,
@@ -10,9 +12,8 @@ import {
 import { Button } from '@/components/ui/button'
 import { SpotlightCard } from './effects/spotlight-card'
 import { cn } from '@/lib/utils'
-import { DropZone } from "@puckeditor/core";
-
 export interface DtfPricingProps {
+  content?: React.FC;
   sectionHeading: string;
   sectionHeadingHighlight: string;
   sectionDescription: string;
@@ -27,6 +28,7 @@ export interface DtfPricingProps {
 }
 
 export function DtfPricing({
+  content,
   sectionHeading = 'Transparent',
   sectionHeadingHighlight = 'Pricing',
   sectionDescription = 'No surprises, no hidden fees',
@@ -85,9 +87,7 @@ export function DtfPricing({
           </motion.div>
         </div>
       </div>
-
-      {/* Puck: Editable content slot */}
-      <DropZone zone="content" />
-    </section>
+      {content && typeof content === "function" && content({})}
+</section>
   )
 }

@@ -1,12 +1,13 @@
 'use client'
 
+import React from 'react';
+
 import { motion } from 'framer-motion'
 import { Sparkles, Music, GraduationCap, Camera, Heart, Warehouse } from 'lucide-react'
 import { SpotlightCard } from './effects/spotlight-card'
 import { cn } from '@/lib/utils'
-import { DropZone } from "@puckeditor/core";
-
 export interface EventsTypesProps {
+  content?: React.FC;
   sectionHeading: string;
   sectionHeadingHighlight: string;
   sectionDescription: string;
@@ -25,6 +26,7 @@ export interface EventsTypesProps {
 }
 
 export function EventsTypes({
+  content,
   sectionHeading = 'Something for',
   sectionHeadingHighlight = 'Everyone',
   sectionDescription = 'From intimate workshops to large hall rentals, we have the perfect setting for your next event.',
@@ -81,9 +83,7 @@ export function EventsTypes({
           ))}
         </div>
       </div>
-
-      {/* Puck: Editable content slot */}
-      <DropZone zone="content" />
-    </section>
+      {content && typeof content === "function" && content({})}
+</section>
   )
 }

@@ -1,5 +1,7 @@
 'use client'
 
+import React from 'react';
+
 import { motion } from 'framer-motion'
 import {
   Zap,
@@ -10,9 +12,8 @@ import {
   MapPin,
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { DropZone } from "@puckeditor/core";
-
 export function HomeHero({
+  content,
   badgeText = "1230 Green Street, Raleigh NC",
   heading = "Where Creativity",
   headingHighlight = "Meets Community.",
@@ -27,6 +28,7 @@ export function HomeHero({
   trustItem2 = "Workshops & Events",
   trustItem3 = "4.9 Google Rating",
 }: {
+  content?: React.FC;
   badgeText?: string;
   heading?: string;
   headingHighlight?: string;
@@ -164,9 +166,7 @@ export function HomeHero({
 
       {/* Diagonal divider */}
       <div className="absolute bottom-0 left-0 right-0 h-20 bg-background" style={{ clipPath: 'polygon(0 100%, 100% 100%, 100% 0)' }} />
-
-      {/* Puck: Editable content slot */}
-      <DropZone zone="content" />
-    </section>
+      {content && typeof content === "function" && content({})}
+</section>
   )
 }

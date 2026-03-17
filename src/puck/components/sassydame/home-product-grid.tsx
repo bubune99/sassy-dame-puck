@@ -1,5 +1,7 @@
 'use client'
 
+import React from 'react';
+
 import { motion } from 'framer-motion'
 import {
   Sparkles,
@@ -12,8 +14,6 @@ import {
   Zap,
 } from 'lucide-react'
 import { SpotlightCard } from './effects/spotlight-card'
-import { DropZone } from "@puckeditor/core";
-
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },
   visible: (i: number) => ({
@@ -29,6 +29,7 @@ const staggerContainer = {
 }
 
 export function HomeProductGrid({
+  content,
   badgeText = "Shop by Category",
   heading = "What Are You",
   headingHighlight = "Creating Today?",
@@ -56,6 +57,7 @@ export function HomeProductGrid({
   cat7Link = "/collections/custom-vinyl-lettering",
   cardCtaText = "Shop Now",
 }: {
+  content?: React.FC;
   badgeText?: string;
   heading?: string;
   headingHighlight?: string;
@@ -240,9 +242,7 @@ export function HomeProductGrid({
           ))}
         </motion.div>
       </div>
-
-      {/* Puck: Editable content slot */}
-      <DropZone zone="content" />
-    </section>
+      {content && typeof content === "function" && content({})}
+</section>
   )
 }

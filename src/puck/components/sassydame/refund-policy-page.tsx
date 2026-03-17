@@ -1,9 +1,10 @@
 "use client";
-import { DropZone } from "@puckeditor/core";
 
+import React from "react";
 export interface RefundPolicyPageProps {
+  content?: React.FC;
   title?: string;
-  content?: string;
+  bodyContent?: string;
 }
 
 const defaultContent = `All sales are final.
@@ -29,10 +30,11 @@ Additional Terms
 4. Post-Delivery Liability: Once an order is completed and the product is delivered to the customer, or picked up by any agreed-upon method, we hold no responsibility for the storage, usage, or handling of the printed image. The customer assumes all risks and liabilities associated with the use and storage of the printed image post-delivery.`;
 
 export function RefundPolicyPage({
+  content,
   title = "Refund Policy",
-  content = defaultContent,
+  bodyContent = defaultContent,
 }: RefundPolicyPageProps) {
-  const paragraphs = content.split('\n\n');
+  const paragraphs = bodyContent.split('\n\n');
 
   return (
     <main className="flex-1 py-16">
@@ -50,9 +52,7 @@ export function RefundPolicyPage({
           })}
         </div>
       </div>
-
-      {/* Puck: Editable content slot */}
-      <DropZone zone="content" />
-    </main>
+      {content && typeof content === "function" && content({})}
+</main>
   );
 }

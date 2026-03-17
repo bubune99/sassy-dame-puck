@@ -1,11 +1,12 @@
 'use client'
 
+import React from 'react';
+
 import { motion } from 'framer-motion'
 import { Calendar, Users } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { DropZone } from "@puckeditor/core";
-
 export interface StudioCtaProps {
+  content?: React.FC;
   heading?: string;
   description?: string;
   primaryButtonText?: string;
@@ -16,6 +17,7 @@ export interface StudioCtaProps {
 }
 
 export function StudioCta({
+  content,
   heading = "Ready to Create?",
   description = "Book your studio session today. Walk-ins welcome based on availability.",
   primaryButtonText = "Book Online",
@@ -52,9 +54,7 @@ export function StudioCta({
           </motion.div>
         </div>
       </div>
-
-      {/* Puck: Editable content slot */}
-      <DropZone zone="content" />
-    </section>
+      {content && typeof content === "function" && content({})}
+</section>
   )
 }

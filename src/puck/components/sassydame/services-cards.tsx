@@ -1,11 +1,12 @@
 'use client'
 
+import React from 'react';
+
 import { motion } from 'framer-motion'
 import { Package, Printer, MapPin, Shirt, CheckCircle } from 'lucide-react'
 import { GlowingBorder } from './effects/glowing-border'
-import { DropZone } from "@puckeditor/core";
-
 export interface ServicesCardsProps {
+  content?: React.FC;
   sectionBadge?: string;
   sectionHeading?: string;
   sectionHeadingHighlight?: string;
@@ -36,6 +37,7 @@ export interface ServicesCardsProps {
 }
 
 export function ServicesCards({
+  content,
   sectionBadge = "Our Services",
   sectionHeading = "What We",
   sectionHeadingHighlight = "Deliver",
@@ -143,9 +145,7 @@ export function ServicesCards({
           ))}
         </div>
       </div>
-
-      {/* Puck: Editable content slot */}
-      <DropZone zone="content" />
-    </section>
+      {content && typeof content === "function" && content({})}
+</section>
   )
 }

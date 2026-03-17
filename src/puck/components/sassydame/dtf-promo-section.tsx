@@ -1,11 +1,11 @@
 'use client'
 
+import React from 'react';
+
 import { motion } from 'framer-motion'
 import { ArrowRight, Layers, Palette, Zap, CheckCircle } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { GlowingBorder } from './effects/glowing-border'
-import { DropZone } from "@puckeditor/core";
-
 const featureIcons = [Layers, Palette, Zap]
 const featureColors = [
   'text-sassy-teal bg-sassy-teal/15',
@@ -14,6 +14,7 @@ const featureColors = [
 ]
 
 export function DTFPromoSection({
+  content,
   badgeText = "DTF Builder",
   headingLine1 = "Design Your Own",
   headingLine2 = "Gang Sheets",
@@ -31,6 +32,7 @@ export function DTFPromoSection({
   feature3Title = "Instant Pricing",
   feature3Description = "See your costs in real-time as you build your perfect gang sheet",
 }: {
+  content?: React.FC;
   badgeText?: string;
   headingLine1?: string;
   headingLine2?: string;
@@ -136,9 +138,7 @@ export function DTFPromoSection({
           </div>
         </div>
       </div>
-
-      {/* Puck: Editable content slot */}
-      <DropZone zone="content" />
-    </section>
+      {content && typeof content === "function" && content({})}
+</section>
   )
 }

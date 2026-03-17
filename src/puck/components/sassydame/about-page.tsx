@@ -1,8 +1,8 @@
 "use client";
 
-import { Heart, Users, Sparkles, Award, ArrowRight } from "lucide-react";
-import { DropZone } from "@puckeditor/core";
+import React from "react";
 
+import { Heart, Users, Sparkles, Award, ArrowRight } from "lucide-react";
 const values = [
   {
     icon: Heart,
@@ -54,6 +54,7 @@ const milestones = [
 ];
 
 export interface AboutPageProps {
+  content?: React.FC;
   heading?: string;
   headingHighlight?: string;
   heroParagraph?: string;
@@ -67,6 +68,7 @@ export interface AboutPageProps {
 }
 
 export function AboutPage({
+  content,
   heading = "Crafting Dreams,",
   headingHighlight = "Building Community",
   heroParagraph = "SassyDame Designs started with a simple dream: to create a space where crafters of all skill levels could find quality supplies, learn new techniques, and connect with fellow creators. What began in a small spare room has grown into a beloved community hub.",
@@ -216,9 +218,7 @@ export function AboutPage({
           </div>
         </div>
       </section>
-
-      {/* Puck: Editable content slot */}
-      <DropZone zone="content" />
-    </main>
+      {content && typeof content === "function" && content({})}
+</main>
   );
 }

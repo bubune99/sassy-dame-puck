@@ -1,5 +1,7 @@
 'use client'
 
+import React from 'react';
+
 import { motion } from 'framer-motion'
 import {
   Clock,
@@ -7,8 +9,6 @@ import {
   Sparkles,
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { DropZone } from "@puckeditor/core";
-
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },
   visible: (i: number) => ({
@@ -24,6 +24,7 @@ const staggerContainer = {
 }
 
 export function HomeFinalCta({
+  content,
   badgeText = "24-Hour Turnaround Available",
   heading = "Ready to Create",
   headingHighlight = "Something Amazing?",
@@ -33,6 +34,7 @@ export function HomeFinalCta({
   secondaryButtonText = "Get a Custom Quote",
   secondaryButtonLink = "/custom-order",
 }: {
+  content?: React.FC;
   badgeText?: string;
   heading?: string;
   headingHighlight?: string;
@@ -117,9 +119,7 @@ export function HomeFinalCta({
           </motion.div>
         </motion.div>
       </div>
-
-      {/* Puck: Editable content slot */}
-      <DropZone zone="content" />
-    </section>
+      {content && typeof content === "function" && content({})}
+</section>
   )
 }

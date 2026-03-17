@@ -1,13 +1,14 @@
 "use client";
 
+import React from "react";
+
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Gift, Mail, Sparkles, Heart } from "lucide-react";
-import { DropZone } from "@puckeditor/core";
-
 const giftCardAmounts = [25, 50, 75, 100, 150, 200];
 
 export interface GiftCardPageProps {
+  content?: React.FC;
   badgeText?: string;
   heading?: string;
   headingHighlight?: string;
@@ -17,6 +18,7 @@ export interface GiftCardPageProps {
 }
 
 export function GiftCardPage({
+  content,
   badgeText = "The Perfect Gift for Crafters",
   heading = "SassyDame Designs",
   headingHighlight = "Gift Card",
@@ -212,9 +214,7 @@ export function GiftCardPage({
           </div>
         </div>
       </section>
-
-      {/* Puck: Editable content slot */}
-      <DropZone zone="content" />
-    </main>
+      {content && typeof content === "function" && content({})}
+</main>
   );
 }

@@ -1,13 +1,14 @@
 'use client'
 
+import React from 'react';
+
 import { motion } from 'framer-motion'
 import { ArrowRight, Package, Truck, BadgeCheck, Clock } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { DropZone } from "@puckeditor/core";
-
 const benefitIcons = [Truck, Package, BadgeCheck, Clock]
 
 export function ProductsCTASection({
+  content,
   product1Title = "DTF + UV Bundle Packs",
   product1Description = "Save big with our curated bundles perfect for beginners and pros alike",
   product1Tag = "Best Value",
@@ -25,6 +26,7 @@ export function ProductsCTASection({
   bottomButtonText = "View All Products",
   bottomButtonLink = "/products",
 }: {
+  content?: React.FC;
   product1Title?: string;
   product1Description?: string;
   product1Tag?: string;
@@ -158,9 +160,7 @@ export function ProductsCTASection({
           </Button>
         </motion.div>
       </div>
-
-      {/* Puck: Editable content slot */}
-      <DropZone zone="content" />
-    </section>
+      {content && typeof content === "function" && content({})}
+</section>
   )
 }

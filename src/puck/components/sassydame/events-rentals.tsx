@@ -1,13 +1,14 @@
 'use client'
 
+import React from 'react';
+
 import { motion } from 'framer-motion'
 import { Building2, Warehouse, ArrowRight, CheckCircle2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { GlowingBorder } from './effects/glowing-border'
 import { cn } from '@/lib/utils'
-import { DropZone } from "@puckeditor/core";
-
 export interface EventsRentalsProps {
+  content?: React.FC;
   badgeText: string;
   sectionHeading: string;
   sectionHeadingHighlight: string;
@@ -37,6 +38,7 @@ export interface EventsRentalsProps {
 }
 
 export function EventsRentals({
+  content,
   badgeText = 'Space & Hall Rentals',
   sectionHeading = 'Your Event,',
   sectionHeadingHighlight = 'Our Space',
@@ -160,9 +162,7 @@ export function EventsRentals({
           ))}
         </div>
       </div>
-
-      {/* Puck: Editable content slot */}
-      <DropZone zone="content" />
-    </section>
+      {content && typeof content === "function" && content({})}
+</section>
   )
 }

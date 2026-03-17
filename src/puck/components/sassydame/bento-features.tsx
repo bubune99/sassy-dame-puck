@@ -5,8 +5,6 @@ import { Printer, Sparkles, Shirt, Calendar, Paintbrush } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 import { motion } from 'framer-motion'
-import { DropZone } from "@puckeditor/core";
-
 // Animation variants for the container to stagger children
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -41,6 +39,7 @@ function BentoCard({
   bgColor,
   className,
 }: {
+  content?: React.FC;
   icon: React.ElementType
   title: string
   description: string
@@ -74,6 +73,7 @@ function StatCard({
   label,
   color,
 }: {
+  content?: React.FC;
   value: string
   label: string
   color: string
@@ -87,6 +87,7 @@ function StatCard({
 }
 
 export function BentoFeatures({
+  content,
   badgeText = "What We Offer",
   headingPrefix = "Your One-Stop",
   headingHighlight = "Craft Shop",
@@ -104,6 +105,7 @@ export function BentoFeatures({
   card4Title = "Classes & Events",
   card4Description = "Learn new skills with hands-on workshops",
 }: {
+  content?: React.FC;
   badgeText?: string;
   headingPrefix?: string;
   headingHighlight?: string;
@@ -209,9 +211,7 @@ export function BentoFeatures({
         </div>
 
       </div>
-
-      {/* Puck: Editable content slot */}
-      <DropZone zone="content" />
-    </section>
+      {content && typeof content === "function" && content({})}
+</section>
   )
 }

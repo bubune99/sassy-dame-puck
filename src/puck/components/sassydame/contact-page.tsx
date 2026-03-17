@@ -1,8 +1,8 @@
 "use client";
 
-import { MapPin, Phone, Mail, Clock } from "lucide-react";
-import { DropZone } from "@puckeditor/core";
+import React from "react";
 
+import { MapPin, Phone, Mail, Clock } from "lucide-react";
 function getContactInfo(address: string, addressLine2: string, phone: string, email: string) {
   return [
     {
@@ -83,6 +83,7 @@ function ContactForm() {
 }
 
 export interface ContactPageProps {
+  content?: React.FC;
   heading?: string;
   headingHighlight?: string;
   description?: string;
@@ -95,6 +96,7 @@ export interface ContactPageProps {
 }
 
 export function ContactPage({
+  content,
   heading = "We Would Love to",
   headingHighlight = "Hear From You",
   description = "Have a question about our products, services, or upcoming events? Drop us a line and we will get back to you as soon as possible.",
@@ -211,9 +213,7 @@ export function ContactPage({
           </a>
         </div>
       </section>
-
-      {/* Puck: Editable content slot */}
-      <DropZone zone="content" />
-    </main>
+      {content && typeof content === "function" && content({})}
+</main>
   );
 }

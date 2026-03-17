@@ -1,5 +1,7 @@
 "use client";
 
+import React from "react";
+
 import { motion } from "framer-motion";
 import {
   Users,
@@ -19,8 +21,6 @@ import {
   Cake,
   ArrowRight,
 } from "lucide-react";
-import { DropZone } from "@puckeditor/core";
-
 const eventTypes = [
   {
     icon: Cake,
@@ -124,6 +124,7 @@ const pricingTiers = [
 ];
 
 export interface HallRentalsPageProps {
+  content?: React.FC;
   badgeText?: string;
   heading?: string;
   headingHighlight?: string;
@@ -140,6 +141,7 @@ export interface HallRentalsPageProps {
 }
 
 export function HallRentalsPage({
+  content,
   badgeText = "Large Event Venue",
   heading = "Your Event,",
   headingHighlight = "Our Hall",
@@ -489,9 +491,7 @@ export function HallRentalsPage({
           </motion.div>
         </div>
       </section>
-
-      {/* Puck: Editable content slot */}
-      <DropZone zone="content" />
-    </main>
+      {content && typeof content === "function" && content({})}
+</main>
   );
 }

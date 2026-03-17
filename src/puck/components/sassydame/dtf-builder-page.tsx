@@ -1,7 +1,8 @@
 "use client";
-import { DropZone } from "@puckeditor/core";
 
+import React from "react";
 export interface DTFBuilderPageProps {
+  content?: React.FC;
   badgeText?: string;
   heading?: string;
   description?: string;
@@ -15,6 +16,7 @@ export interface DTFBuilderPageProps {
 }
 
 export function DTFBuilderPage({
+  content,
   badgeText = "Powered by Drip Apps",
   heading = "DTF Gang Sheet Builder",
   description = "Create custom gang sheets by uploading your designs and arranging them on a single transfer sheet. Maximize your space, minimize your costs.",
@@ -96,9 +98,7 @@ export function DTFBuilderPage({
           </div>
         </div>
       </section>
-
-      {/* Puck: Editable content slot */}
-      <DropZone zone="content" />
-    </main>
+      {content && typeof content === "function" && content({})}
+</main>
   );
 }

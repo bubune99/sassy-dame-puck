@@ -1,9 +1,10 @@
 "use client";
-import { DropZone } from "@puckeditor/core";
 
+import React from "react";
 export interface PrivacyPolicyPageProps {
+  content?: React.FC;
   title?: string;
-  content?: string;
+  bodyContent?: string;
 }
 
 const defaultContent = `SassyDame Designs does not share customer information (including email addresses) outside the SassyDame family of companies unless it is necessary to provide you with products or services available from our store. We may also disclose information when you tell us to do so, to identify or contact you, to protect your rights or the rights of SassyDame or as required or permitted by law.
@@ -29,10 +30,11 @@ Contact Us
 For more information about our privacy practices, if you have questions, or if you would like to make a complaint, please contact us by email at sassydame23@yahoo.com or by mail at: 1230 Green Street, Raleigh, NC 27603.`;
 
 export function PrivacyPolicyPage({
+  content,
   title = "Privacy Policy",
-  content = defaultContent,
+  bodyContent = defaultContent,
 }: PrivacyPolicyPageProps) {
-  const paragraphs = content.split('\n\n');
+  const paragraphs = bodyContent.split('\n\n');
 
   return (
     <main className="flex-1 py-16">
@@ -51,9 +53,7 @@ export function PrivacyPolicyPage({
           })}
         </div>
       </div>
-
-      {/* Puck: Editable content slot */}
-      <DropZone zone="content" />
-    </main>
+      {content && typeof content === "function" && content({})}
+</main>
   );
 }

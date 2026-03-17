@@ -1,11 +1,12 @@
 'use client'
 
+import React from 'react';
+
 import { motion } from 'framer-motion'
 import { Phone } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { DropZone } from "@puckeditor/core";
-
 export interface ServicesCtaProps {
+  content?: React.FC;
   heading?: string;
   description?: string;
   primaryButtonText?: string;
@@ -16,6 +17,7 @@ export interface ServicesCtaProps {
 }
 
 export function ServicesCta({
+  content,
   heading = "Ready to Get Started?",
   description = "Tell us about your project and receive a custom quote within 24 hours. No obligation, no pressure.",
   primaryButtonText = "Request a Quote",
@@ -51,9 +53,7 @@ export function ServicesCta({
           </motion.div>
         </div>
       </div>
-
-      {/* Puck: Editable content slot */}
-      <DropZone zone="content" />
-    </section>
+      {content && typeof content === "function" && content({})}
+</section>
   )
 }

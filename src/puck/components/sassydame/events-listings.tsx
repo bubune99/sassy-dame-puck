@@ -1,14 +1,15 @@
 'use client'
 
+import React from 'react';
+
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Clock, MapPin, Users, ChevronRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { SpotlightCard } from './effects/spotlight-card'
 import { cn } from '@/lib/utils'
-import { DropZone } from "@puckeditor/core";
-
 export interface EventsListingsProps {
+  content?: React.FC;
   sectionHeading: string;
   sectionHeadingHighlight: string;
   sectionDescription: string;
@@ -75,6 +76,7 @@ export interface EventsListingsProps {
 }
 
 export function EventsListings({
+  content,
   sectionHeading = 'Upcoming',
   sectionHeadingHighlight = 'Events',
   sectionDescription = 'Find your next creative adventure',
@@ -255,9 +257,7 @@ export function EventsListings({
           </AnimatePresence>
         </div>
       </div>
-
-      {/* Puck: Editable content slot */}
-      <DropZone zone="content" />
-    </section>
+      {content && typeof content === "function" && content({})}
+</section>
   )
 }

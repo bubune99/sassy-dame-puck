@@ -1,10 +1,10 @@
 "use client";
 
+import React from "react";
+
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Package, Users, Clock, CheckCircle, ArrowRight } from "lucide-react";
-import { DropZone } from "@puckeditor/core";
-
 const bulkTiers = [
   { min: 12, max: 24, discount: "10%", label: "12-24 pieces" },
   { min: 25, max: 49, discount: "15%", label: "25-49 pieces" },
@@ -23,6 +23,7 @@ const productTypes = [
 ];
 
 export interface BulkOrderPageProps {
+  content?: React.FC;
   badgeText?: string;
   heading?: string;
   headingHighlight?: string;
@@ -34,6 +35,7 @@ export interface BulkOrderPageProps {
 }
 
 export function BulkOrderPage({
+  content,
   badgeText = "Save More with Bulk Orders",
   heading = "Bulk & Wholesale",
   headingHighlight = "Orders",
@@ -288,9 +290,7 @@ export function BulkOrderPage({
           </div>
         </div>
       </section>
-
-      {/* Puck: Editable content slot */}
-      <DropZone zone="content" />
-    </main>
+      {content && typeof content === "function" && content({})}
+</main>
   );
 }

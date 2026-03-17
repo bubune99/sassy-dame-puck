@@ -1,5 +1,7 @@
 'use client'
 
+import React from 'react';
+
 import { motion } from 'framer-motion'
 import {
   ArrowRight,
@@ -12,9 +14,8 @@ import {
 import { Button } from '@/components/ui/button'
 import { GlowingBorder } from './effects/glowing-border'
 import { cn } from '@/lib/utils'
-import { DropZone } from "@puckeditor/core";
-
 export interface DtfStickerComparisonProps {
+  content?: React.FC;
   badgeText: string;
   sectionHeading: string;
   sectionHeadingMiddle: string;
@@ -41,6 +42,7 @@ export interface DtfStickerComparisonProps {
 }
 
 export function DtfStickerComparison({
+  content,
   badgeText = 'Know the Difference',
   sectionHeading = 'UV DTF',
   sectionHeadingMiddle = 'vs',
@@ -212,9 +214,7 @@ export function DtfStickerComparison({
           <p className="text-muted-foreground" dangerouslySetInnerHTML={{ __html: bottomLineDescription }} />
         </motion.div>
       </div>
-
-      {/* Puck: Editable content slot */}
-      <DropZone zone="content" />
-    </section>
+      {content && typeof content === "function" && content({})}
+</section>
   )
 }

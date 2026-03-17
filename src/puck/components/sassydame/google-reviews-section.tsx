@@ -1,11 +1,11 @@
 'use client'
 
+import React from 'react';
+
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Star, Quote, ChevronLeft, ChevronRight, ExternalLink } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { DropZone } from "@puckeditor/core";
-
 function StarRating({ rating }: { rating: number }) {
   return (
     <div className="flex items-center gap-0.5">
@@ -22,6 +22,7 @@ function StarRating({ rating }: { rating: number }) {
 }
 
 export function GoogleReviewsSection({
+  content,
   ratingValue = "4.9",
   reviewCountText = "(127 reviews)",
   headingPrefix = "What Our",
@@ -48,6 +49,7 @@ export function GoogleReviewsSection({
   reviewButtonText = "Leave Us a Review",
   reviewButtonLink = "https://g.page/r/YOUR_GOOGLE_PLACE_ID/review",
 }: {
+  content?: React.FC;
   ratingValue?: string;
   reviewCountText?: string;
   headingPrefix?: string;
@@ -252,10 +254,8 @@ export function GoogleReviewsSection({
             </a>
           </Button>
         </motion.div>
-
-        {/* Puck: Editable content slot */}
-        <DropZone zone="content" />
-      </div>
+      {content && typeof content === "function" && content({})}
+</div>
     </section>
   )
 }

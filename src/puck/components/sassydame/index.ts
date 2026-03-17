@@ -145,6 +145,7 @@ export const sassydameComponents = {
     label: "SassyDame Hero",
     render: (props: Record<string, unknown>) => React.createElement(HeroSection, props),
     fields: {
+      content: { type: "slot" },
       badgeText: { type: "text", label: "Badge Text" },
       headingLine1: { type: "text", label: "Heading Line 1" },
       headingLine2: { type: "text", label: "Heading Line 2 (gradient)" },
@@ -158,6 +159,7 @@ export const sassydameComponents = {
       trustItem3: { type: "text", label: "Trust Indicator 3" },
     },
     defaultProps: {
+      content: [],
       badgeText: "Your Local Craft Destination",
       headingLine1: "Create Something",
       headingLine2: "Beautiful",
@@ -175,6 +177,7 @@ export const sassydameComponents = {
     label: "SassyDame Services CTA",
     render: (props: Record<string, unknown>) => React.createElement(ServicesCTASection, props),
     fields: {
+      content: { type: "slot" },
       badgeText: { type: "text", label: "Badge Text" },
       headingPrefix: { type: "text", label: "Heading Prefix" },
       headingHighlight: { type: "text", label: "Heading Highlight (gradient)" },
@@ -195,6 +198,7 @@ export const sassydameComponents = {
       bottomButtonText: { type: "text", label: "Bottom Button Text" },
     },
     defaultProps: {
+      content: [],
       badgeText: "What We Offer",
       headingPrefix: "Your One-Stop",
       headingHighlight: "Craft Shop",
@@ -219,6 +223,7 @@ export const sassydameComponents = {
     label: "SassyDame Bento Features",
     render: (props: Record<string, unknown>) => React.createElement(BentoFeatures, props),
     fields: {
+      content: { type: "slot" },
       badgeText: { type: "text", label: "Badge Text" },
       headingPrefix: { type: "text", label: "Heading Prefix" },
       headingHighlight: { type: "text", label: "Heading Highlight (gradient)" },
@@ -237,6 +242,7 @@ export const sassydameComponents = {
       card4Description: { type: "textarea", label: "Card 4 Description" },
     },
     defaultProps: {
+      content: [],
       badgeText: "What We Offer",
       headingPrefix: "Your One-Stop",
       headingHighlight: "Craft Shop",
@@ -259,6 +265,7 @@ export const sassydameComponents = {
     label: "SassyDame DTF Promo",
     render: (props: Record<string, unknown>) => React.createElement(DTFPromoSection, props),
     fields: {
+      content: { type: "slot" },
       badgeText: { type: "text", label: "Badge Text" },
       headingLine1: { type: "text", label: "Heading Line 1" },
       headingLine2: { type: "text", label: "Heading Line 2 (gradient)" },
@@ -277,6 +284,7 @@ export const sassydameComponents = {
       feature3Description: { type: "textarea", label: "Feature 3 Description" },
     },
     defaultProps: {
+      content: [],
       badgeText: "DTF Builder",
       headingLine1: "Design Your Own",
       headingLine2: "Gang Sheets",
@@ -299,6 +307,7 @@ export const sassydameComponents = {
     label: "SassyDame Products CTA",
     render: (props: Record<string, unknown>) => React.createElement(ProductsCTASection, props),
     fields: {
+      content: { type: "slot" },
       product1Title: { type: "text", label: "Product 1 Title" },
       product1Description: { type: "textarea", label: "Product 1 Description" },
       product1Tag: { type: "text", label: "Product 1 Tag" },
@@ -317,6 +326,7 @@ export const sassydameComponents = {
       bottomButtonLink: { type: "text", label: "Bottom Button Link" },
     },
     defaultProps: {
+      content: [],
       product1Title: "DTF + UV Bundle Packs",
       product1Description: "Save big with our curated bundles perfect for beginners and pros alike",
       product1Tag: "Best Value",
@@ -339,6 +349,7 @@ export const sassydameComponents = {
     label: "SassyDame Brand Showcase",
     render: (props: Record<string, unknown>) => React.createElement(BrandShowcase, props),
     fields: {
+      content: { type: "slot" },
       badgeText: { type: "text", label: "Badge Text" },
       headingPrefix: { type: "text", label: "Heading Prefix" },
       headingHighlight: { type: "text", label: "Heading Highlight (gradient)" },
@@ -355,6 +366,7 @@ export const sassydameComponents = {
       cat5Description: { type: "text", label: "Category 5 Description" },
     },
     defaultProps: {
+      content: [],
       badgeText: "Everything Under One Roof",
       headingPrefix: "One Brand,",
       headingHighlight: "Five Experiences",
@@ -375,6 +387,7 @@ export const sassydameComponents = {
     label: "SassyDame Google Reviews",
     render: (props: Record<string, unknown>) => React.createElement(GoogleReviewsSection, props),
     fields: {
+      content: { type: "slot" },
       ratingValue: { type: "text", label: "Rating Value" },
       reviewCountText: { type: "text", label: "Review Count Text" },
       headingPrefix: { type: "text", label: "Heading Prefix" },
@@ -402,6 +415,7 @@ export const sassydameComponents = {
       reviewButtonLink: { type: "text", label: "Review Button Link" },
     },
     defaultProps: {
+      content: [],
       ratingValue: "4.9",
       reviewCountText: "(127 reviews)",
       headingPrefix: "What Our",
@@ -433,6 +447,7 @@ export const sassydameComponents = {
     label: "SassyDame Photo Gallery",
     render: (props: Record<string, unknown>) => React.createElement(PhotoGallerySection, props),
     fields: {
+      content: { type: "slot" },
       badgeText: { type: "text", label: "Badge Text" },
       headingPrefix: { type: "text", label: "Heading Prefix" },
       headingHighlight: { type: "text", label: "Heading Highlight (gradient)" },
@@ -448,6 +463,7 @@ export const sassydameComponents = {
       instagramLink: { type: "text", label: "Instagram URL" },
     },
     defaultProps: {
+      content: [],
       badgeText: "Gallery",
       headingPrefix: "See What We",
       headingHighlight: "Create",
@@ -468,6 +484,7 @@ export const sassydameComponents = {
   SassyDameHomeHero: {
     label: "Home: Hero (Location + CTAs + Trust Strip)",
     fields: {
+      content: { type: "slot" },
       badgeText: { type: "text", label: "Badge Text" },
       heading: { type: "text", label: "Heading" },
       headingHighlight: { type: "text", label: "Heading Highlight" },
@@ -483,6 +500,7 @@ export const sassydameComponents = {
       trustItem3: { type: "text", label: "Trust Item 3" },
     },
     defaultProps: {
+      content: [],
       badgeText: "1230 Green Street, Raleigh NC",
       heading: "Where Creativity",
       headingHighlight: "Meets Community.",
@@ -502,6 +520,7 @@ export const sassydameComponents = {
   SassyDameHomeExplore: {
     label: "Home: Explore SassyDame (4 Pillars)",
     fields: {
+      content: { type: "slot" },
       badgeText: { type: "text", label: "Badge Text" },
       heading: { type: "text", label: "Heading" },
       headingHighlight: { type: "text", label: "Heading Highlight" },
@@ -521,6 +540,7 @@ export const sassydameComponents = {
       cardCtaText: { type: "text", label: "Card CTA Text" },
     },
     defaultProps: {
+      content: [],
       badgeText: "Explore SassyDame",
       heading: "Everything Under",
       headingHighlight: "One Roof",
@@ -544,6 +564,7 @@ export const sassydameComponents = {
   SassyDameHomeProductGrid: {
     label: "Home: Product Categories Grid (7 Cards)",
     fields: {
+      content: { type: "slot" },
       badgeText: { type: "text", label: "Badge Text" },
       heading: { type: "text", label: "Heading" },
       headingHighlight: { type: "text", label: "Heading Highlight" },
@@ -572,6 +593,7 @@ export const sassydameComponents = {
       cardCtaText: { type: "text", label: "Card CTA Text" },
     },
     defaultProps: {
+      content: [],
       badgeText: "Shop by Category",
       heading: "What Are You",
       headingHighlight: "Creating Today?",
@@ -604,6 +626,7 @@ export const sassydameComponents = {
   SassyDameHomeStickerMall: {
     label: "Home: Sticker Mall (3 Cards + CTA)",
     fields: {
+      content: { type: "slot" },
       badgeText: { type: "text", label: "Badge Text" },
       heading: { type: "text", label: "Heading" },
       headingHighlight: { type: "text", label: "Heading Highlight" },
@@ -622,6 +645,7 @@ export const sassydameComponents = {
       ctaButtonLink: { type: "text", label: "CTA Button Link" },
     },
     defaultProps: {
+      content: [],
       badgeText: "Sticker Mall",
       heading: "Stickers That",
       headingHighlight: "Pop",
@@ -644,6 +668,7 @@ export const sassydameComponents = {
   SassyDameHomeSignsBanners: {
     label: "Home: Signs & Banners",
     fields: {
+      content: { type: "slot" },
       badgeText: { type: "text", label: "Badge Text" },
       heading: { type: "text", label: "Heading" },
       headingHighlight: { type: "text", label: "Heading Highlight" },
@@ -661,6 +686,7 @@ export const sassydameComponents = {
       pill6: { type: "text", label: "Pill 6" },
     },
     defaultProps: {
+      content: [],
       badgeText: "Signs & Banners",
       heading: "Make a",
       headingHighlight: "BIG",
@@ -682,6 +708,7 @@ export const sassydameComponents = {
   SassyDameHomeStorefront: {
     label: "Home: Custom Storefront (Split Layout)",
     fields: {
+      content: { type: "slot" },
       badgeText: { type: "text", label: "Badge Text" },
       heading: { type: "text", label: "Heading" },
       headingHighlight: { type: "text", label: "Heading Highlight" },
@@ -698,6 +725,7 @@ export const sassydameComponents = {
       card4Label: { type: "text", label: "Card 4 Label" },
     },
     defaultProps: {
+      content: [],
       badgeText: "Custom Storefronts",
       heading: "Your Brand.",
       headingHighlight: "Your Store.",
@@ -718,6 +746,7 @@ export const sassydameComponents = {
   SassyDameHomeWhyChooseUs: {
     label: "Home: Why Choose Us (Trust + Stats)",
     fields: {
+      content: { type: "slot" },
       heading: { type: "text", label: "Heading" },
       headingHighlight: { type: "text", label: "Heading Highlight" },
       description: { type: "textarea", label: "Description" },
@@ -739,6 +768,7 @@ export const sassydameComponents = {
       stat4Label: { type: "text", label: "Stat 4 Label" },
     },
     defaultProps: {
+      content: [],
       heading: "Why Crafters",
       headingHighlight: "Love Us",
       description: "5,000+ happy customers and counting. Here is why they keep coming back.",
@@ -764,6 +794,7 @@ export const sassydameComponents = {
   SassyDameHomeFinalCta: {
     label: "Home: Final CTA",
     fields: {
+      content: { type: "slot" },
       badgeText: { type: "text", label: "Badge Text" },
       heading: { type: "text", label: "Heading" },
       headingHighlight: { type: "text", label: "Heading Highlight" },
@@ -774,6 +805,7 @@ export const sassydameComponents = {
       secondaryButtonLink: { type: "text", label: "Secondary Button Link" },
     },
     defaultProps: {
+      content: [],
       badgeText: "24-Hour Turnaround Available",
       heading: "Ready to Create",
       headingHighlight: "Something Amazing?",
@@ -790,6 +822,7 @@ export const sassydameComponents = {
   SassyDameDtfHero: {
     label: "DTF: Hero (24hr Badge + Product Cards)",
     fields: {
+      content: { type: "slot" },
       badgeText: { type: "text", label: "Badge Text" },
       headingLine1: { type: "text", label: "Heading Line 1" },
       headingLine2: { type: "text", label: "Heading Line 2 (gradient)" },
@@ -819,6 +852,7 @@ export const sassydameComponents = {
       card4Href: { type: "text", label: "Card 4 Link" },
     },
     defaultProps: {
+      content: [],
       badgeText: "24-Hour Turnaround",
       headingLine1: "Print",
       headingLine2: "Without Limits",
@@ -852,6 +886,7 @@ export const sassydameComponents = {
   SassyDameDtfHowItWorks: {
     label: "DTF: How It Works (4 Steps)",
     fields: {
+      content: { type: "slot" },
       sectionHeading: { type: "text", label: "Section Heading" },
       sectionHeadingHighlight: { type: "text", label: "Heading Highlight" },
       sectionSubheading: { type: "text", label: "Section Subheading" },
@@ -865,6 +900,7 @@ export const sassydameComponents = {
       step4Desc: { type: "textarea", label: "Step 4 Description" },
     },
     defaultProps: {
+      content: [],
       sectionHeading: "How It",
       sectionHeadingHighlight: "Works",
       sectionSubheading: "From design to finished product in four simple steps",
@@ -882,6 +918,7 @@ export const sassydameComponents = {
   SassyDameDtfCategories: {
     label: "DTF: Product Categories (7 Cards)",
     fields: {
+      content: { type: "slot" },
       badgeText: { type: "text", label: "Badge Text" },
       sectionHeading: { type: "text", label: "Section Heading" },
       sectionHeadingHighlight: { type: "text", label: "Heading Highlight" },
@@ -915,6 +952,7 @@ export const sassydameComponents = {
       ctaButtonLink: { type: "text", label: "CTA Button Link" },
     },
     defaultProps: {
+      content: [],
       badgeText: "Full Product Line",
       sectionHeading: "Browse Our",
       sectionHeadingHighlight: "Transfers",
@@ -952,6 +990,7 @@ export const sassydameComponents = {
   SassyDameDtfStickerComparison: {
     label: "DTF: UV DTF vs Regular Stickers",
     fields: {
+      content: { type: "slot" },
       badgeText: { type: "text", label: "Badge Text" },
       sectionHeading: { type: "text", label: "Heading Start" },
       sectionHeadingMiddle: { type: "text", label: "Heading Middle (colored)" },
@@ -977,6 +1016,7 @@ export const sassydameComponents = {
       upgradeCalloutText: { type: "text", label: "Upgrade Callout Text" },
     },
     defaultProps: {
+      content: [],
       badgeText: "Know the Difference",
       sectionHeading: "UV DTF",
       sectionHeadingMiddle: "vs",
@@ -1006,6 +1046,7 @@ export const sassydameComponents = {
   SassyDameDtfPricing: {
     label: "DTF: Transparent Pricing",
     fields: {
+      content: { type: "slot" },
       sectionHeading: { type: "text", label: "Section Heading" },
       sectionHeadingHighlight: { type: "text", label: "Heading Highlight" },
       sectionDescription: { type: "text", label: "Section Description" },
@@ -1019,6 +1060,7 @@ export const sassydameComponents = {
       ctaButtonLink: { type: "text", label: "CTA Button Link" },
     },
     defaultProps: {
+      content: [],
       sectionHeading: "Transparent",
       sectionHeadingHighlight: "Pricing",
       sectionDescription: "No surprises, no hidden fees",
@@ -1038,6 +1080,7 @@ export const sassydameComponents = {
   SassyDameEventsHero: {
     label: "Events: Hero (Community + Stats)",
     fields: {
+      content: { type: "slot" },
       communityText: { type: "text", label: "Community Text" },
       headingLine1: { type: "text", label: "Heading Line 1" },
       headingLine2: { type: "text", label: "Heading Line 2 (gradient)" },
@@ -1064,6 +1107,7 @@ export const sassydameComponents = {
       event3Category: { type: "text", label: "Preview Event 3 Category" },
     },
     defaultProps: {
+      content: [],
       communityText: "Join 500+ community members",
       headingLine1: "Learn, Create,",
       headingLine2: "Connect",
@@ -1094,6 +1138,7 @@ export const sassydameComponents = {
   SassyDameEventsListings: {
     label: "Events: Upcoming Listings (Filterable Grid)",
     fields: {
+      content: { type: "slot" },
       sectionHeading: { type: "text", label: "Section Heading" },
       sectionHeadingHighlight: { type: "text", label: "Heading Highlight" },
       sectionDescription: { type: "text", label: "Section Description" },
@@ -1153,6 +1198,7 @@ export const sassydameComponents = {
       event6SpotsLeft: { type: "number", label: "Event 6 Spots Left" },
     },
     defaultProps: {
+      content: [],
       sectionHeading: "Upcoming",
       sectionHeadingHighlight: "Events",
       sectionDescription: "Find your next creative adventure",
@@ -1216,6 +1262,7 @@ export const sassydameComponents = {
   SassyDameEventsTypes: {
     label: "Events: Event Types (6 Cards)",
     fields: {
+      content: { type: "slot" },
       sectionHeading: { type: "text", label: "Section Heading" },
       sectionHeadingHighlight: { type: "text", label: "Heading Highlight" },
       sectionDescription: { type: "textarea", label: "Section Description" },
@@ -1233,6 +1280,7 @@ export const sassydameComponents = {
       type6Desc: { type: "textarea", label: "Type 6 Description" },
     },
     defaultProps: {
+      content: [],
       sectionHeading: "Something for",
       sectionHeadingHighlight: "Everyone",
       sectionDescription: "From intimate workshops to large hall rentals, we have the perfect setting for your next event.",
@@ -1254,6 +1302,7 @@ export const sassydameComponents = {
   SassyDameEventsRentals: {
     label: "Events: Space & Hall Rentals",
     fields: {
+      content: { type: "slot" },
       badgeText: { type: "text", label: "Badge Text" },
       sectionHeading: { type: "text", label: "Section Heading" },
       sectionHeadingHighlight: { type: "text", label: "Heading Highlight" },
@@ -1282,6 +1331,7 @@ export const sassydameComponents = {
       bookButtonLink: { type: "text", label: "Book Button Link" },
     },
     defaultProps: {
+      content: [],
       badgeText: "Space & Hall Rentals",
       sectionHeading: "Your Event,",
       sectionHeadingHighlight: "Our Space",
@@ -1314,6 +1364,7 @@ export const sassydameComponents = {
   SassyDameEventsCustomShirts: {
     label: "Events: Custom Event Shirts",
     fields: {
+      content: { type: "slot" },
       badgeText: { type: "text", label: "Badge Text" },
       sectionHeading: { type: "text", label: "Section Heading" },
       sectionHeadingHighlight: { type: "text", label: "Heading Highlight" },
@@ -1335,6 +1386,7 @@ export const sassydameComponents = {
       secondaryButtonLink: { type: "text", label: "Secondary Button Link" },
     },
     defaultProps: {
+      content: [],
       badgeText: "Custom Event Shirts",
       sectionHeading: "Custom Shirts for",
       sectionHeadingHighlight: "Your Event",
@@ -1360,6 +1412,7 @@ export const sassydameComponents = {
   SassyDameEventsCta: {
     label: "Events: Final CTA",
     fields: {
+      content: { type: "slot" },
       heading: { type: "text", label: "Heading" },
       headingHighlight: { type: "text", label: "Heading Highlight (gradient)" },
       description: { type: "textarea", label: "Description" },
@@ -1371,6 +1424,7 @@ export const sassydameComponents = {
       button3Link: { type: "text", label: "Button 3 Link" },
     },
     defaultProps: {
+      content: [],
       heading: "Ready to",
       headingHighlight: "Get Started?",
       description: "Rent our space, book a class, or order custom event shirts. We handle the details so you can focus on the fun.",
@@ -1388,6 +1442,7 @@ export const sassydameComponents = {
   SassyDameServicesHero: {
     label: "Services: Hero (Trust Metrics)",
     fields: {
+      content: { type: "slot" },
       badge: { type: "text", label: "Badge Text" },
       headingLine1: { type: "text", label: "Heading Line 1" },
       headingLine2: { type: "text", label: "Heading Line 2" },
@@ -1406,6 +1461,7 @@ export const sassydameComponents = {
       stat4Label: { type: "text", label: "Stat 4 Label" },
     },
     defaultProps: {
+      content: [],
       badge: "Trusted by 1000+ Businesses",
       headingLine1: "Your Brand,",
       headingLine2: "Our Expertise",
@@ -1428,6 +1484,7 @@ export const sassydameComponents = {
   SassyDameServicesCards: {
     label: "Services: Offerings (4 Glowing Cards)",
     fields: {
+      content: { type: "slot" },
       sectionBadge: { type: "text", label: "Section Badge" },
       sectionHeading: { type: "text", label: "Section Heading" },
       sectionHeadingHighlight: { type: "text", label: "Heading Highlight" },
@@ -1445,6 +1502,7 @@ export const sassydameComponents = {
       card4Link: { type: "text", label: "Card 4 Link" },
     },
     defaultProps: {
+      content: [],
       sectionBadge: "Our Services",
       sectionHeading: "What We",
       sectionHeadingHighlight: "Deliver",
@@ -1466,6 +1524,7 @@ export const sassydameComponents = {
   SassyDameServicesProcess: {
     label: "Services: How It Works (Timeline)",
     fields: {
+      content: { type: "slot" },
       heading: { type: "text", label: "Heading" },
       headingHighlight: { type: "text", label: "Heading Highlight" },
       subheading: { type: "text", label: "Subheading" },
@@ -1479,6 +1538,7 @@ export const sassydameComponents = {
       step4Description: { type: "textarea", label: "Step 4 Description" },
     },
     defaultProps: {
+      content: [],
       heading: "How It",
       headingHighlight: "Works",
       subheading: "Simple, transparent, professional",
@@ -1496,6 +1556,7 @@ export const sassydameComponents = {
   SassyDameServicesBulkPricing: {
     label: "Services: Volume Discounts",
     fields: {
+      content: { type: "slot" },
       heading: { type: "text", label: "Heading" },
       headingHighlight: { type: "text", label: "Heading Highlight" },
       subheading: { type: "text", label: "Subheading" },
@@ -1509,6 +1570,7 @@ export const sassydameComponents = {
       tier4Discount: { type: "text", label: "Tier 4 Discount" },
     },
     defaultProps: {
+      content: [],
       heading: "Volume",
       headingHighlight: "Discounts",
       subheading: "The more you order, the more you save",
@@ -1526,6 +1588,7 @@ export const sassydameComponents = {
   SassyDameServicesCta: {
     label: "Services: Final CTA",
     fields: {
+      content: { type: "slot" },
       heading: { type: "text", label: "Heading" },
       description: { type: "textarea", label: "Description" },
       primaryButtonText: { type: "text", label: "Primary Button Text" },
@@ -1535,6 +1598,7 @@ export const sassydameComponents = {
       phoneNumber: { type: "text", label: "Phone Number" },
     },
     defaultProps: {
+      content: [],
       heading: "Ready to Get Started?",
       description: "Tell us about your project and receive a custom quote within 24 hours. No obligation, no pressure.",
       primaryButtonText: "Request a Quote",
@@ -1550,6 +1614,7 @@ export const sassydameComponents = {
   SassyDameStudioHero: {
     label: "Studio: Hero (Artistic + Image Cards)",
     fields: {
+      content: { type: "slot" },
       badge: { type: "text", label: "Badge Text" },
       headingLine1: { type: "text", label: "Heading Line 1" },
       headingLine2: { type: "text", label: "Heading Line 2" },
@@ -1561,6 +1626,7 @@ export const sassydameComponents = {
       secondaryButtonLink: { type: "text", label: "Secondary Button Link" },
     },
     defaultProps: {
+      content: [],
       badge: "Fully Equipped Creative Space",
       headingLine1: "Where Ideas",
       headingLine2: "Become",
@@ -1576,6 +1642,7 @@ export const sassydameComponents = {
   SassyDameStudioSpaces: {
     label: "Studio: Two Spaces (Rentals + Events)",
     fields: {
+      content: { type: "slot" },
       sectionBadge: { type: "text", label: "Section Badge" },
       sectionHeading: { type: "text", label: "Section Heading" },
       sectionHeadingHighlight: { type: "text", label: "Heading Highlight" },
@@ -1595,6 +1662,7 @@ export const sassydameComponents = {
       space2Feature4: { type: "text", label: "Space 2 Feature 4" },
     },
     defaultProps: {
+      content: [],
       sectionBadge: "Two Unique Spaces",
       sectionHeading: "Choose Your",
       sectionHeadingHighlight: "Creative Setting",
@@ -1618,6 +1686,7 @@ export const sassydameComponents = {
   SassyDameStudioPricing: {
     label: "Studio: Pricing (3 Packages)",
     fields: {
+      content: { type: "slot" },
       heading: { type: "text", label: "Heading" },
       headingHighlight: { type: "text", label: "Heading Highlight" },
       subheading: { type: "text", label: "Subheading" },
@@ -1637,6 +1706,7 @@ export const sassydameComponents = {
       buttonLink: { type: "text", label: "Button Link" },
     },
     defaultProps: {
+      content: [],
       heading: "Simple",
       headingHighlight: "Pricing",
       subheading: "Pay for the time you need -- no memberships, no commitments",
@@ -1660,6 +1730,7 @@ export const sassydameComponents = {
   SassyDameStudioEquipment: {
     label: "Studio: Equipment Grid (8 Items)",
     fields: {
+      content: { type: "slot" },
       heading: { type: "text", label: "Heading" },
       headingHighlight: { type: "text", label: "Heading Highlight" },
       subheading: { type: "text", label: "Subheading" },
@@ -1673,6 +1744,7 @@ export const sassydameComponents = {
       item8: { type: "text", label: "Item 8" },
     },
     defaultProps: {
+      content: [],
       heading: "Professional",
       headingHighlight: "Equipment",
       subheading: "Everything you need, ready to use",
@@ -1690,6 +1762,7 @@ export const sassydameComponents = {
   SassyDameStudioCta: {
     label: "Studio: Final CTA",
     fields: {
+      content: { type: "slot" },
       heading: { type: "text", label: "Heading" },
       description: { type: "textarea", label: "Description" },
       primaryButtonText: { type: "text", label: "Primary Button Text" },
@@ -1699,6 +1772,7 @@ export const sassydameComponents = {
       footerNote: { type: "text", label: "Footer Note" },
     },
     defaultProps: {
+      content: [],
       heading: "Ready to Create?",
       description: "Book your studio session today. Walk-ins welcome based on availability.",
       primaryButtonText: "Book Online",
@@ -1714,6 +1788,7 @@ export const sassydameComponents = {
   SassyDameAbout: {
     label: "Page: About Us",
     fields: {
+      content: { type: "slot" },
       heading: { type: "text", label: "Heading" },
       headingHighlight: { type: "text", label: "Heading Highlight" },
       heroParagraph: { type: "textarea", label: "Hero Paragraph" },
@@ -1726,6 +1801,7 @@ export const sassydameComponents = {
       ctaDescription: { type: "textarea", label: "CTA Description" },
     },
     defaultProps: {
+      content: [],
       heading: "Crafting Dreams,",
       headingHighlight: "Building Community",
       heroParagraph: "SassyDame Designs started with a simple dream: to create a space where crafters of all skill levels could find quality supplies, learn new techniques, and connect with fellow creators. What began in a small spare room has grown into a beloved community hub.",
@@ -1742,6 +1818,7 @@ export const sassydameComponents = {
   SassyDameContact: {
     label: "Page: Contact",
     fields: {
+      content: { type: "slot" },
       heading: { type: "text", label: "Heading" },
       headingHighlight: { type: "text", label: "Heading Highlight" },
       description: { type: "textarea", label: "Description" },
@@ -1753,6 +1830,7 @@ export const sassydameComponents = {
       faqDescription: { type: "textarea", label: "FAQ Description" },
     },
     defaultProps: {
+      content: [],
       heading: "We Would Love to",
       headingHighlight: "Hear From You",
       description: "Have a question about our products, services, or upcoming events? Drop us a line and we will get back to you as soon as possible.",
@@ -1768,6 +1846,7 @@ export const sassydameComponents = {
   SassyDameHeatPressRentals: {
     label: "Page: Heat Press Rentals",
     fields: {
+      content: { type: "slot" },
       badgeText: { type: "text", label: "Badge Text" },
       heading: { type: "text", label: "Heading" },
       headingHighlight: { type: "text", label: "Heading Highlight" },
@@ -1780,6 +1859,7 @@ export const sassydameComponents = {
       ctaDescription: { type: "textarea", label: "CTA Description" },
     },
     defaultProps: {
+      content: [],
       badgeText: "Create Without the Investment",
       heading: "Heat Press",
       headingHighlight: "Rentals",
@@ -1796,6 +1876,7 @@ export const sassydameComponents = {
   SassyDameEventsSpace: {
     label: "Page: Events Space",
     fields: {
+      content: { type: "slot" },
       badgeText: { type: "text", label: "Badge Text" },
       heading: { type: "text", label: "Heading" },
       headingHighlight: { type: "text", label: "Heading Highlight" },
@@ -1808,6 +1889,7 @@ export const sassydameComponents = {
       ctaDescription: { type: "textarea", label: "CTA Description" },
     },
     defaultProps: {
+      content: [],
       badgeText: "Host Your Event With Us",
       heading: "Events & Space",
       headingHighlight: "Rentals",
@@ -1824,6 +1906,7 @@ export const sassydameComponents = {
   SassyDameHallRentals: {
     label: "Page: Hall Rentals",
     fields: {
+      content: { type: "slot" },
       badgeText: { type: "text", label: "Badge Text" },
       heading: { type: "text", label: "Heading" },
       headingHighlight: { type: "text", label: "Heading Highlight" },
@@ -1838,6 +1921,7 @@ export const sassydameComponents = {
       ctaDescription: { type: "textarea", label: "CTA Description" },
     },
     defaultProps: {
+      content: [],
       badgeText: "Large Event Venue",
       heading: "Your Event,",
       headingHighlight: "Our Hall",
@@ -1856,6 +1940,7 @@ export const sassydameComponents = {
   SassyDameBulkOrder: {
     label: "Page: Bulk Order",
     fields: {
+      content: { type: "slot" },
       badgeText: { type: "text", label: "Badge Text" },
       heading: { type: "text", label: "Heading" },
       headingHighlight: { type: "text", label: "Heading Highlight" },
@@ -1866,6 +1951,7 @@ export const sassydameComponents = {
       formDescription: { type: "textarea", label: "Form Description" },
     },
     defaultProps: {
+      content: [],
       badgeText: "Save More with Bulk Orders",
       heading: "Bulk & Wholesale",
       headingHighlight: "Orders",
@@ -1880,6 +1966,7 @@ export const sassydameComponents = {
   SassyDameGiftCard: {
     label: "Page: Gift Card",
     fields: {
+      content: { type: "slot" },
       badgeText: { type: "text", label: "Badge Text" },
       heading: { type: "text", label: "Heading" },
       headingHighlight: { type: "text", label: "Heading Highlight" },
@@ -1888,6 +1975,7 @@ export const sassydameComponents = {
       footerNote: { type: "text", label: "Footer Note" },
     },
     defaultProps: {
+      content: [],
       badgeText: "The Perfect Gift for Crafters",
       heading: "SassyDame Designs",
       headingHighlight: "Gift Card",
@@ -1900,6 +1988,7 @@ export const sassydameComponents = {
   SassyDameBlog: {
     label: "Page: Blog",
     fields: {
+      content: { type: "slot" },
       heading: { type: "text", label: "Heading" },
       headingHighlight: { type: "text", label: "Heading Highlight" },
       description: { type: "textarea", label: "Description" },
@@ -1911,6 +2000,7 @@ export const sassydameComponents = {
       ctaDescription: { type: "textarea", label: "CTA Description" },
     },
     defaultProps: {
+      content: [],
       heading: "SassyDame",
       headingHighlight: "Blog",
       description: "Crafting tips, tutorials, and news from our studio. Stay inspired and keep up with everything happening at SassyDame Designs.",
@@ -1926,6 +2016,7 @@ export const sassydameComponents = {
   SassyDameDTFBuilder: {
     label: "Page: DTF Builder",
     fields: {
+      content: { type: "slot" },
       badgeText: { type: "text", label: "Badge Text" },
       heading: { type: "text", label: "Heading" },
       description: { type: "textarea", label: "Description" },
@@ -1938,6 +2029,7 @@ export const sassydameComponents = {
       step3Description: { type: "text", label: "Step 3 Description" },
     },
     defaultProps: {
+      content: [],
       badgeText: "Powered by Drip Apps",
       heading: "DTF Gang Sheet Builder",
       description: "Create custom gang sheets by uploading your designs and arranging them on a single transfer sheet. Maximize your space, minimize your costs.",
@@ -1954,6 +2046,7 @@ export const sassydameComponents = {
   SassyDameCustomShirts: {
     label: "Page: Custom Shirts",
     fields: {
+      content: { type: "slot" },
       badgeText: { type: "text", label: "Badge Text" },
       heading: { type: "text", label: "Heading" },
       headingHighlight: { type: "text", label: "Heading Highlight" },
@@ -1967,6 +2060,7 @@ export const sassydameComponents = {
       ctaDescription: { type: "textarea", label: "CTA Description" },
     },
     defaultProps: {
+      content: [],
       badgeText: "Custom Event Shirts",
       heading: "Your Event,",
       headingHighlight: "Your Shirts",
@@ -1984,6 +2078,7 @@ export const sassydameComponents = {
   SassyDameStorefront: {
     label: "Page: Storefront",
     fields: {
+      content: { type: "slot" },
       heading: { type: "text", label: "Heading" },
       headingHighlight: { type: "text", label: "Heading Highlight" },
       description: { type: "textarea", label: "Description" },
@@ -1997,6 +2092,7 @@ export const sassydameComponents = {
       ctaDescription: { type: "textarea", label: "CTA Description" },
     },
     defaultProps: {
+      content: [],
       heading: "Your Brand,",
       headingHighlight: "Your Store",
       description: "We build custom-branded online storefronts for teams, schools, churches, businesses, and organizations -- powered by SassyDame. You sell, we print and ship.",
@@ -2014,6 +2110,7 @@ export const sassydameComponents = {
   SassyDameFAQs: {
     label: "Page: FAQs",
     fields: {
+      content: { type: "slot" },
       heading: { type: "text", label: "Page Heading" },
       description: { type: "textarea", label: "Page Description" },
       generalQ1: { type: "text", label: "General Q1" },
@@ -2028,6 +2125,7 @@ export const sassydameComponents = {
       contactEmail: { type: "text", label: "Contact Email" },
     },
     defaultProps: {
+      content: [],
       heading: "Frequently Asked Questions",
       description: "Find answers to common questions about our products, shipping, and services.",
       generalQ1: "Do You Offer Wholesale Prices?",
@@ -2046,6 +2144,7 @@ export const sassydameComponents = {
   SassyDameVisitUs: {
     label: "Page: Visit Us",
     fields: {
+      content: { type: "slot" },
       heading: { type: "text", label: "Heading" },
       headingHighlight: { type: "text", label: "Heading Highlight" },
       description: { type: "textarea", label: "Description" },
@@ -2059,6 +2158,7 @@ export const sassydameComponents = {
       ctaDescription: { type: "textarea", label: "CTA Description" },
     },
     defaultProps: {
+      content: [],
       heading: "Visit Our",
       headingHighlight: "Studio",
       description: "Stop by our Raleigh studio to browse products, pick up orders, or use our professional crafting equipment. We would love to meet you!",
@@ -2076,60 +2176,70 @@ export const sassydameComponents = {
   SassyDamePrivacyPolicy: {
     label: "Page: Privacy Policy",
     fields: {
+      content: { type: "slot" },
       title: { type: "text", label: "Title" },
-      content: { type: "textarea", label: "Content" },
+      bodyContent: { type: "textarea", label: "Content" },
     },
     defaultProps: {
+      content: [],
       title: "Privacy Policy",
-      content: "SassyDame Designs does not share customer information (including email addresses) outside the SassyDame family of companies unless it is necessary to provide you with products or services available from our store.\n\nInformation We Collect\n\nWhen you make a purchase or attempt to make a purchase through our store, we collect certain information from you, including your name, billing address, shipping address, payment information, email address, and phone number.\n\nContact Us\n\nFor more information about our privacy practices, if you have questions, or if you would like to make a complaint, please contact us by email at sassydame23@yahoo.com or by mail at: 1230 Green Street, Raleigh, NC 27603.",
+      bodyContent: "SassyDame Designs does not share customer information (including email addresses) outside the SassyDame family of companies unless it is necessary to provide you with products or services available from our store.\n\nInformation We Collect\n\nWhen you make a purchase or attempt to make a purchase through our store, we collect certain information from you, including your name, billing address, shipping address, payment information, email address, and phone number.\n\nContact Us\n\nFor more information about our privacy practices, if you have questions, or if you would like to make a complaint, please contact us by email at sassydame23@yahoo.com or by mail at: 1230 Green Street, Raleigh, NC 27603.",
     },
     render: (props: any) => React.createElement(PrivacyPolicyPage, props),
   },
   SassyDameRefundPolicy: {
     label: "Page: Refund Policy",
     fields: {
+      content: { type: "slot" },
       title: { type: "text", label: "Title" },
-      content: { type: "textarea", label: "Content" },
+      bodyContent: { type: "textarea", label: "Content" },
     },
     defaultProps: {
+      content: [],
       title: "Refund Policy",
-      content: "All sales are final.\n\nYou can always contact us for any return question at sassydame23@yahoo.com.\n\nDamages and Issues\n\nPlease inspect your order upon reception and contact us immediately if the item is defective, damaged or if you receive the wrong item so that we can evaluate the issue and make it right.",
+      bodyContent: "All sales are final.\n\nYou can always contact us for any return question at sassydame23@yahoo.com.\n\nDamages and Issues\n\nPlease inspect your order upon reception and contact us immediately if the item is defective, damaged or if you receive the wrong item so that we can evaluate the issue and make it right.",
     },
     render: (props: any) => React.createElement(RefundPolicyPage, props),
   },
   SassyDameShippingPolicy: {
     label: "Page: Shipping Policy",
     fields: {
+      content: { type: "slot" },
       title: { type: "text", label: "Title" },
-      content: { type: "textarea", label: "Content" },
+      bodyContent: { type: "textarea", label: "Content" },
     },
     defaultProps: {
+      content: [],
       title: "Shipping Policy",
-      content: "All orders are processed Monday through Friday (excluding weekends and holidays) after receiving your order confirmation email.\n\nSame-Day DTF & UV\n\nSame-day DTF and UV orders have a cutoff of 12pm Eastern Time, Tuesday through Saturday.\n\nCalculated Shipping Rates\n\nShipping charges for your order will be calculated and displayed at checkout.",
+      bodyContent: "All orders are processed Monday through Friday (excluding weekends and holidays) after receiving your order confirmation email.\n\nSame-Day DTF & UV\n\nSame-day DTF and UV orders have a cutoff of 12pm Eastern Time, Tuesday through Saturday.\n\nCalculated Shipping Rates\n\nShipping charges for your order will be calculated and displayed at checkout.",
     },
     render: (props: any) => React.createElement(ShippingPolicyPage, props),
   },
   SassyDameTermsOfService: {
     label: "Page: Terms of Service",
     fields: {
+      content: { type: "slot" },
       title: { type: "text", label: "Title" },
-      content: { type: "textarea", label: "Content" },
+      bodyContent: { type: "textarea", label: "Content" },
     },
     defaultProps: {
+      content: [],
       title: "Terms of Service",
-      content: "Overview\n\nThis website is operated by SassyDame Designs, LLC. Throughout the site, the terms \"we\", \"us\" and \"our\" refer to SassyDame Designs, LLC.\n\nSection 1 -- Online Store Terms\n\nBy agreeing to these Terms of Service, you represent that you are at least the age of majority in your state or province of residence.\n\nContact Information\n\nQuestions about the Terms of Service should be sent to us at sassydame23@yahoo.com.",
+      bodyContent: "Overview\n\nThis website is operated by SassyDame Designs, LLC. Throughout the site, the terms \"we\", \"us\" and \"our\" refer to SassyDame Designs, LLC.\n\nSection 1 -- Online Store Terms\n\nBy agreeing to these Terms of Service, you represent that you are at least the age of majority in your state or province of residence.\n\nContact Information\n\nQuestions about the Terms of Service should be sent to us at sassydame23@yahoo.com.",
     },
     render: (props: any) => React.createElement(TermsOfServicePage, props),
   },
   SassyDameTermsAndCondition: {
     label: "Page: Terms and Condition",
     fields: {
+      content: { type: "slot" },
       title: { type: "text", label: "Title" },
-      content: { type: "textarea", label: "Content" },
+      bodyContent: { type: "textarea", label: "Content" },
     },
     defaultProps: {
+      content: [],
       title: "Terms and Conditions",
-      content: "Please read these Terms and Conditions (\"Agreement\") carefully before placing an order with our customized store (\"Store\").\n\nSales and Returns\n\nAll sales are considered final, but we do offer store credit, refunds, or replacements in the case of a defective item being received.\n\nShipping and Delivery\n\nWe strive to process and ship orders promptly. Shipping times may vary depending on factors beyond our control.",
+      bodyContent: "Please read these Terms and Conditions (\"Agreement\") carefully before placing an order with our customized store (\"Store\").\n\nSales and Returns\n\nAll sales are considered final, but we do offer store credit, refunds, or replacements in the case of a defective item being received.\n\nShipping and Delivery\n\nWe strive to process and ship orders promptly. Shipping times may vary depending on factors beyond our control.",
     },
     render: (props: any) => React.createElement(TermsAndConditionPage, props),
   },

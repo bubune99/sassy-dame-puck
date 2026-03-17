@@ -1,5 +1,7 @@
 'use client'
 
+import React from 'react';
+
 import { motion } from 'framer-motion'
 import {
   Printer,
@@ -8,9 +10,8 @@ import {
   Zap,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
-import { DropZone } from "@puckeditor/core";
-
 export interface DtfHowItWorksProps {
+  content?: React.FC;
   sectionHeading: string;
   sectionHeadingHighlight: string;
   sectionSubheading: string;
@@ -25,6 +26,7 @@ export interface DtfHowItWorksProps {
 }
 
 export function DtfHowItWorks({
+  content,
   sectionHeading = 'How It',
   sectionHeadingHighlight = 'Works',
   sectionSubheading = 'From design to finished product in four simple steps',
@@ -101,9 +103,7 @@ export function DtfHowItWorks({
           </div>
         </div>
       </div>
-
-      {/* Puck: Editable content slot */}
-      <DropZone zone="content" />
-    </section>
+      {content && typeof content === "function" && content({})}
+</section>
   )
 }

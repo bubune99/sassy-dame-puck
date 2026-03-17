@@ -1,12 +1,13 @@
 'use client'
 
+import React from 'react';
+
 import { motion } from 'framer-motion'
 import { Scissors, Sparkles, Palette, Paintbrush, Star } from 'lucide-react'
 import { SpotlightCard } from './effects/spotlight-card'
 import { cn } from '@/lib/utils'
-import { DropZone } from "@puckeditor/core";
-
 export interface StudioEquipmentProps {
+  content?: React.FC;
   heading?: string;
   headingHighlight?: string;
   subheading?: string;
@@ -21,6 +22,7 @@ export interface StudioEquipmentProps {
 }
 
 export function StudioEquipment({
+  content,
   heading = "Professional",
   headingHighlight = "Equipment",
   subheading = "Everything you need, ready to use",
@@ -71,9 +73,7 @@ export function StudioEquipment({
           })}
         </div>
       </div>
-
-      {/* Puck: Editable content slot */}
-      <DropZone zone="content" />
-    </section>
+      {content && typeof content === "function" && content({})}
+</section>
   )
 }

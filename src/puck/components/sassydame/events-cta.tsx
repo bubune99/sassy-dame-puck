@@ -1,11 +1,12 @@
 'use client'
 
+import React from 'react';
+
 import { motion } from 'framer-motion'
 import { Ticket, Building2, Shirt } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { DropZone } from "@puckeditor/core";
-
 export interface EventsCtaProps {
+  content?: React.FC;
   heading: string;
   headingHighlight: string;
   description: string;
@@ -18,6 +19,7 @@ export interface EventsCtaProps {
 }
 
 export function EventsCta({
+  content,
   heading = 'Ready to',
   headingHighlight = 'Get Started?',
   description = 'Rent our space, book a class, or order custom event shirts. We handle the details so you can focus on the fun.',
@@ -64,9 +66,7 @@ export function EventsCta({
           </motion.div>
         </div>
       </div>
-
-      {/* Puck: Editable content slot */}
-      <DropZone zone="content" />
-    </section>
+      {content && typeof content === "function" && content({})}
+</section>
   )
 }

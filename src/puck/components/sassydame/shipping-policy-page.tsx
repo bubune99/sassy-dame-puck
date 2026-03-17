@@ -1,9 +1,10 @@
 "use client";
-import { DropZone } from "@puckeditor/core";
 
+import React from "react";
 export interface ShippingPolicyPageProps {
+  content?: React.FC;
   title?: string;
-  content?: string;
+  bodyContent?: string;
 }
 
 const defaultContent = `All orders are processed Monday through Friday (excluding weekends and holidays) after receiving your order confirmation email. You will receive another notification when your order has shipped.
@@ -31,10 +32,11 @@ While we strive to ensure the safe delivery of your package, we strongly recomme
 If you have any further questions, please do not hesitate to contact us at sassydame23@yahoo.com`;
 
 export function ShippingPolicyPage({
+  content,
   title = "Shipping Policy",
-  content = defaultContent,
+  bodyContent = defaultContent,
 }: ShippingPolicyPageProps) {
-  const paragraphs = content.split('\n\n');
+  const paragraphs = bodyContent.split('\n\n');
 
   return (
     <main className="flex-1 py-16">
@@ -52,9 +54,7 @@ export function ShippingPolicyPage({
           })}
         </div>
       </div>
-
-      {/* Puck: Editable content slot */}
-      <DropZone zone="content" />
-    </main>
+      {content && typeof content === "function" && content({})}
+</main>
   );
 }

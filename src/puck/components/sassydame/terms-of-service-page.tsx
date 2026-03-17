@@ -1,9 +1,10 @@
 "use client";
-import { DropZone } from "@puckeditor/core";
 
+import React from "react";
 export interface TermsOfServicePageProps {
+  content?: React.FC;
   title?: string;
-  content?: string;
+  bodyContent?: string;
 }
 
 const defaultContent = `Overview
@@ -49,10 +50,11 @@ SassyDame Designs, LLC
 Raleigh, NC 27603`;
 
 export function TermsOfServicePage({
+  content,
   title = "Terms of Service",
-  content = defaultContent,
+  bodyContent = defaultContent,
 }: TermsOfServicePageProps) {
-  const paragraphs = content.split('\n\n');
+  const paragraphs = bodyContent.split('\n\n');
 
   return (
     <main className="flex-1 py-16">
@@ -70,9 +72,7 @@ export function TermsOfServicePage({
           })}
         </div>
       </div>
-
-      {/* Puck: Editable content slot */}
-      <DropZone zone="content" />
-    </main>
+      {content && typeof content === "function" && content({})}
+</main>
   );
 }

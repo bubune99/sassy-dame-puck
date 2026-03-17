@@ -1,11 +1,11 @@
 'use client'
 
+import React from 'react';
+
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X, ChevronLeft, ChevronRight, Instagram, Camera } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { DropZone } from "@puckeditor/core";
-
 // Demo gallery images - these would come from Instagram API or CMS in production
 const galleryImages = [
   { id: '1', alt: 'Custom DTF transfer on a t-shirt', category: 'dtf' },
@@ -31,6 +31,7 @@ const placeholderColors = [
 ]
 
 export function PhotoGallerySection({
+  content,
   badgeText = "Gallery",
   headingPrefix = "See What We",
   headingHighlight = "Create",
@@ -45,6 +46,7 @@ export function PhotoGallerySection({
   instagramHandle = "@SassyDameDesigns",
   instagramLink = "https://www.instagram.com/sassydamedesigns/",
 }: {
+  content?: React.FC;
   badgeText?: string;
   headingPrefix?: string;
   headingHighlight?: string;
@@ -261,9 +263,7 @@ export function PhotoGallerySection({
           </motion.div>
         )}
       </AnimatePresence>
-
-      {/* Puck: Editable content slot */}
-      <DropZone zone="content" />
-    </section>
+      {content && typeof content === "function" && content({})}
+</section>
   )
 }

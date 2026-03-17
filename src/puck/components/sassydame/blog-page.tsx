@@ -1,8 +1,8 @@
 "use client";
 
-import { BookOpen, Sparkles, Calendar, Megaphone, Mail } from "lucide-react";
-import { DropZone } from "@puckeditor/core";
+import React from "react";
 
+import { BookOpen, Sparkles, Calendar, Megaphone, Mail } from "lucide-react";
 const placeholderPosts = [
   {
     icon: Sparkles,
@@ -46,6 +46,7 @@ const categoryColors: Record<string, string> = {
 };
 
 export interface BlogPageProps {
+  content?: React.FC;
   heading?: string;
   headingHighlight?: string;
   description?: string;
@@ -58,6 +59,7 @@ export interface BlogPageProps {
 }
 
 export function BlogPage({
+  content,
   heading = "SassyDame",
   headingHighlight = "Blog",
   description = "Crafting tips, tutorials, and news from our studio. Stay inspired and keep up with everything happening at SassyDame Designs.",
@@ -203,9 +205,7 @@ export function BlogPage({
           </a>
         </div>
       </section>
-
-      {/* Puck: Editable content slot */}
-      <DropZone zone="content" />
-    </main>
+      {content && typeof content === "function" && content({})}
+</main>
   );
 }

@@ -1,5 +1,7 @@
 'use client'
 
+import React from 'react';
+
 import { motion } from 'framer-motion'
 import {
   ArrowRight,
@@ -12,8 +14,6 @@ import {
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { GlowingBorder } from './effects/glowing-border'
-import { DropZone } from "@puckeditor/core";
-
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },
   visible: (i: number) => ({
@@ -29,6 +29,7 @@ const staggerContainer = {
 }
 
 export function HomeStorefront({
+  content,
   badgeText = "Custom Storefronts",
   heading = "Your Brand.",
   headingHighlight = "Your Store.",
@@ -44,6 +45,7 @@ export function HomeStorefront({
   card3Label = "Fundraiser",
   card4Label = "Business Merch",
 }: {
+  content?: React.FC;
   badgeText?: string;
   heading?: string;
   headingHighlight?: string;
@@ -156,9 +158,7 @@ export function HomeStorefront({
           </div>
         </motion.div>
       </div>
-
-      {/* Puck: Editable content slot */}
-      <DropZone zone="content" />
-    </section>
+      {content && typeof content === "function" && content({})}
+</section>
   )
 }

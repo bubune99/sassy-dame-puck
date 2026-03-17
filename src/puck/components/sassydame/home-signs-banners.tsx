@@ -1,10 +1,10 @@
 'use client'
 
+import React from 'react';
+
 import { motion } from 'framer-motion'
 import { Flag, ArrowRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { DropZone } from "@puckeditor/core";
-
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },
   visible: (i: number) => ({
@@ -20,6 +20,7 @@ const staggerContainer = {
 }
 
 export function HomeSignsBanners({
+  content,
   badgeText = "Signs & Banners",
   heading = "Make a",
   headingHighlight = "BIG",
@@ -36,6 +37,7 @@ export function HomeSignsBanners({
   pill5 = "Car Magnets",
   pill6 = "Window Clings",
 }: {
+  content?: React.FC;
   badgeText?: string;
   heading?: string;
   headingHighlight?: string;
@@ -131,9 +133,7 @@ export function HomeSignsBanners({
           </motion.div>
         </motion.div>
       </div>
-
-      {/* Puck: Editable content slot */}
-      <DropZone zone="content" />
-    </section>
+      {content && typeof content === "function" && content({})}
+</section>
   )
 }

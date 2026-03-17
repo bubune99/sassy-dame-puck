@@ -1,5 +1,7 @@
 'use client'
 
+import React from 'react';
+
 import { motion } from 'framer-motion'
 import {
   Clock,
@@ -8,8 +10,6 @@ import {
   Heart,
 } from 'lucide-react'
 import { SpotlightCard } from './effects/spotlight-card'
-import { DropZone } from "@puckeditor/core";
-
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },
   visible: (i: number) => ({
@@ -25,6 +25,7 @@ const staggerContainer = {
 }
 
 export function HomeWhyChooseUs({
+  content,
   heading = "Why Crafters",
   headingHighlight = "Love Us",
   description = "5,000+ happy customers and counting. Here is why they keep coming back.",
@@ -45,6 +46,7 @@ export function HomeWhyChooseUs({
   stat4Value = "4.9",
   stat4Label = "Google Rating",
 }: {
+  content?: React.FC;
   heading?: string;
   headingHighlight?: string;
   description?: string;
@@ -188,9 +190,7 @@ export function HomeWhyChooseUs({
           ))}
         </motion.div>
       </div>
-
-      {/* Puck: Editable content slot */}
-      <DropZone zone="content" />
-    </section>
+      {content && typeof content === "function" && content({})}
+</section>
   )
 }

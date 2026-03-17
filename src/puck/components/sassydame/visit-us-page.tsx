@@ -1,8 +1,8 @@
 "use client";
 
-import { MapPin, Phone, Mail, Clock, Car, ShoppingBag, Scissors, Package, AlertCircle } from "lucide-react";
-import { DropZone } from "@puckeditor/core";
+import React from "react";
 
+import { MapPin, Phone, Mail, Clock, Car, ShoppingBag, Scissors, Package, AlertCircle } from "lucide-react";
 const hours = [
   { day: "Monday", time: "Closed" },
   { day: "Tuesday", time: "11:00 AM - 6:00 PM" },
@@ -35,6 +35,7 @@ const expectations = [
 ];
 
 export interface VisitUsPageProps {
+  content?: React.FC;
   heading?: string;
   headingHighlight?: string;
   description?: string;
@@ -49,6 +50,7 @@ export interface VisitUsPageProps {
 }
 
 export function VisitUsPage({
+  content,
   heading = "Visit Our",
   headingHighlight = "Studio",
   description = "Stop by our Raleigh studio to browse products, pick up orders, or use our professional crafting equipment. We would love to meet you!",
@@ -315,9 +317,7 @@ export function VisitUsPage({
           </a>
         </div>
       </section>
-
-      {/* Puck: Editable content slot */}
-      <DropZone zone="content" />
-    </main>
+      {content && typeof content === "function" && content({})}
+</main>
   );
 }

@@ -1,9 +1,9 @@
 "use client";
 
+import React from "react";
+
 import { motion } from "framer-motion";
 import { Scissors, Clock, Users, Sparkles, CheckCircle, Calendar } from "lucide-react";
-import { DropZone } from "@puckeditor/core";
-
 const rentalPackages = [
   {
     name: "Craft Hour",
@@ -59,6 +59,7 @@ const equipmentList = [
 ];
 
 export interface HeatPressRentalsPageProps {
+  content?: React.FC;
   badgeText?: string;
   heading?: string;
   headingHighlight?: string;
@@ -72,6 +73,7 @@ export interface HeatPressRentalsPageProps {
 }
 
 export function HeatPressRentalsPage({
+  content,
   badgeText = "Create Without the Investment",
   heading = "Heat Press",
   headingHighlight = "Rentals",
@@ -261,9 +263,7 @@ export function HeatPressRentalsPage({
           </motion.div>
         </div>
       </section>
-
-      {/* Puck: Editable content slot */}
-      <DropZone zone="content" />
-    </main>
+      {content && typeof content === "function" && content({})}
+</main>
   );
 }

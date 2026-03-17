@@ -1,5 +1,7 @@
 'use client'
 
+import React from 'react';
+
 import { motion } from 'framer-motion'
 import {
   ArrowRight,
@@ -15,9 +17,8 @@ import {
 import { Button } from '@/components/ui/button'
 import { SpotlightCard } from './effects/spotlight-card'
 import { cn } from '@/lib/utils'
-import { DropZone } from "@puckeditor/core";
-
 export interface DtfCategoriesProps {
+  content?: React.FC;
   badgeText: string;
   sectionHeading: string;
   sectionHeadingHighlight: string;
@@ -52,6 +53,7 @@ export interface DtfCategoriesProps {
 }
 
 export function DtfCategories({
+  content,
   badgeText = 'Full Product Line',
   sectionHeading = 'Browse Our',
   sectionHeadingHighlight = 'Transfers',
@@ -227,9 +229,7 @@ export function DtfCategories({
           </Button>
         </motion.div>
       </div>
-
-      {/* Puck: Editable content slot */}
-      <DropZone zone="content" />
-    </section>
+      {content && typeof content === "function" && content({})}
+</section>
   )
 }

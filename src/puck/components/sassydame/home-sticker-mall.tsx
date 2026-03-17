@@ -1,5 +1,7 @@
 'use client'
 
+import React from 'react';
+
 import { motion } from 'framer-motion'
 import {
   Sparkles,
@@ -9,8 +11,6 @@ import {
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { SpotlightCard } from './effects/spotlight-card'
-import { DropZone } from "@puckeditor/core";
-
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },
   visible: (i: number) => ({
@@ -26,6 +26,7 @@ const staggerContainer = {
 }
 
 export function HomeStickerMall({
+  content,
   badgeText = "Sticker Mall",
   heading = "Stickers That",
   headingHighlight = "Pop",
@@ -43,6 +44,7 @@ export function HomeStickerMall({
   ctaButtonText = "Browse All Stickers",
   ctaButtonLink = "/collections/uv-dtf-stickers",
 }: {
+  content?: React.FC;
   badgeText?: string;
   heading?: string;
   headingHighlight?: string;
@@ -184,9 +186,7 @@ export function HomeStickerMall({
           </Button>
         </motion.div>
       </div>
-
-      {/* Puck: Editable content slot */}
-      <DropZone zone="content" />
-    </section>
+      {content && typeof content === "function" && content({})}
+</section>
   )
 }

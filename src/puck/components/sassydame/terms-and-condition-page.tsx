@@ -1,9 +1,10 @@
 "use client";
-import { DropZone } from "@puckeditor/core";
 
+import React from "react";
 export interface TermsAndConditionPageProps {
+  content?: React.FC;
   title?: string;
-  content?: string;
+  bodyContent?: string;
 }
 
 const defaultContent = `Please read these Terms and Conditions ("Agreement") carefully before placing an order with our customized store ("Store"). This Agreement sets forth the legally binding terms and conditions for your use of our Store and the purchase of our products. By accessing or using our Store, you agree to be bound by this Agreement. If you do not agree to these terms and conditions, you may not use or purchase products from our Store.
@@ -37,10 +38,11 @@ This Agreement constitutes the entire agreement between you and our Store regard
 By using our Store or placing an order, you acknowledge that you have read, understood, and agreed to be bound by these Terms and Conditions. If you have any questions or concerns regarding these terms, please contact our customer support before proceeding with your order.`;
 
 export function TermsAndConditionPage({
+  content,
   title = "Terms and Conditions",
-  content = defaultContent,
+  bodyContent = defaultContent,
 }: TermsAndConditionPageProps) {
-  const paragraphs = content.split('\n\n');
+  const paragraphs = bodyContent.split('\n\n');
 
   return (
     <main className="flex-1 py-16">
@@ -58,9 +60,7 @@ export function TermsAndConditionPage({
           })}
         </div>
       </div>
-
-      {/* Puck: Editable content slot */}
-      <DropZone zone="content" />
-    </main>
+      {content && typeof content === "function" && content({})}
+</main>
   );
 }

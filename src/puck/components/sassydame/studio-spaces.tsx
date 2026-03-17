@@ -1,12 +1,13 @@
 'use client'
 
+import React from 'react';
+
 import { motion } from 'framer-motion'
 import { Scissors, Heart, CheckCircle, ArrowRight } from 'lucide-react'
 import { SpotlightCard } from './effects/spotlight-card'
 import { cn } from '@/lib/utils'
-import { DropZone } from "@puckeditor/core";
-
 export interface StudioSpacesProps {
+  content?: React.FC;
   sectionBadge?: string;
   sectionHeading?: string;
   sectionHeadingHighlight?: string;
@@ -27,6 +28,7 @@ export interface StudioSpacesProps {
 }
 
 export function StudioSpaces({
+  content,
   sectionBadge = "Two Unique Spaces",
   sectionHeading = "Choose Your",
   sectionHeadingHighlight = "Creative Setting",
@@ -120,9 +122,7 @@ export function StudioSpaces({
           ))}
         </div>
       </div>
-
-      {/* Puck: Editable content slot */}
-      <DropZone zone="content" />
-    </section>
+      {content && typeof content === "function" && content({})}
+</section>
   )
 }

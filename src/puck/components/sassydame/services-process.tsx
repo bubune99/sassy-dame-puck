@@ -1,12 +1,13 @@
 'use client'
 
+import React from 'react';
+
 import { motion } from 'framer-motion'
 import { Phone, Shield, Zap, Truck } from 'lucide-react'
 import { SpotlightCard } from './effects/spotlight-card'
 import { cn } from '@/lib/utils'
-import { DropZone } from "@puckeditor/core";
-
 export interface ServicesProcessProps {
+  content?: React.FC;
   heading?: string;
   headingHighlight?: string;
   subheading?: string;
@@ -21,6 +22,7 @@ export interface ServicesProcessProps {
 }
 
 export function ServicesProcess({
+  content,
   heading = "How It",
   headingHighlight = "Works",
   subheading = "Simple, transparent, professional",
@@ -88,9 +90,7 @@ export function ServicesProcess({
           ))}
         </div>
       </div>
-
-      {/* Puck: Editable content slot */}
-      <DropZone zone="content" />
-    </section>
+      {content && typeof content === "function" && content({})}
+</section>
   )
 }

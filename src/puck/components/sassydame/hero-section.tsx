@@ -1,13 +1,14 @@
 'use client'
 
+import React from 'react';
+
 import { motion } from 'framer-motion'
 import { ArrowRight, Sparkles } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { TextReveal, TextFadeIn } from './effects/text-reveal'
 import { FloatingElements, FloatingShapes } from './effects/floating-elements'
-import { DropZone } from "@puckeditor/core";
-
 export function HeroSection({
+  content,
   badgeText = "Your Local Craft Destination",
   headingLine1 = "Create Something",
   headingLine2 = "Beautiful",
@@ -20,6 +21,7 @@ export function HeroSection({
   trustItem2 = "Expert Support",
   trustItem3 = "Quality Guaranteed",
 }: {
+  content?: React.FC;
   badgeText?: string;
   headingLine1?: string;
   headingLine2?: string;
@@ -124,9 +126,7 @@ export function HeroSection({
 
       {/* Bottom gradient fade */}
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent" />
-
-      {/* Puck: Editable content slot */}
-      <DropZone zone="content" />
-    </section>
+      {content && typeof content === "function" && content({})}
+</section>
   )
 }

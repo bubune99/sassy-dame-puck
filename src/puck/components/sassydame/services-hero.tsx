@@ -1,11 +1,12 @@
 'use client'
 
+import React from 'react';
+
 import { motion } from 'framer-motion'
 import { Package, Clock, Star, Truck, ArrowRight, Award } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { DropZone } from "@puckeditor/core";
-
 export interface ServicesHeroProps {
+  content?: React.FC;
   badge?: string;
   headingLine1?: string;
   headingLine2?: string;
@@ -25,6 +26,7 @@ export interface ServicesHeroProps {
 }
 
 export function ServicesHero({
+  content,
   badge = "Trusted by 1000+ Businesses",
   headingLine1 = "Your Brand,",
   headingLine2 = "Our Expertise",
@@ -106,9 +108,7 @@ export function ServicesHero({
           </motion.div>
         </div>
       </div>
-
-      {/* Puck: Editable content slot */}
-      <DropZone zone="content" />
-    </section>
+      {content && typeof content === "function" && content({})}
+</section>
   )
 }

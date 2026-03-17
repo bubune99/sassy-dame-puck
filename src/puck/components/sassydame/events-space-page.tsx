@@ -1,5 +1,7 @@
 "use client";
 
+import React from "react";
+
 import { motion } from "framer-motion";
 import {
   PartyPopper,
@@ -11,8 +13,6 @@ import {
   Gift,
   Cake,
 } from "lucide-react";
-import { DropZone } from "@puckeditor/core";
-
 const eventTypes = [
   {
     icon: Cake,
@@ -88,6 +88,7 @@ const packages = [
 ];
 
 export interface EventsSpacePageProps {
+  content?: React.FC;
   badgeText?: string;
   heading?: string;
   headingHighlight?: string;
@@ -101,6 +102,7 @@ export interface EventsSpacePageProps {
 }
 
 export function EventsSpacePage({
+  content,
   badgeText = "Host Your Event With Us",
   heading = "Events & Space",
   headingHighlight = "Rentals",
@@ -315,9 +317,7 @@ export function EventsSpacePage({
           </motion.div>
         </div>
       </section>
-
-      {/* Puck: Editable content slot */}
-      <DropZone zone="content" />
-    </main>
+      {content && typeof content === "function" && content({})}
+</main>
   );
 }
